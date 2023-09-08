@@ -1,0 +1,81 @@
+---
+sidebar_position: 4
+---
+
+# Direct debits
+
+## Overview
+
+To set up direct debits on Blink, you need to create a GoCardless account or connect your existing one. Having this enables you to set up and manage your direct debit payments alongside all your other payments within Blink.
+
+Easily manage customer payments and subscriptions in one place. Test direct debit features without using real funds through integration with a GoCardless test account.
+
+## How does it work?
+
+### Creating/connecting your GoCardless account
+
+1. Navigate to the direct debits area by selecting manage direct debits on the dashboard or using the left-hand navigation bar (customer centre > manage direct debits)
+2. Choose a live or test account environment, log in to your existing GoCardless account or create a new one
+3. Enter the relevant information on the GoCardless page to connect the account
+
+> Once a GoCardless account is connected, two tabs will appear, customers and payments
+
+### Customers
+
+> View your direct debit customers, check their payments, add new customers, request mandates, and manage subscriptions
+
+Here's how you find out more information about each of your direct debit customers.
+
+| Functionality         | Description                                                                                                                                                                                            |
+| :-------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Viewing               | Customers can be expanded for more info, like address, bank account, mandates, payments, and subscriptions.                                                                                            |
+| Address/bank accounts | Select edit to update customer information and add custom metadata.                                                                                                                                    |
+| Mandates              | View a mandate's reference, initiation date, last payment received (this shows the actual date of the payment, not the date it was initialised), and status. Custom metadata can be added to mandates. |
+| Subscriptions         | View each subscription's name, creation date, first and last payment dates, amount, frequency, and status. Expand to see all payments.                                                                 |
+| One-off payments      | View each payment's reference, amount, status, and date initiated.                                                                                                                                     |
+
+Here are the actions you can take.
+
+| Action                                | Instruction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Adding a new customer                 | Select add customer in the top left and enter their email address. They will receive an email to set up a mandate agreement. You'll be notified once they complete it, and they'll appear in your customer list.                                                                                                                                                                                                                                                                                           |
+| Creating a mandate                    | To create a mandate, you can reinstate an inactive one or create a new one.  \nTo reinstate, select an inactive customer and click reinstate.  \n(You can resubmit a mandate up to 10 times, but mandates cancelled by the bank cannot be reinstated)  \nTo create a new one, find an inactive customer and click create mandate.  \nAdditionally, sending a payment link and taking a payment on Blink creates a mandate.                                                                                   |
+| Creating and managing a subscription  | Find an active customer and select create new followed by subscription. (This will take you to the virtual terminal page)  \nInput the name and amount, choose a start date, frequency and length.  \nSelect the mandate and create the subscription.  \nThe subscription has "edit" and "cancel" buttons, where you can change the name and amount or cancel the subscription and future scheduled payments.                                                                                                |
+| Creating a one-off payment            | Find an active customer and select create new followed by one-off payment. (This will take you to the virtual terminal page)  \nSelect the amount, enter a description and choose the date for the payment to be initialised.  \nPlease note, this is the date the payment will be actioned. The funds will not be transferred on this day.  \nIf a payment is still in the pending submission stage, you can cancel it by clicking cancel.                                                   |
+| Deleting a customer                   | Search for the customer and click delete customer. (Only inactive customers can be deleted)  \nDeleting a customer won't cancel any submitted payments.  \nCancel payments by clicking cancel under one-off payments.  \nDeleted customers won't have the option to cancel payments, but they will still be visible in the payments tab.                                                                                                                                                  |
+
+
+
+### Payments
+
+> See all received or pending payments, showing customer name, email, reference number, amount, requested and completed dates, and payment status options
+
+Here are the possible options for statuses.
+
+**Pending**
+
+- Pending submission - The payment has been created but has yet to be submitted for processing. It will be automatically submitted before the charge date. You can still cancel payments while they are pending submission
+- Submitted - The payment has been submitted to the banking system for processing and can no longer be cancelled. If you would still like to cancel the payment, please advise your customer to contact their bank directly with this request
+- Pending customer approval - The customer has selected 'more than one person is required to authorise direct debits' on the online mandate form but has not yet sent this to GoCardless. Alternatively, the customer is set up with a restricted mandate and has yet to approve the payment
+
+**Unsuccessful**
+
+- Failed - The payment was not successfully collected from the customer's bank account. (The reason for this failure will show on your GoCardless dashboard)
+- Cancelled - The payment was cancelled before the charge date. No further action will be taken on this payment
+- Chargeback - The payment was returned to the customer's bank account under direct debit rules. The customer's bank actions this at the customer's request
+
+**Successful**
+
+- Confirmed - The customer's has confirmed that the payment has been successfully collected. GoCardless will now arrange for the payment to be transferred to your registered account. Please keep in mind that we can only transfer funds to a fully verified bank account
+- Paid out - GoCardless has paid the payment out to your registered account. Payouts are typically generated in the morning and should arrive in your account in the afternoon. _Please note that all times are estimated_
+
+### Receipts
+
+GoCardless handles all emails and receipts.
+
+### Logging out/connecting a new GoCardless account
+
+- To disconnect your GoCardless account, go to "my connected apps" under the profile icon and click disconnect my GoCardless account
+- To connect a new GoCardless account (or an existing one), follow the steps in the creating/connecting your GoCardless account section above. 
+
+<iframe width="854" height="480" src="https://youtu.be/1WcPYsqqTm4" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>

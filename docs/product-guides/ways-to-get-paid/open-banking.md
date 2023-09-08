@@ -1,0 +1,36 @@
+---
+sidebar_position: 3
+---
+
+# Open banking
+
+## Overview
+
+Open banking allows for transactions without a card processor to complete the payment. It differs from conventional card payment systems (Visa, Mastercard, and Amex). Open banking processes the entire transaction through online banking.
+
+## How it works?
+
+### Turning on open banking
+
+You can request the open banking feature directly within Blink - it is located on the top right-hand side of the portal.
+
+Once requested, open banking will be stimulated by an onboarding team member; after this is complete, your customers can pay you using open banking.
+
+### Using open banking
+
+- Once open banking is enabled, your customer can select ‘pay by bank’ as a payment option on the Blink page and payment links
+- Customers will only be required to enter their email and the amount when paying on a blink page. There is no additional information necessary when your customer pays via a payment link
+- Selecting ‘pay by bank’ will initiate the open banking flow for the customer
+- The customer will first need to select the bank they wish to pay from, and they will then be required to complete their bank’s unique authentication
+- Once the customer has successfully authenticated the transaction with their bank and the customer’s bank accepts the transaction, the payment process is complete
+- Both you and the customer will now be issued receipts for the payment if successful
+- If the customer’s bank declines the transaction, the customer will be redirected and notified on screen (the payment will not go through)
+
+### Open banking transaction history
+
+- An open banking transaction history table will be visible to track transactions if open banking is enabled
+- Find this under reporting→ open banking
+- Each transaction can also be viewed by pulling up the relevant payment link/Blink page from which the transaction was taken on
+- This will also display the status of the transaction: success or failed. As well as the date/time, customer email, source, reference, amount and unique transaction reference ID
+
+<iframe width="854" height="480" src="https://www.youtube.com/watch?v=e7coUJFAl2s" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>

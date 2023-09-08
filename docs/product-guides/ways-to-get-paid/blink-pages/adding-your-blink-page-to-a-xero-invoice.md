@@ -1,0 +1,40 @@
+# Adding your Blink page to a Xero invoice
+
+Go through the steps of adding a Blink page to a Xero invoice.
+
+## How does it work?
+
+1. Within Blink, Navigate to my Blink pages under the customer centre section and choose the Blink Page to link to Xero and copy the URL. Click on edit page to navigate to the customiser
+2. Sign in to your Xero account on a separate tab, click on your organisation name, select settings and click payment services
+3. Select additional payment services - add other, and click custom payment URL. A pop-up will show for you to fill in your Blink page details
+4. Save
+
+### Automatically pre-populate fields
+
+> Prepopulate the fields on the Blink page by following the below steps
+
+1. Prepopulate the fields on the Blink page by following the below steps
+2. Choose the fields you want to showcase on the Blink page and save changes
+3. To add a custom URL connection in Xero, click on "show details" under your custom URL, and then paste the Blink page link and add the required information as per instructions:  
+   <https://secure.blinkpayment.co.uk/blinkpagename?invoiceNo[INVOICENUMBER]&AmountDue=[AMOUNTDUE]&shortCode=[SHORTCODE>]
+4. Once you have filled in the details, you will find Blink under your connected payment services. Click on manage themes, select Blink under the credit card option, and click save
+
+### Adding Blink to your invoice
+
+> Once you have added Blink as your standard payment service, it will automatically apply to invoices using the template
+
+1. Fill in your invoice as required, and send it off
+2. After sending the invoice through Xero, a pay now button will be automatically included on the online invoice. The customer can use this button to make the payment without requiring a Xero login. In classic invoicing, the button can be added to an approved or repeat invoice template, while in new invoicing, it can be added to a draft or approved template
+3. The pay now button on the invoice will take the customer to the relevant Blink page
+
+### Reporting
+
+### Xero
+
+When a customer pays you online, Xero marks the invoice as paid (you don't receive an alert or notification). Xero displays the transaction reference ID from the payment gateway in the transaction's reference field.
+
+### Blink
+
+In Blink, you can check out the payments made through the appropriate payment methods in the reporting section.
+
+‍

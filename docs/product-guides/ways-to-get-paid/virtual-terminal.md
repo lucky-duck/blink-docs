@@ -1,0 +1,144 @@
+---
+sidebar_position: 7
+---
+# Virtual terminal
+
+Follow the steps below to start using and making the most of your virtual terminal
+
+# Overview
+
+The virtual terminal allows you to process transactions by filling in your customer's card details or charging customers via an existing direct debit mandate.
+
+> 📘 
+> 
+> You can find your virtual terminal under take a payment on your Blink dashboard or via the payments tab on the left-hand navigation bar
+>
+> ![Image](https://files.readme.io/a68da35-Virtual_terminal.png)
+
+# How does it work?
+
+### Taking a payment
+
+Select which MID you want to take the payment for and choose the type of transaction from the drop-down menu listing:
+
+| Transaction type | Description                                                                                                                                                         |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Sale             | Immediate payment transaction.                                                                                                                                      |
+| Pre-auth         | Ensure the customer has sufficient funds and you have 30 days to capture the amount.                                                                                |
+| Verify           | Verifies the card's authenticity and can be used as an anti-fraud check.                                                                                            |
+| Credit           | A credit transaction is when a payment is made to the customer, not taken from them. <br/> <br/> **This feature is not available by default. Please contact Support to enable this option for your account.** |
+
+### Sale
+
+Once you have selected sale as the type of transaction, you have the option of three payments types:
+
+- One-off
+- Repeat (Fixed schedule)
+- Repeat (Variable schedule)
+
+And a further two options for payment methods:
+
+- Card payment
+- Direct debit
+
+**One-off - Card payment**
+
+Follow these steps to complete a one-off card transaction:
+
+1. Select the MID, one-off and card payment
+2. Enter your customer's details
+3. Enter the amount you wish to charge (You can choose whether to take the payment immediately or delay the capture for up to 30 days)
+4. Fill in your customer's card details, address and click charge
+
+> 📘 Additional currencies
+> 
+> If multiple currencies are enabled on your account, you can select the currency you wish to process the transaction using the drop-down list by clicking on the currency symbol.
+> 
+> _When you set up a merchant account with us, you are asked which currencies to use to process transactions. You can request additional currencies to be added._
+
+**One-off - Direct debit**
+
+Follow these steps to complete a one-off direct debit transaction:
+
+1. Select the MID, one-off and direct debit
+2. Select the relevant customer
+3. Enter the amount you wish to charge the customer and a transaction reference
+4. Select the date you wish to take the payment. (Choose between as soon as possible (receiving the funds in 5/6 working days) or taking payment on a specific date)
+5. Click charge
+
+> 🚧 
+> 
+> You can only use this direct debit feature to charge customers with whom you have already set up a mandate. Set up a mandate by selecting the new direct debit customer option.
+
+> 📘 There are two ways to set up a new direct debit customer:
+> 
+> 1. Send an email inviting your customer to set up a mandate with you
+> 2. Request a one-off payment and mandate; this will redirect you to request a payment, where you can send your customer a payment link to take a payment and set up a direct debit mandate (Once your customer has paid via the payment link, a mandate will be created to use moving forward and they will receive confirmation from GoCardless)
+
+**Repeat (Fixed schedule) - Card payment**
+
+Follow these steps to set up repeat card payments on a fixed schedule:
+
+1. Select the MID, repeat (fixed schedule) and card payment
+2. Enter your customer's details
+3. Select a start date for the schedule and the frequency of each payment
+4. Enter the amount (per payment) you wish to charge (The minimum transaction amount is £1 and you can choose a different amount for the initial payment on the start date)
+5. Choose the total number of payments to be taken in this repeat payment schedule, and if desired, select a different date and amount for the final payment
+6. Fill in your customer's card details, and address and click charge
+
+> 👍 
+> 
+> We will send you a transaction receipt for your records. Your customer will also receive a transaction receipt and an email that details the repeat payment that has been set up.
+
+**Repeat (Fixed schedule) - Direct debit**
+
+Follow these steps to set up a direct debit on a fixed schedule:
+
+1. Select the MID, repeat (fixed schedule) and direct debit
+2. Select the relevant customer
+3. Enter the amount you wish to charge your customer (per payment) and a transaction reference
+4. Select a start date for the schedule and the frequency of each payment
+5. Choose if you want to charge a specific number of payments or if the schedule will run until further notice
+6. Click charge
+
+> 🚧 
+> 
+> You can only use this direct debit feature to charge customers with whom you have already set up a mandate. Please follow the steps within the one-off direct debit section to do this.
+
+**Repeat (Variable schedule) - Card payment**
+
+Follow these steps to set up repeat card payments on a variable schedule:
+
+1. Select the MID, repeat (variable schedule) and card payment
+2. Enter your customer's details
+3. Select a start date for the schedule
+4. Enter the amount for the first payment
+5. Select the plus icon to add more payments to the schedule 
+6. Enter the amounts for any payments you add to the cycle
+7. Fill in your customer's card details, and address and click charge
+
+> 👍 
+> 
+> We will send you a transaction receipt for your records. Your customer will also receive a transaction receipt and an email that details the repeat payment that has been set up.
+
+### Credit
+
+> 🚧 
+> 
+> This feature is not available by default. Please contact Support to enable this option for your account.
+
+Follow these steps to complete a credit transaction:
+
+1. Click the transaction type drop-down and select credit
+2. Enter your customer's details and any necessary notes 
+3. Enter the amount you wish to pay your customer (If multiple currencies are enabled on your account, you can select the currency you wish to process the transaction by clicking on the currency symbol)
+4. Fill in your customer's card details and address
+5. Click pay
+6. You will be asked to confirm this payment
+
+> 👍 
+> 
+> We will send you and your customer a receipt for your records, and the owner of the Blink account will receive a separate copy of the receipt showing the user who made the payment.
+>
+
+![Image](https://files.readme.io/70ea128-credit.png)

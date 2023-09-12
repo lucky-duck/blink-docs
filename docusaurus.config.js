@@ -123,6 +123,10 @@ module.exports = async function () {
               label: "Support",
             },
             {
+              type: "search",
+              position: "right",
+            },
+            {
               to: "https://blinkpayment.co.uk",
               label: "blinkpayment.co.uk",
               position: "right",
@@ -210,6 +214,9 @@ module.exports = async function () {
       ],
     ],
     themes: ["docusaurus-theme-openapi-docs"], // Allows use of @theme/ApiItem and other components
+    customFields: {
+      mendableAnonKey: "3b35aead-65fd-47f0-8e7f-1943449e9006",
+    },
   };
 
   return config;

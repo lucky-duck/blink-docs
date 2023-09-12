@@ -18,12 +18,14 @@
     "@docusaurus/core": "2.4.1",
     "@docusaurus/preset-classic": "2.4.1",
     "@mdx-js/react": "1.6.21",
+    "@mendable/search": "^0.0.158",
     "clsx": "1.1.1",
     "docusaurus-plugin-openapi-docs": "^2.0.0-beta.3",
     "docusaurus-theme-openapi-docs": "^2.0.0-beta.3",
     "prism-react-renderer": "1.2.1",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "swizzle": "^1.1.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.4.1",

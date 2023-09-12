@@ -60,5 +60,10 @@
 .linkWrapper {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
+  transition: gap 0.3s ease-in-out;
+}
+
+.cardStyle:hover .linkWrapper {
+  gap: 0.9rem;
 }

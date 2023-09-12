@@ -53,5 +53,5 @@ const titleStyle: React.CSSProperties = {
   fontSize: "1.5rem",
   fontWeight: 600,
   margin: 0,
-  paddingBottom: "2rem",
+  paddingBottom: "0.5rem",
 };

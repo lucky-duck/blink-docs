@@ -44,8 +44,7 @@ module.exports = async function () {
             sidebarPath: require.resolve("./sidebars.js"),
             // Please change this to your repo.
             // Remove this to remove the "edit this page" links.
-            editUrl:
-              "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+            editUrl: undefined,
             docLayoutComponent: "@theme/DocPage",
             docItemComponent: "@theme/ApiItem",
           },
@@ -66,9 +65,17 @@ module.exports = async function () {
     themeConfig:
       /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
       ({
-        // Replace with your project's social card
+        colorMode: {
+          disableSwitch: true,
+          defaultMode: "light",
+        },
         image: "img/docusaurus-social-card.jpg",
         navbar: {
+          logo: {
+            alt: "Blink Docs",
+            src: "img/logo.svg",
+            width: 140,
+          },
           items: [
             {
               type: "docSidebar",
@@ -86,13 +93,45 @@ module.exports = async function () {
               type: "docSidebar",
               sidebarId: "apiReference",
               position: "left",
-              label: "API",
+              label: "REST API",
             },
-            { to: "/blog", label: "Updates", position: "left" },
             {
-              href: "https://github.com/facebook/docusaurus",
-              label: "GitHub",
+              type: "dropdown",
+              label: "Resources",
+              position: "left",
+              items: [
+                {
+                  label: "What's new",
+                  to: "/blog",
+                },
+                {
+                  label: "Postman collection",
+                  href: "https://github.com/Blink-Payment/blink-postman",
+                },
+                {
+                  label: "WooCommerce plugin",
+                  href: "https://github.com/Blink-Payment/Blink-WooCommerce",
+                },
+                {
+                  label: "Magento plugin",
+                  href: "https://github.com/Blink-Payment/Blink-Magento",
+                },
+              ],
+            },
+            {
+              to: "https://www.blinkpayment.co.uk/contact-us",
+              label: "Support",
+            },
+            {
+              to: "https://blinkpayment.co.uk",
+              label: "blinkpayment.co.uk",
               position: "right",
+            },
+            {
+              to: "https://secure.blinkpayment.co.uk/login",
+              label: "Login",
+              position: "right",
+              className: "login-button",
             },
           ],
         },

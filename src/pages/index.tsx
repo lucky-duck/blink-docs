@@ -134,8 +134,8 @@ export default function Home(): JSX.Element {
           subtitle="Explore our platform guides and learn how to integrate Blink into your application as a developer."
           ctaText="Get started"
           ctaLink="#"
-          cta2Text="Explore all features"
-          cta2Link="#"
+          cta2Text="Create sandbox account"
+          cta2Link="https://www.blinkpayment.co.uk/developer-signup"
         />
         <main>
           <FeatureList features={featureListItems} />

@@ -46,7 +46,7 @@ const productFeatureListSection: React.CSSProperties = {
   display: "flex",
   flexDirection: "column",
   gap: "1rem",
-  padding: "6rem 0",
+  padding: "6rem 0 5rem 0",
 };
 
 const titleStyle: React.CSSProperties = {

@@ -1,0 +1,70 @@
+.featureWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 1rem 0;
+  width: 35rem;
+  max-width: calc((100% - 4rem) / 3);
+  color: #202234;
+}
+
+.featureWrapper:hover {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.featureWrapper:hover .featureInnerWrapper .titleStyle {
+  text-decoration: underline;
+  color: #202234;
+}
+
+.featureWrapper:hover .featureInnerWrapper .descriptionStyle {
+  color: #555555;
+}
+
+.featureInnerWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.iconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9fafb;
+  padding: 1.2rem;
+  border-radius: 0.5rem;
+}
+
+.iconStyle {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.titleStyle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.descriptionStyle {
+  font-size: 1rem;
+  max-width: 20rem;
+  font-weight: 400;
+  color: #555555;
+}
+
+.button {
+  color: #4467fb;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}

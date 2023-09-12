@@ -3,8 +3,10 @@ sidebar_position: 1
 ---
 # Welcome to Blink
 
-## 🚀 The essentials  
+## 🚀 The essentials
 Blink is more than just another payments platform—it's your all-in-one solution, meticulously designed to make the payment process as smooth and seamless as possible. Whether it's card payments, open banking, or direct debit, we've got you covered.
+
+https://www.youtube.com/watch?v=GN0xHSk2P8Q
 
 But that's just the beginning. With Blink, you offer your customers a range of versatile payment options, ensuring that they always find a method that suits them best.
 

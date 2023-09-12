@@ -1,0 +1,1861 @@
+openapi: 3.0.0
+info:
+  title: Blink Payment v1.0.20
+  version: 1.0.0
+servers:
+  - url: http://{{url}}
+  - url: https://gateway2.blinkpayment.co.uk
+  - url: http://{{paylink_url}}
+tags:
+  - name: Tokens
+  - name: Intents
+  - name: CreditCards
+  - name: OpenBankings
+  - name: DirectDebits
+  - name: Transactions
+  - name: Paylink
+paths:
+  /tokens:
+    post:
+      tags:
+        - Tokens
+      summary: tokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                api_key: '{{api_key}}'
+                secret_key: '{{secret_key}}'
+                payment_api_status: true
+                send_blink_receipt: true
+                address_postcode_required: true
+                enable_moto_payments: true
+                card_layout: single-line
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 15 Feb 2023 06:49:27 GMT
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.54 () OpenSSL/1.0.2k-fips
+            Upgrade:
+              schema:
+                type: string
+                example: h2,h2c
+            Connection:
+              schema:
+                type: string
+                example: Upgrade, Keep-Alive
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '59'
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5, max=100
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 400 Bad Request
+                  value:
+                    access_token: ffaabb123456789012ffaabb123456789012...
+                    expired_on: '2023-02-15T07:19:27Z'
+                    payment_types:
+                      - credit-card
+                      - open-banking
+                      - direct-debit
+                    currency: GBP
+                    send_blink_receipt: 'No'
+                example-1:
+                  summary: 400 Bad Request
+                  value:
+                    access_token: ffaabb123456789012ffaabb123456789012...
+                    expired_on: '2023-02-15T07:19:27Z'
+                    payment_types:
+                      - credit-card
+                      - open-banking
+                      - direct-debit
+                    currency: GBP
+                    send_blink_receipt: 'No'
+                example-2:
+                  summary: 403 Forbidden
+                  value:
+                    access_token: ffaabb123456789012ffaabb123456789012...
+                    expired_on: '2023-02-15T07:19:27Z'
+                    payment_types:
+                      - credit-card
+                      - open-banking
+                      - direct-debit
+                    currency: GBP
+                    send_blink_receipt: 'No'
+        '201':
+          description: Created
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 09 Aug 2023 09:47:22 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.56 () OpenSSL/1.0.2k-fips PHP/8.1.16
+            X-Powered-By:
+              schema:
+                type: string
+                example: PHP/8.1.16
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '59'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                access_token: >-
+                  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXJjaGFudF9pZCI6NDM5OCwic2VjcmV0X2tleSI6IjYzMTBlNDhiZGQwZTQzODE0NTlhNjJiNDZkMmM0ZmQ2ZThhYjY1YTJhNGQ1MjA1YzZjM2RkZWJmYmJhZWJiZjgiLCJleHAiOjE2OTE1NzYyNDJ9.2x7nhth9SBKN_9rGCXppGO5Soqbf8PvJS_4MEAQP4Kk
+                expired_on: '2023-08-09T11:17:22Z'
+                payment_types:
+                  - credit-card
+                  - open-banking
+                currency: GBP
+                payment_api_status: true
+                send_blink_receipt: true
+                enable_moto_payments: true
+                address_postcode_required: true
+  /intents:
+    post:
+      tags:
+        - Intents
+      summary: intents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                amount: '1.1'
+                transaction_type: SALE
+                payment_type: credit-card
+                currency: GBP
+                return_url: https://api-demo-php.blinkpayment.co.uk/return
+                notification_url: https://api-demo-php.blinkpayment.co.uk/notification
+                card_layout: single-line
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{access_token}}
+      responses:
+        '201':
+          description: Created
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 09 Aug 2023 09:48:22 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.56 () OpenSSL/1.0.2k-fips PHP/8.1.16
+            Vary:
+              schema:
+                type: string
+                example: Authorization
+            X-Powered-By:
+              schema:
+                type: string
+                example: PHP/8.1.16
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '59'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 73
+                payment_intent: >-
+                  pi_yrmGSPgTvW3TcdbTx-gavuVBBN2nYxsXhMVNYKtmQmM3btDUwwzyclq1fbpRrI2SVdHbC7UAsdt88J9DwYL26tTvLrArg_2yKbuGGZy9im0
+                transaction_type: SALE
+                expiry_date: '2023-08-09T11:17:22Z'
+                amount: '1.1'
+                currency: GBP
+                payment_type: credit-card
+                return_url: https://api-demo-php.blinkpayment.co.uk/return
+                notification_url: https://api-demo-php.blinkpayment.co.uk/notification
+                card_layout: single-line
+                element:
+                  ccElement: |-
+                    <input type="hidden" name="merchantID" value="233508"/>
+                                  <input type="hidden" name="payment_intent" value="pi_yrmGSPgTvW3TcdbTx-gavuVBBN2nYxsXhMVNYKtmQmM3btDUwwzyclq1fbpRrI2SVdHbC7UAsdt88J9DwYL26tTvLrArg_2yKbuGGZy9im0"/>
+                                  <input type="hidden" name="resource" value="creditcards"/>
+                                  <input type="hidden" name="transaction_unique" value="BBwbjdIpjNQ2"/><label class="field-label">Card information</label>
+                                <div class="fieldgroup-container relative no-wrap mb-4">
+                                    <input type="hostedfield:cardNumber" placeholder="1234 1234 1234 1234" />
+                                    <input type="hostedfield:cardExpiryDate" placeholder="MM/YY" />
+                                    <input type="hostedfield:cardCVV" placeholder="CVV" />
+                                </div><label class="field-label">Name on card</label>
+                            <div class="fieldgroup-container mb-4">
+                                <input type="text" name="customer_name" value="" />
+                            </div> 
+                            <label class="field-label">Email</label>
+                            <div class="fieldgroup-container mb-4">
+                                <input type="text" name="customer_email" value="" />
+                            </div><label class="field-label">Address</label>
+                          <div class="fieldgroup-container mb-4">
+                              <div class="fieldgroup-child--width-8">
+                                  <input type="text" name="customer_address" value="" />
+                              </div>
+                              <div class="fieldgroup-child--width-4">
+                                  <input type="text" name="customer_postcode" value="" placeholder="Postcode" />
+                              </div>
+                          </div><input type="hidden" id="device_timezone" name="device_timezone" />
+                                  <input type="hidden" id="device_capabilities" name="device_capabilities" />
+                                  <input type="hidden" id="device_accept_language" name="device_accept_language" />
+                                  <input type="hidden" id="device_screen_resolution" name="device_screen_resolution" />
+                                  <input type="hidden" id="remote_address" name="remote_address" />
+                                  <input type="hidden" id="type" name="type" value="1"/>
+                  ccMotoElement: |-
+                    <input type="hidden" name="merchantID" value="233508"/>
+                                  <input type="hidden" name="payment_intent" value="pi_yrmGSPgTvW3TcdbTx-gavuVBBN2nYxsXhMVNYKtmQmM3btDUwwzyclq1fbpRrI2SVdHbC7UAsdt88J9DwYL26tTvLrArg_2yKbuGGZy9im0"/>
+                                  <input type="hidden" name="resource" value="creditcards"/>
+                                  <input type="hidden" name="transaction_unique" value="BBwbjdIpjNQ2"/>
+                                  <input type="hidden" id="type" name="type" value="2"/><label class="field-label">Card information</label>
+                                    <div class="fieldgroup-container relative no-wrap mb-4">
+                                        <input type="hostedfield:cardNumber" placeholder="1234 1234 1234 1234" />
+                                        <input type="hostedfield:cardExpiryDate" placeholder="MM/YY" />
+                                        <input type="hostedfield:cardCVV" placeholder="CVV" />
+                                    </div><label class="field-label">Name on card</label>
+                            <div class="fieldgroup-container mb-4">
+                                <input type="text" name="customer_name" value="" />
+                            </div> 
+                            <label class="field-label">Email</label>
+                            <div class="fieldgroup-container mb-4">
+                                <input type="text" name="customer_email" value="" />
+                            </div><label class="field-label">Address</label>
+                          <div class="fieldgroup-container mb-4">
+                              <div class="fieldgroup-child--width-8">
+                                  <input type="text" name="customer_address" value="" />
+                              </div>
+                              <div class="fieldgroup-child--width-4">
+                                  <input type="text" name="customer_postcode" value="" placeholder="Postcode" />
+                              </div>
+                          </div>
+                  obElement: |-
+                    <input type="hidden" name="merchant_id" value="233508"/>
+                                  <input type="hidden" name="payment_intent" value="pi_yrmGSPgTvW3TcdbTx-gavuVBBN2nYxsXhMVNYKtmQmM3btDUwwzyclq1fbpRrI2SVdHbC7UAsdt88J9DwYL26tTvLrArg_2yKbuGGZy9im0"/>
+                                  <input type="hidden" name="resource" value="openbankings"/>
+                                  <input type="hidden" name="transaction_unique" value="BBwbjdIpjNQ2"/><div class="fieldgroup-container mb-4">
+                                      <input type="text" placeholder="Name" name="customer_name" value="" />
+                                  </div> 
+                                  <div class="fieldgroup-container mb-4">
+                                      <input type="text" placeholder="Email" name="customer_email" value="" />
+                                  </div><div class="fieldgroup-container mb-4">
+                                  <div class="fieldgroup-child--width-8">
+                                      <input type="text" placeholder="Address" name="customer_address" value="" />
+                                  </div>
+                                  <div class="fieldgroup-child--width-4">
+                                      <input type="text" name="customer_postcode" value="" placeholder="Postcode" />
+                                  </div>
+                              </div>
+                merchant_id: 233508
+                transaction_unique: BBwbjdIpjNQ2
+  /intents/{intent_id}:
+    get:
+      tags:
+        - Intents
+      summary: intents/{id}
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{access_token}}
+        - name: intent_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 09 Aug 2023 09:48:46 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.56 () OpenSSL/1.0.2k-fips PHP/8.1.16
+            Vary:
+              schema:
+                type: string
+                example: Authorization
+            Upgrade:
+              schema:
+                type: string
+                example: h2,h2c
+            X-Powered-By:
+              schema:
+                type: string
+                example: PHP/8.1.16
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '58'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 73
+                payment_intent: >-
+                  pi_yrmGSPgTvW3TcdbTx-gavuVBBN2nYxsXhMVNYKtmQmM3btDUwwzyclq1fbpRrI2SVdHbC7UAsdt88J9DwYL26tTvLrArg_2yKbuGGZy9im0
+                transaction_type: SALE
+                expiry_date: '2023-08-09T11:17:22Z'
+                status: active
+                payment_type: credit-card
+                currency: GBP
+                amount: 1.1
+                return_url: https://api-demo-php.blinkpayment.co.uk/return
+                notification_url: https://api-demo-php.blinkpayment.co.uk/notification
+                card_layout: single-line
+                element:
+                  ccElement: |-
+                    <input type="hidden" name="merchantID" value="233508"/>
+                                  <input type="hidden" name="payment_intent" value="pi_yrmGSPgTvW3TcdbTx-gavuVBBN2nYxsXhMVNYKtmQmM3btDUwwzyclq1fbpRrI2SVdHbC7UAsdt88J9DwYL26tTvLrArg_2yKbuGGZy9im0"/>
+                                  <input type="hidden" name="resource" value="creditcards"/>
+                                  <input type="hidden" name="transaction_unique" value="BBwbjdIpjNQ2"/><label class="field-label">Card information</label>
+                                <div class="fieldgroup-container relative no-wrap mb-4">
+                                    <input type="hostedfield:cardNumber" placeholder="1234 1234 1234 1234" />
+                                    <input type="hostedfield:cardExpiryDate" placeholder="MM/YY" />
+                                    <input type="hostedfield:cardCVV" placeholder="CVV" />
+                                </div><label class="field-label">Name on card</label>
+                            <div class="fieldgroup-container mb-4">
+                                <input type="text" name="customer_name" value="" />
+                            </div> 
+                            <label class="field-label">Email</label>
+                            <div class="fieldgroup-container mb-4">
+                                <input type="text" name="customer_email" value="" />
+                            </div><label class="field-label">Address</label>
+                          <div class="fieldgroup-container mb-4">
+                              <div class="fieldgroup-child--width-8">
+                                  <input type="text" name="customer_address" value="" />
+                              </div>
+                              <div class="fieldgroup-child--width-4">
+                                  <input type="text" name="customer_postcode" value="" placeholder="Postcode" />
+                              </div>
+                          </div><input type="hidden" id="device_timezone" name="device_timezone" />
+                                  <input type="hidden" id="device_capabilities" name="device_capabilities" />
+                                  <input type="hidden" id="device_accept_language" name="device_accept_language" />
+                                  <input type="hidden" id="device_screen_resolution" name="device_screen_resolution" />
+                                  <input type="hidden" id="remote_address" name="remote_address" />
+                                  <input type="hidden" id="type" name="type" value="1"/>
+                  ccMotoElement: |-
+                    <input type="hidden" name="merchantID" value="233508"/>
+                                  <input type="hidden" name="payment_intent" value="pi_yrmGSPgTvW3TcdbTx-gavuVBBN2nYxsXhMVNYKtmQmM3btDUwwzyclq1fbpRrI2SVdHbC7UAsdt88J9DwYL26tTvLrArg_2yKbuGGZy9im0"/>
+                                  <input type="hidden" name="resource" value="creditcards"/>
+                                  <input type="hidden" name="transaction_unique" value="BBwbjdIpjNQ2"/>
+                                  <input type="hidden" id="type" name="type" value="2"/><label class="field-label">Card information</label>
+                                    <div class="fieldgroup-container relative no-wrap mb-4">
+                                        <input type="hostedfield:cardNumber" placeholder="1234 1234 1234 1234" />
+                                        <input type="hostedfield:cardExpiryDate" placeholder="MM/YY" />
+                                        <input type="hostedfield:cardCVV" placeholder="CVV" />
+                                    </div><label class="field-label">Name on card</label>
+                            <div class="fieldgroup-container mb-4">
+                                <input type="text" name="customer_name" value="" />
+                            </div> 
+                            <label class="field-label">Email</label>
+                            <div class="fieldgroup-container mb-4">
+                                <input type="text" name="customer_email" value="" />
+                            </div><label class="field-label">Address</label>
+                          <div class="fieldgroup-container mb-4">
+                              <div class="fieldgroup-child--width-8">
+                                  <input type="text" name="customer_address" value="" />
+                              </div>
+                              <div class="fieldgroup-child--width-4">
+                                  <input type="text" name="customer_postcode" value="" placeholder="Postcode" />
+                              </div>
+                          </div>
+                  obElement: |-
+                    <input type="hidden" name="merchant_id" value="233508"/>
+                                  <input type="hidden" name="payment_intent" value="pi_yrmGSPgTvW3TcdbTx-gavuVBBN2nYxsXhMVNYKtmQmM3btDUwwzyclq1fbpRrI2SVdHbC7UAsdt88J9DwYL26tTvLrArg_2yKbuGGZy9im0"/>
+                                  <input type="hidden" name="resource" value="openbankings"/>
+                                  <input type="hidden" name="transaction_unique" value="BBwbjdIpjNQ2"/><div class="fieldgroup-container mb-4">
+                                      <input type="text" placeholder="Name" name="customer_name" value="" />
+                                  </div> 
+                                  <div class="fieldgroup-container mb-4">
+                                      <input type="text" placeholder="Email" name="customer_email" value="" />
+                                  </div><div class="fieldgroup-container mb-4">
+                                  <div class="fieldgroup-child--width-8">
+                                      <input type="text" placeholder="Address" name="customer_address" value="" />
+                                  </div>
+                                  <div class="fieldgroup-child--width-4">
+                                      <input type="text" name="customer_postcode" value="" placeholder="Postcode" />
+                                  </div>
+                              </div>
+                merchant_id: 233508
+                transaction_unique: BBwbjdIpjNQ2
+    patch:
+      tags:
+        - Intents
+      summary: intents/{id}
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                card_layout:
+                  type: string
+                  example: multi-line
+                return_url:
+                  type: string
+                  example: http://www.google.com
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{access_token}}
+        - name: intent_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 09 Aug 2023 09:49:21 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.56 () OpenSSL/1.0.2k-fips PHP/8.1.16
+            Vary:
+              schema:
+                type: string
+                example: Authorization
+            Upgrade:
+              schema:
+                type: string
+                example: h2,h2c
+            X-Powered-By:
+              schema:
+                type: string
+                example: PHP/8.1.16
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '57'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 73
+                payment_intent: >-
+                  pi_yrmGSPgTvW3TcdbTx-gavuVBBN2nYxsXhMVNYKtmQmM3btDUwwzyclq1fbpRrI2SVdHbC7UAsdt88J9DwYL26tTvLrArg_2yKbuGGZy9im0
+                transaction_type: SALE
+                expiry_date: '2023-08-09T11:17:22Z'
+                status: active
+                payment_type: credit-card
+                currency: GBP
+                amount: 1.1
+                return_url: https://api-demo-php.blinkpayment.co.uk/return
+                notification_url: https://api-demo-php.blinkpayment.co.uk/notification
+                card_layout: multi-line
+                element:
+                  ccElement: |-
+                    <input type="hidden" name="merchantID" value="233508"/>
+                                  <input type="hidden" name="payment_intent" value="pi_yrmGSPgTvW3TcdbTx-gavuVBBN2nYxsXhMVNYKtmQmM3btDUwwzyclq1fbpRrI2SVdHbC7UAsdt88J9DwYL26tTvLrArg_2yKbuGGZy9im0"/>
+                                  <input type="hidden" name="resource" value="creditcards"/>
+                                  <input type="hidden" name="transaction_unique" value="BBwbjdIpjNQ2"/><label class="field-label">Card information</label>
+                                <div class="fieldgroup-container mb-4">
+                                <div class="fieldgroup-child--width-12 relative">
+                                    <input type="hostedfield:cardNumber" placeholder="1234 1234 1234 1234" />
+                                    <div class="cards_icons d-flex-center">
+                                        <img src=https://secure.blinkpayment.co.uk/assets/images/cards/34/VC.png alt="Visa"
+                                        title="Visa">
+                                        <img src=https://secure.blinkpayment.co.uk/assets/images/cards/34/MC.png alt="MasterCard"
+                                        title="MasterCard">
+                                        <img src=https://secure.blinkpayment.co.uk/assets/images/cards/34/DC.png alt="Discover"
+                                        title="Discover">
+                                        <img src=https://secure.blinkpayment.co.uk/assets/images/cards/34/DN.png alt="Diners"
+                                        title="Diners">
+                                        <img src=https://secure.blinkpayment.co.uk/assets/images/cards/34/AM.png
+                                        alt="American Express" title="American Express">
+                                    </div>
+                                </div>
+                                <div class="fieldgroup-child--width-6 child-left">
+                                            <input type="hostedfield:cardExpiryDate" placeholder="MM/YY" />
+                                        </div>
+                                        <div class="fieldgroup-child--width-6 child-right">
+                                            <input type="hostedfield:cardCVV" placeholder="CVV" />
+                                        </div>
+                                </div><label class="field-label">Name on card</label>
+                            <div class="fieldgroup-container mb-4">
+                                <input type="text" name="customer_name" value="" />
+                            </div> 
+                            <label class="field-label">Email</label>
+                            <div class="fieldgroup-container mb-4">
+                                <input type="text" name="customer_email" value="" />
+                            </div><label class="field-label">Address</label>
+                          <div class="fieldgroup-container mb-4">
+                              <div class="fieldgroup-child--width-8">
+                                  <input type="text" name="customer_address" value="" />
+                              </div>
+                              <div class="fieldgroup-child--width-4">
+                                  <input type="text" name="customer_postcode" value="" placeholder="Postcode" />
+                              </div>
+                          </div><input type="hidden" id="device_timezone" name="device_timezone" />
+                                  <input type="hidden" id="device_capabilities" name="device_capabilities" />
+                                  <input type="hidden" id="device_accept_language" name="device_accept_language" />
+                                  <input type="hidden" id="device_screen_resolution" name="device_screen_resolution" />
+                                  <input type="hidden" id="remote_address" name="remote_address" />
+                                  <input type="hidden" id="type" name="type" value="1"/>
+                  ccMotoElement: |-
+                    <input type="hidden" name="merchantID" value="233508"/>
+                                  <input type="hidden" name="payment_intent" value="pi_yrmGSPgTvW3TcdbTx-gavuVBBN2nYxsXhMVNYKtmQmM3btDUwwzyclq1fbpRrI2SVdHbC7UAsdt88J9DwYL26tTvLrArg_2yKbuGGZy9im0"/>
+                                  <input type="hidden" name="resource" value="creditcards"/>
+                                  <input type="hidden" name="transaction_unique" value="BBwbjdIpjNQ2"/>
+                                  <input type="hidden" id="type" name="type" value="2"/><label class="field-label">Card information</label>
+                                <div class="fieldgroup-container mb-4">
+                                <div class="fieldgroup-child--width-12 relative">
+                                    <input type="hostedfield:cardNumber" placeholder="1234 1234 1234 1234" />
+                                    <div class="cards_icons d-flex-center">
+                                        <img src=https://secure.blinkpayment.co.uk/assets/images/cards/34/VC.png alt="Visa"
+                                            title="Visa">
+                                        <img src=https://secure.blinkpayment.co.uk/assets/images/cards/34/MC.png alt="MasterCard"
+                                            title="MasterCard">
+                                        <img src=https://secure.blinkpayment.co.uk/assets/images/cards/34/DC.png alt="Discover"
+                                            title="Discover">
+                                        <img src=https://secure.blinkpayment.co.uk/assets/images/cards/34/DN.png alt="Diners"
+                                            title="Diners">
+                                        <img src=https://secure.blinkpayment.co.uk/assets/images/cards/34/AM.png
+                                            alt="American Express" title="American Express">
+                                    </div>
+                                </div>
+                                <div class="fieldgroup-child--width-6 child-left">
+                                            <input type="hostedfield:cardExpiryDate" placeholder="MM/YY" />
+                                        </div>
+                                        <div class="fieldgroup-child--width-6 child-right">
+                                            <input type="hostedfield:cardCVV" placeholder="CVV" />
+                                        </div>
+                                </div><label class="field-label">Name on card</label>
+                            <div class="fieldgroup-container mb-4">
+                                <input type="text" name="customer_name" value="" />
+                            </div> 
+                            <label class="field-label">Email</label>
+                            <div class="fieldgroup-container mb-4">
+                                <input type="text" name="customer_email" value="" />
+                            </div><label class="field-label">Address</label>
+                          <div class="fieldgroup-container mb-4">
+                              <div class="fieldgroup-child--width-8">
+                                  <input type="text" name="customer_address" value="" />
+                              </div>
+                              <div class="fieldgroup-child--width-4">
+                                  <input type="text" name="customer_postcode" value="" placeholder="Postcode" />
+                              </div>
+                          </div>
+                  obElement: |-
+                    <input type="hidden" name="merchant_id" value="233508"/>
+                                  <input type="hidden" name="payment_intent" value="pi_yrmGSPgTvW3TcdbTx-gavuVBBN2nYxsXhMVNYKtmQmM3btDUwwzyclq1fbpRrI2SVdHbC7UAsdt88J9DwYL26tTvLrArg_2yKbuGGZy9im0"/>
+                                  <input type="hidden" name="resource" value="openbankings"/>
+                                  <input type="hidden" name="transaction_unique" value="BBwbjdIpjNQ2"/><div class="fieldgroup-container mb-4">
+                                      <input type="text" placeholder="Name" name="customer_name" value="" />
+                                  </div> 
+                                  <div class="fieldgroup-container mb-4">
+                                      <input type="text" placeholder="Email" name="customer_email" value="" />
+                                  </div><div class="fieldgroup-container mb-4">
+                                  <div class="fieldgroup-child--width-8">
+                                      <input type="text" placeholder="Address" name="customer_address" value="" />
+                                  </div>
+                                  <div class="fieldgroup-child--width-4">
+                                      <input type="text" name="customer_postcode" value="" placeholder="Postcode" />
+                                  </div>
+                              </div>
+                merchant_id: 233508
+                transaction_unique: BBwbjdIpjNQ2
+  /paymentform:
+    post:
+      tags:
+        - CreditCards
+      summary: payment_tokens
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                process:
+                  type: string
+                  example: tokenise
+                merchantID:
+                  type: string
+                  example: '{{merchant_id}}'
+                tokenType:
+                  type: string
+                  example: card
+                tokenData[cardNumber]:
+                  type: integer
+                  example: '4111111111111111'
+                tokenData[cardExpiryDate]:
+                  type: string
+                  example: 12/23
+                tokenData[cardCVV]:
+                  type: integer
+                  example: '123'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Date:
+              schema:
+                type: string
+                example: Wed, 09 Aug 2023 09:50:06 GMT
+            Server:
+              schema:
+                type: string
+                example: ZENEDGE
+            X-Zen-Fury:
+              schema:
+                type: string
+                example: fd619419ac0c8db19ae600785318156b3be45134
+            Expires:
+              schema:
+                type: string
+                example: Wed, 09 Aug 2023 09:50:07 GMT
+            Content-Encoding:
+              schema:
+                type: string
+                example: gzip
+            Cache-Control:
+              schema:
+                type: string
+                example: max-age=1
+            X-Cache-Status:
+              schema:
+                type: string
+                example: NOTCACHED
+            X-Cdn:
+              schema:
+                type: string
+                example: Served-By-Zenedge
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: Success
+                paymentToken: >-
+                  eyJwYXltZW50VG9rZW4iOnsibWV0aG9kIjoiY2FyZCIsInJlc291cmNlIjoic3RvcmUiLCJpZCI6MjY3NTA4OX19
+                cardMask: 411111******1111
+                cardInfo:
+                  typeCode: VC
+                  typeName: Visa Credit
+                  schemeCode: VC
+                  schemeName: Visa
+                  flags: '4128772'
+                  productCode: '0'
+                  issuer: null
+  /creditcards:
+    post:
+      tags:
+        - CreditCards
+      summary: creditcards (MOTO)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                payment_intent: '{{payment_intent}}'
+                paymentToken: '{{paymentToken}}'
+                customer_email: '{{$randomEmail}}'
+                customer_name: '{{$randomFullName}}'
+                transaction_unique: '{{transaction_unique}}'
+                type: 2
+                merchant_data: '{"order_id": "cc-12345678"}'
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 09 Aug 2023 09:51:41 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.56 () OpenSSL/1.0.2k-fips PHP/8.1.16
+            Vary:
+              schema:
+                type: string
+                example: Authorization
+            Upgrade:
+              schema:
+                type: string
+                example: h2,h2c
+            X-Powered-By:
+              schema:
+                type: string
+                example: PHP/8.1.16
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '59'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                url: >-
+                  https://api-demo-php.blinkpayment.co.uk/return?transaction_id=BL-QRUNPZKZMZ&status=captured&note=Success&merchant_data=%257B%2522order_id%2522%253A%2522cc-12345678%2522%257D
+  /openbankings:
+    post:
+      tags:
+        - OpenBankings
+      summary: openbankings
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                payment_intent:
+                  type: string
+                  example: '{{payment_intent}}'
+                user_name:
+                  type: string
+                  example: '{{$randomFullName}}'
+                user_email:
+                  type: string
+                  example: '{{$randomEmail}}'
+                merchant_data:
+                  type: string
+                  example: '{"order_id" : "ob-12345678"}'
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 03 Apr 2023 10:27:54 GMT
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.54 () OpenSSL/1.0.2k-fips
+            Vary:
+              schema:
+                type: string
+                example: Authorization
+            Upgrade:
+              schema:
+                type: string
+                example: h2,h2c
+            Connection:
+              schema:
+                type: string
+                example: Upgrade, Keep-Alive
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '59'
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5, max=100
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                redirect_url: >-
+                  https://fidelitygate.devandops.com/tobp-gateway/hppcallredirect/642aaa2c0f10d48508f3ddf8
+  /directdebits:
+    post:
+      tags:
+        - DirectDebits
+      summary: directdebits
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                payment_intent: '{{payment_intent}}'
+                given_name: '{{$randomFirstName}}'
+                family_name: '{{$randomLastName}}'
+                company_name: null
+                email: '{{$randomEmail}}'
+                country_code: GB
+                account_holder_name: '{{$randomFullName}}'
+                branch_code: '200000'
+                account_number: '55779911'
+                iban: null
+                merchant_data: '{"order_id": "dd-12345678"}'
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 04 Apr 2023 14:16:41 GMT
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.54 () OpenSSL/1.0.2k-fips
+            Vary:
+              schema:
+                type: string
+                example: Authorization
+            Upgrade:
+              schema:
+                type: string
+                example: h2,h2c
+            Connection:
+              schema:
+                type: string
+                example: Upgrade, Keep-Alive
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '53'
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5, max=100
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                url: >-
+                  https://api-demo-php.blinkpayment.co.uk/return?transaction_id=BL-002A0C04CE&status=Pending%2BSubmission&note=Pending%2BSubmission&merchant_data=%257B%2522order_id%2522%253A%2522dd-12345678%2522%257D
+  /transactions/{transaction_id}:
+    get:
+      tags:
+        - Transactions
+      summary: transactions/{id}
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{access_token}}
+        - name: transaction_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 27 Mar 2023 08:46:50 GMT
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.54 () OpenSSL/1.0.2k-fips
+            Vary:
+              schema:
+                type: string
+                example: Authorization
+            Upgrade:
+              schema:
+                type: string
+                example: h2,h2c
+            Connection:
+              schema:
+                type: string
+                example: Upgrade, Keep-Alive
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '59'
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5, max=100
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Transaction details - CC
+                  value:
+                    data:
+                      transaction_id: BL-54URV6DLR5
+                      status: Captured
+                      message: Payment Successful
+                      amount: 1.1
+                      currency: GBP
+                      payment_source: Visa Credit Card
+                      customer_name: Miss Olivia Treutel
+                      customer_email: Fausto0@gmail.com
+                      merchant_data: '{"order_id": "12345678"}'
+                example-1:
+                  summary: Transaction details - DD
+                  value:
+                    data:
+                      transaction_id: BL-0056F27B6A
+                      status: Pending Submission
+                      message: Pending Submission
+                      amount: 1.1
+                      currency: GBP
+                      payment_source: Direct Debit
+                      customer_name: Jermaine Ernser
+                      customer_email: Devan.Price40@yahoo.com
+                      merchant_data: '{"order_id": "dd-12345678"}'
+                example-2:
+                  summary: Transaction details - OB
+                  value:
+                    data:
+                      transaction_id: BL-00C902BB94
+                      status: Success
+                      message: Success
+                      amount: 1.1
+                      currency: GBP
+                      payment_source: Open Banking
+                      customer_name: Nettie Stehr
+                      customer_email: Hugh.McLaughlin@hotmail.com
+                      merchant_data: '{"order_id": "ob-12345678"}'
+  /paylinks:
+    post:
+      tags:
+        - Paylink
+      summary: 'Create paylink with reminder '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                payment_method:
+                  - credit-card
+                  - open-banking
+                transaction_type: SALE
+                full_name: Joe Blogs
+                email: testdeveloper890@yopmail.com
+                mobile_number: '0753215468'
+                transaction_unique: fyr7898906
+                is_decide_amount: true
+                amount: 1
+                reminder: true
+                reminder_interval_count: 2
+                reminder_interval_frequency: days
+                notes: test note
+                notification_url: https://api-demo-php.blinkpayment.co.uk/notification
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{access_token}}
+      responses:
+        '201':
+          description: Created
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 09 Aug 2023 09:57:16 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.56 () OpenSSL/1.0.2k-fips PHP/8.1.16
+            Vary:
+              schema:
+                type: string
+                example: Authorization
+            Upgrade:
+              schema:
+                type: string
+                example: h2,h2c
+            X-Powered-By:
+              schema:
+                type: string
+                example: PHP/8.1.16
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '59'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 281709
+                paylink_url: https://secure.blinkpayment.co.uk/postmandemo/l/peqJESXrQ
+                transaction_unique: fyr7898906
+    get:
+      tags:
+        - Paylink
+      summary: get all paylinks
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{access_token}}
+        - name: status
+          in: query
+          schema:
+            type: string
+          example: unpaid
+        - name: amount
+          in: query
+          schema:
+            type: integer
+          example: '1'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 09 Aug 2023 09:58:00 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.56 () OpenSSL/1.0.2k-fips PHP/8.1.16
+            Vary:
+              schema:
+                type: string
+                example: Authorization
+            Upgrade:
+              schema:
+                type: string
+                example: h2,h2c
+            X-Powered-By:
+              schema:
+                type: string
+                example: PHP/8.1.16
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '57'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                pageNumber: 1
+                pageSize: 50
+                totalResults: 8
+                data:
+                  - id: 281709
+                    paylink_url: https://secure.blinkpayment.co.uk/postmandemo/l/peqJESXrQ
+                    status: Unpaid
+                    created_by: Shalom Moise
+                    amount: '1.00'
+                    currency: GBP
+                    transaction_type: Sale
+                    customer_name: Joe Blogs
+                    customer_email: testdeveloper890@yopmail.com
+                    phone_number: '0753215468'
+                    payment_method:
+                      - card_payment
+                      - open_banking
+                    is_decide_amount: true
+                    notes: test note
+                    notification_url: https://api-demo-php.blinkpayment.co.uk/notification
+                  - id: 271001
+                    paylink_url: null
+                    status: Unpaid
+                    created_by: Shalom Moise
+                    amount: '1.00'
+                    currency: GBP
+                    transaction_type: Sale
+                    customer_name: s
+                    customer_email: i@k.com
+                    phone_number: null
+                    payment_method:
+                      - card_payment
+                      - open_banking
+                    is_decide_amount: false
+                    notes: null
+                    notification_url: null
+                  - id: 260406
+                    paylink_url: >-
+                      https://secure.blinkpayment.co.uk/testclothingstore/l/x40nZuXLQ
+                    status: Unpaid
+                    created_by: Shalom Moise
+                    amount: '1.00'
+                    currency: GBP
+                    transaction_type: Sale
+                    customer_name: ben
+                    customer_email: test@test.com
+                    phone_number: null
+                    payment_method:
+                      - card_payment
+                      - open_banking
+                    is_decide_amount: false
+                    notes: >-
+                      £1?!?! Who would have thought ben is such a cheapskate.
+                      Here is the actual sponsor link btw:
+                      https://www.bike4kef.org/111052              - Powered by
+                      the Blink Paylink API :)
+                    notification_url: https://blinkclothing.co.uk/callBackURL
+                  - id: 258670
+                    paylink_url: >-
+                      https://secure.blinkpayment.co.uk/testclothingstore/l/NjBZPH6Nr
+                    status: Unpaid
+                    created_by: Shalom Moise
+                    amount: '1.00'
+                    currency: GBP
+                    transaction_type: Sale
+                    customer_name: Isaac Kenchington
+                    customer_email: i.kenchington@blinkpayment.co.uk
+                    phone_number: null
+                    payment_method:
+                      - card_payment
+                      - open_banking
+                    is_decide_amount: false
+                    notes: >-
+                      £1?!?! Who would have thought Isaac Kenchington is such a
+                      cheapskate. Here is the actual sponsor link btw:
+                      https://www.bike4kef.org/arieder              - Powered by
+                      the Blink Paylink API :)
+                    notification_url: https://blinkclothing.co.uk/callBackURL
+                  - id: 247387
+                    paylink_url: >-
+                      https://secure.blinkpayment.co.uk/testclothingstore/l/b13eotENA
+                    status: Unpaid
+                    created_by: Shalom Moise
+                    amount: '1.00'
+                    currency: GBP
+                    transaction_type: Sale
+                    customer_name: Sainita Mukherjee
+                    customer_email: sainita@capitalnumbers.com
+                    phone_number: '9123908567'
+                    payment_method:
+                      - card_payment
+                      - direct_debit
+                      - open_banking
+                    is_decide_amount: true
+                    notes: test note
+                    notification_url: https://api-demo-php.blinkpayment.co.uk/notification
+                  - id: 129856
+                    paylink_url: null
+                    status: Unpaid
+                    created_by: Shalom Moise
+                    amount: '1.00'
+                    currency: GBP
+                    transaction_type: Sale
+                    customer_name: Shalom Moise
+                    customer_email: null
+                    phone_number: '447743031462'
+                    payment_method:
+                      - card_payment
+                    is_decide_amount: false
+                    notes: null
+                    notification_url: null
+                  - id: 44149
+                    paylink_url: null
+                    status: Unpaid
+                    created_by: Shalom Moise
+                    amount: '1.00'
+                    currency: GBP
+                    transaction_type: Sale
+                    customer_name: Shalom
+                    customer_email: shalommoise1@outlook.com
+                    phone_number: '447743031462'
+                    payment_method: null
+                    is_decide_amount: false
+                    notes: Automatic Paylink
+                    notification_url: null
+                  - id: 25760
+                    paylink_url: null
+                    status: Unpaid
+                    created_by: Shalom Moise
+                    amount: '1.00'
+                    currency: GBP
+                    transaction_type: Sale
+                    customer_name: Shalom Moise
+                    customer_email: s.moise@blinkpayment.co.uk
+                    phone_number: null
+                    payment_method: null
+                    is_decide_amount: false
+                    notes: null
+                    notification_url: null
+  /paylinks/{paylink_id}:
+    get:
+      tags:
+        - Paylink
+      summary: Get paylink by paylink Id
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{access_token}}
+        - name: paylink_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 09 Aug 2023 09:57:32 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.56 () OpenSSL/1.0.2k-fips PHP/8.1.16
+            Vary:
+              schema:
+                type: string
+                example: Authorization
+            Upgrade:
+              schema:
+                type: string
+                example: h2,h2c
+            X-Powered-By:
+              schema:
+                type: string
+                example: PHP/8.1.16
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '58'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 281709
+                paylink_url: https://secure.blinkpayment.co.uk/postmandemo/l/peqJESXrQ
+                status: Unpaid
+                created_by: Shalom Moise
+                amount: '1.00'
+                currency: GBP
+                transaction_type: Sale
+                customer_name: Joe Blogs
+                customer_email: testdeveloper890@yopmail.com
+                phone_number: '0753215468'
+                payment_method:
+                  - card_payment
+                  - open_banking
+                is_decide_amount: true
+                notes: test note
+                notification_url: https://api-demo-php.blinkpayment.co.uk/notification
+    patch:
+      tags:
+        - Paylink
+      summary: Update Paylink
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: testdemo@yopmail.com
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{access_token}}
+        - name: paylink_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 09 Aug 2023 09:58:26 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.56 () OpenSSL/1.0.2k-fips PHP/8.1.16
+            Vary:
+              schema:
+                type: string
+                example: Authorization
+            Upgrade:
+              schema:
+                type: string
+                example: h2,h2c
+            X-Powered-By:
+              schema:
+                type: string
+                example: PHP/8.1.16
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '59'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 281709
+                paylink_url: https://secure.blinkpayment.co.uk/postmandemo/l/peqJESXrQ
+                status: Unpaid
+                created_by: Shalom Moise
+                amount: '1.00'
+                currency: GBP
+                transaction_type: Sale
+                customer_name: Joe Blogs
+                customer_email: testdemo@yopmail.com
+                phone_number: '0753215468'
+                payment_method:
+                  - card_payment
+                  - open_banking
+                is_decide_amount: true
+                notes: test note
+                notification_url: https://api-demo-php.blinkpayment.co.uk/notification
+  /paylinks/{paylink_id}/notifications:
+    post:
+      tags:
+        - Paylink
+      summary: Paylink Notification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                send_email: true
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{access_token}}
+        - name: paylink_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 06 Jun 2023 06:38:20 GMT
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.56 () OpenSSL/1.0.2k-fips
+            Vary:
+              schema:
+                type: string
+                example: Authorization
+            Upgrade:
+              schema:
+                type: string
+                example: h2,h2c
+            Connection:
+              schema:
+                type: string
+                example: Upgrade, Keep-Alive
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '59'
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5, max=100
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Notification sent
+  /transactions/{transaction_id}/cancels:
+    post:
+      tags:
+        - default
+      summary: Cancel transaction
+      requestBody:
+        content: {}
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{access_token}}
+        - name: transaction_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Thu, 07 Sep 2023 10:00:19 GMT
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.57 () OpenSSL/1.0.2k-fips PHP/8.2.3
+            Vary:
+              schema:
+                type: string
+                example: Authorization
+            Upgrade:
+              schema:
+                type: string
+                example: h2,h2c
+            Connection:
+              schema:
+                type: string
+                example: Upgrade, Keep-Alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: PHP/8.2.3
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '59'
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5, max=100
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: Cancelled successfully
+                amount: 1
+                reference: Cancel Transaction
+                transaction_id: BL-NRU413VWJW
+  /transactions/{transaction_id}/refunds:
+    post:
+      tags:
+        - default
+      summary: Refund transaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                partial_refund: true
+                amount: 1
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{access_token}}
+        - name: transaction_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Thu, 07 Sep 2023 10:05:33 GMT
+            Server:
+              schema:
+                type: string
+                example: Apache/2.4.57 () OpenSSL/1.0.2k-fips PHP/8.2.3
+            Vary:
+              schema:
+                type: string
+                example: Authorization
+            Upgrade:
+              schema:
+                type: string
+                example: h2,h2c
+            Connection:
+              schema:
+                type: string
+                example: Upgrade, Keep-Alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: PHP/8.2.3
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '59'
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5, max=100
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: Refunded successfully
+                amount: 1
+                reference: Refund Transaction at 07-09-23 10:05:35
+                transaction_id: BL-63U4P14ZR5

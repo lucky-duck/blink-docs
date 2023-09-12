@@ -34,7 +34,7 @@ const featureWrapper: React.CSSProperties = {
   width: "calc((100% - 4rem) / 3)",
   border: "1px solid #D9DBE6",
   height: "21rem",
-  borderRadius: "0.5rem",
+  borderRadius: "1rem",
 };
 
 const featureInnerWrapper: React.CSSProperties = {

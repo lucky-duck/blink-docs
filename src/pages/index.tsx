@@ -11,6 +11,7 @@ import FeatureList from "@site/src/components/Homepage/FeatureList";
 import GetStartedIcon from "@site/src/components/Svg/GetStartedIcon";
 import Container from "@site/src/components/General/Container";
 import ProductFeatureList from "../components/Homepage/ProductFeatureList";
+import CardWrapper from "../components/Homepage/CardWrapper";
 
 type FeatureItem = {
   title: string;
@@ -141,6 +142,25 @@ export default function Home(): JSX.Element {
           <ProductFeatureList
             title={"Browse by product feature"}
             features={productFeatureListItems}
+          />
+          <CardWrapper
+            cards={[
+              {
+                title: "Get technical support",
+                description:
+                  "Need some help or want to discuss your integration with a technical member of the Blink team.",
+                link: "/docs/intro",
+                linkText: "Get support",
+                color: "gradientWinter",
+              },
+              {
+                title: "See what's new",
+                description: "Learn about the latest Blink updates and changes to the platform..",
+                link: "/docs/intro",
+                linkText: "View changelog",
+                color: "galaxyDark",
+              },
+            ]}
           />
         </main>
       </Container>

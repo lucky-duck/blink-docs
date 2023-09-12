@@ -28,6 +28,7 @@
   --ifm-breadcrumb-item-background-active: #f4f4f4;
   --ifm-color-emphasis-300: #d9dbe6;
   --ifm-pagination-nav-color-hover: #4467fb;
+  --ifm-card-background-color: transparent;
 }
 
 a {
@@ -163,6 +164,11 @@ li:not(:last-child) {
   color: var(--ifm-link-color);
   text-decoration: underline;
 }
+
+.card {
+  box-shadow: none !important;
+}
+
 /* 
 article {
   max-width: 700px;

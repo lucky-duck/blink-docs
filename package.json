@@ -19,6 +19,7 @@
     "@docusaurus/preset-classic": "2.4.1",
     "@mdx-js/react": "1.6.21",
     "@mendable/search": "^0.0.158",
+    "@tinacms/cli": "^1.5.29",
     "clsx": "1.1.1",
     "docusaurus-plugin-openapi-docs": "^2.0.0-beta.3",
     "docusaurus-theme-openapi-docs": "^2.0.0-beta.3",
@@ -26,7 +27,8 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-youtube": "^10.1.0",
-    "swizzle": "^1.1.0"
+    "swizzle": "^1.1.0",
+    "tinacms": "^1.5.20"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.4.1",

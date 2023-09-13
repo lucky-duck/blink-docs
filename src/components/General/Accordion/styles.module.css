@@ -1,0 +1,40 @@
+.accordion {
+  width: 100%;
+  transition: all 0.3s;
+  cursor: pointer;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  margin-bottom: 2rem;
+}
+
+.question {
+  width: 100%;
+  padding: 1.5rem 2rem;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  user-select: none;
+}
+
+.question.open {
+  background-color: #eff3fb; /* light blue */
+  border-bottom: none;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.icon {
+  /* Using a + placeholder for now */
+  content: "+";
+  font-size: 1.5rem;
+  margin-left: 10px;
+}
+
+.answer {
+  background-color: #eff3fb; /* light blue */
+  border-radius: 0 0 1rem 1rem;
+  padding: 0 2rem 2rem 2rem;
+  font-size: 1.1rem;
+}

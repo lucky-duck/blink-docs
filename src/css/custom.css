@@ -26,11 +26,13 @@
   --ifm-line-height-base: 1.8;
   --ifm-breadcrumb-border-radius: 0.5rem;
   --ifm-breadcrumb-item-background-active: #f4f4f4;
+  --ifm-color-emphasis-200: #d9dbe6;
   --ifm-color-emphasis-300: #d9dbe6;
   --ifm-pagination-nav-color-hover: #4467fb;
   --ifm-card-background-color: transparent;
   --ifm-footer-padding-vertical: 4rem;
   --ifm-footer-link-hover-color: #ffffff;
+  --ifm-heading-margin-bottom: 0.7rem;
 }
 
 a {
@@ -130,6 +132,10 @@ li:not(:last-child) {
   color: #4467f;
 }
 
+.markdown h1:first-child {
+  margin-bottom: 3rem;
+}
+
 .login-button {
   background-color: #4467fb;
   color: white;
@@ -174,6 +180,10 @@ li:not(:last-child) {
   box-shadow: none !important;
 }
 
+.card p {
+  font-weight: 400;
+}
+
 @media (max-width: 767px) {
   .mendable-search {
     width: 200px;
@@ -192,8 +202,8 @@ li:not(:last-child) {
   }
 }
 
-.footer {
-  margin-top: 4rem;
+.docMainContainer_node_modules-\@docusaurus-theme-classic-lib-theme-DocPage-Layout-Main-styles-module {
+  padding-bottom: 6rem;
 }
 
 .footer--dark {

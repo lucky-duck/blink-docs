@@ -7,7 +7,7 @@ export default function FooterLayout({ style, links, logo, copyright }) {
         "footer--dark": style === "dark",
       })}
     >
-      <div className="footer-container container-fluid">
+      <div className="container footer-container container-fluid">
         <div style={footerInnerWrapper}>
           {logo && <div className="margin-bottom--sm">{logo}</div>}
           {links}

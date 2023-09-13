@@ -141,30 +141,46 @@ module.exports = async function () {
         },
         footer: {
           style: "dark",
+          logo: {
+            alt: "Blink",
+            src: "img/logo-white.svg",
+          },
           links: [
             {
               title: "Docs",
               items: [
                 {
-                  label: "Tutorial",
-                  to: "/docs/intro",
+                  label: "Platform",
+                  to: "/docs/category/quick-start",
+                },
+                {
+                  label: "Developers",
+                  to: "/docs/developer-guides/introduction",
+                },
+                {
+                  label: "REST API",
+                  to: "/docs/api-reference/swagger-petstore",
                 },
               ],
             },
             {
-              title: "Community",
+              title: "Resources",
               items: [
                 {
-                  label: "Stack Overflow",
-                  href: "https://stackoverflow.com/questions/tagged/docusaurus",
+                  label: "What's new",
+                  to: "/blog",
                 },
                 {
-                  label: "Discord",
-                  href: "https://discordapp.com/invite/docusaurus",
+                  label: "Postman collection",
+                  to: "https://github.com/Blink-Payment/blink-postman",
                 },
                 {
-                  label: "Twitter",
-                  href: "https://twitter.com/docusaurus",
+                  label: "WooCommerce plugin",
+                  to: "https://github.com/Blink-Payment/Blink-WooCommerce",
+                },
+                {
+                  label: "Magento plugin",
+                  to: "https://github.com/Blink-Payment/Blink-Magento",
                 },
               ],
             },
@@ -172,17 +188,21 @@ module.exports = async function () {
               title: "More",
               items: [
                 {
-                  label: "Blog",
-                  to: "/blog",
+                  label: "Contact support",
+                  to: "https://www.blinkpayment.co.uk/contact-us",
                 },
                 {
-                  label: "GitHub",
-                  href: "https://github.com/facebook/docusaurus",
+                  label: "Create sandbox account",
+                  to: "https://www.blinkpayment.co.uk/developer-signup",
+                },
+                {
+                  label: "blinkpayment.co.uk",
+                  to: "https://blinkpayment.co.uk",
                 },
               ],
             },
           ],
-          copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+          copyright: `Blink is a trading name of Fidelity Payment Processing Limited. © ${new Date().getFullYear()} . All Rights Reserved`,
         },
         prism: {
           theme: lightCodeTheme,

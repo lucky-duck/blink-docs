@@ -22,84 +22,81 @@ type FeatureItem = {
 
 const featureListItems: FeatureItem[] = [
   {
-    title: "Get started",
-    description: "Learn how to integrate Blink into your application.",
-    link: "/docs/intro",
-    Icon: GetStartedIcon,
-  },
-  {
     title: "Product guides",
-    description: "Learn how to use Blink's features.",
-    link: "/docs/intro",
+    description:
+      "Discover the wide range of features that Blink has to offer and learn how to utilize them effectively.",
+    link: "/docs/category/quick-start",
     Icon: GetStartedIcon,
   },
   {
     title: "Developer guides",
-    description: "Learn how to integrate Blink into your application.",
-    link: "/docs/intro",
+    description:
+      "Detailed resource material for developers aiming to incorporate Blink into their applications.",
+    link: "/docs/developer-guides/introduction",
     Icon: GetStartedIcon,
   },
   {
     title: "API reference",
-    description: "Learn how to integrate Blink into your application.",
-    link: "/docs/intro",
+    description:
+      "Access comprehensive API documentation to understand how to better integrate Blink into your workflow.",
+    link: "/docs/api-reference/introduction",
     Icon: GetStartedIcon,
   },
   {
-    title: "Get support",
-    description: "Learn how to integrate Blink into your application.",
-    link: "/docs/intro",
-    Icon: GetStartedIcon,
-  },
-  {
-    title: "GitHub",
-    description: "Learn how to integrate Blink into your application.",
-    link: "/docs/intro",
+    title: "GitHub resources",
+    description: "Explore our GitHub to find eCommerce plugins, and our postman collection.",
+    link: "https://github.com/Blink-Payment/",
     Icon: GetStartedIcon,
   },
 ];
 
 const productFeatureListItems: FeatureItem[] = [
   {
-    title: "Virtual terminal",
-    description: "Learn how to integrate Blink into your application.",
-    link: "/docs/intro",
+    title: "Card payments",
+    description: "Understand how to process card payments with our comprehensive guide.",
+    link: "/docs/product-guides/ways-to-get-paid/card-payments",
+    Icon: GetStartedIcon,
+  },
+  {
+    title: "Open banking",
+    description: "Incorporate open banking into your payment systems for more flexibility.",
+    link: "/docs/product-guides/ways-to-get-paid/open-banking",
+    Icon: GetStartedIcon,
+  },
+  {
+    title: "Direct debits",
+    description: "Learn how to set up direct debits for recurring payments.",
+    link: "/docs/product-guides/ways-to-get-paid/direct-debits",
+    Icon: GetStartedIcon,
+  },
+  {
+    title: "Blink pages",
+    description: "Explore how Blink pages can enhance your online presence.",
+    link: "/docs/product-guides/ways-to-get-paid/blink-pages",
     Icon: GetStartedIcon,
   },
   {
     title: "Payment links",
-    description: "Learn how to integrate Blink into your application.",
-    link: "/docs/intro",
+    description: "Learn how to create and send payment links to your customers.",
+    link: "/docs/product-guides/ways-to-get-paid/payment-links",
     Icon: GetStartedIcon,
   },
   {
-    title: "Payment pages",
-    description: "Learn how to integrate Blink into your application.",
-    link: "/docs/intro",
+    title: "Virtual terminal",
+    description: "Dive into the ease of using virtual terminals for card-not-present transactions.",
+    link: "/docs/product-guides/ways-to-get-paid/virtual-terminal",
     Icon: GetStartedIcon,
   },
   {
-    title: "Payment buttons",
-    description: "Learn how to integrate Blink into your application.",
-    link: "/docs/intro",
+    title: "Batch payments",
+    description: "Discover how to implement batch payments for efficient bulk transactions.",
+    link: "/docs/product-guides/ways-to-get-paid/batch-payments",
     Icon: GetStartedIcon,
   },
   {
-    title: "Invoices",
-    description: "Learn how to integrate Blink into your application.",
-    link: "/docs/intro",
-    Icon: GetStartedIcon,
-  },
-  {
-    title: "Subscriptions",
-    description: "Learn how to integrate Blink into your application.",
-    link: "/docs/intro",
-    Icon: GetStartedIcon,
-  },
-  {
-    title: "Connect",
-    description: "Learn how to integrate Blink into your application.",
-    link: "/docs/intro",
+    title: "Reporting",
+    description: "Understand how to use our reporting feature for detailed transaction insights.",
+    link: "/docs/category/reporting",
     Icon: GetStartedIcon,
   },
 ];
@@ -149,14 +146,14 @@ export default function Home(): JSX.Element {
                 title: "Get technical support",
                 description:
                   "Need some help or want to discuss your integration with a technical member of the Blink team.",
-                link: "/docs/intro",
+                link: "https://www.blinkpayment.co.uk/contact-us",
                 linkText: "Get support",
                 color: "gradientWinter",
               },
               {
-                title: "See what's new",
-                description: "Learn about the latest Blink updates and changes to the platform..",
-                link: "/docs/intro",
+                title: "Create sandbox account",
+                description: "Setup your developer sandbox account to start integrating Blink.",
+                link: "https://www.blinkpayment.co.uk/developer-signup",
                 linkText: "View changelog",
                 color: "galaxyDark",
               },

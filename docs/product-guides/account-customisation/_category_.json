@@ -1,8 +1,7 @@
 {
-  "label": "Account Customisation",
+  "label": "Account settings",
   "position": 4,
   "link": {
-    "type": "generated-index",
-    "description": "5 minutes to learn the most important Blink concepts."
+    "type": "generated-index"
   }
 }

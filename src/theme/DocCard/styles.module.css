@@ -19,7 +19,8 @@
 }
 
 .cardTitle {
-  font-size: 1.2rem;
+  margin-top: 0;
+  font-size: 1.5rem;
 }
 
 .cardDescription {

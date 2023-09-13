@@ -1,0 +1,73 @@
+---
+sidebar_position: 10
+---
+
+# Bank reconciliation
+
+**Bank Reconciliation** enables the alignment of your transactions with the payment batches from the acquirer to your bank account. Blink itemizes every payment from the acquirer, detailing individual transactions, refunds, and service charges.
+
+## Navigation
+
+- Head to `Bank Reconciliation` under the `Transactions` tab on the left-hand navigation bar.
+- Note: This feature is exclusive to live accounts.
+
+## How to Use
+
+The table on the left displays the latest batches funded by the acquirer, detailing:
+
+- Acquirer funding
+- Funding date
+- Your Merchant ID (MID) with the acquirer (multiple MIDs might be present)
+- Funded amount
+- A `View` button
+
+By clicking `View`, a right-sided table will pop up, showing the transactions comprising the chosen batch, including refunds. Information available includes Transaction Date, Card Brand, and Amount. Key details at the table's top include:
+
+- Transaction Amount: Sum of the batch's transactions
+- Refund: Total refund sum of the batch
+- Merchant Service Charges: Any charges incorporated by the acquirer in the batch
+
+## Bank Reconciliation
+
+### AIB Specific
+
+For those using AIB as their acquirer:
+
+- Click on the dropdown to view extended transaction data: Auth Code, Terminal ID, and Card Type.
+
+### Updates
+
+- Bank reconciliation updates every weekday with fresh transaction data.
+- You can view the last updated time atop the screen.
+
+### Filters
+
+Available filters are:
+
+- Date: Batch (Funding) date
+- MID: For merchants with multiple MIDs
+
+Filter individual transactions through the "All Card Transactions" page for detailed views.
+
+### Export to CSV
+
+**It's essential to first export the data as a spreadsheet.**
+
+#### Step 1:
+- Go to `Bank Reconciliation` OR `All Card Transactions`
+- Filter by relevant dates
+- Await the email and download the spreadsheet
+
+#### Step 2:
+After obtaining the spreadsheet:
+- Click the `Insert` button
+- Navigate to `Pivot Table`
+
+#### Step 3:
+- Ensure all data is selected (this should occur automatically)
+
+#### Step 4:
+Within the Pivot Table fields:
+- Column: `Batch Funding Date`
+- Value: `Transaction Amount`
+- Rows: `Terminal ID`

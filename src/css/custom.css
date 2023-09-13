@@ -32,7 +32,8 @@
   --ifm-card-background-color: transparent;
   --ifm-footer-padding-vertical: 4rem;
   --ifm-footer-link-hover-color: #ffffff;
-  --ifm-heading-margin-bottom: 0.7rem;
+  --ifm-heading-margin-bottom: 1.5rem;
+  --ifm-heading-margin-top: 3rem;
 }
 
 a {
@@ -133,6 +134,7 @@ li:not(:last-child) {
 }
 
 .markdown h1:first-child {
+  margin-top: 0;
   margin-bottom: 3rem;
 }
 

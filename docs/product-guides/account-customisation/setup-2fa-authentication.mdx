@@ -1,0 +1,54 @@
+---
+sidebar_position: 3
+---
+# Setup and use two factor authentication (2FA)
+
+## Overview
+Blink now supports two-factor authentication (2FA), an enhancement to bolster security within the platform. This feature is at the merchant's discretion to enable for their business.
+
+## Setting up 2FA
+### For yourself
+1. Navigate to `Payment Operations → User Preferences`.
+2. Click on **Enable 2FA** and provide your Blink password for confirmation.
+3. Open an authenticator app on your mobile (compatible with all standard authenticator apps).
+4. Click the `+` sign. This 2FA can also be integrated into encryption software that manages passwords, like Keeper.
+5. Choose `Work or School Account` and select **Scan QR Code**.
+6. Scan the QR code displayed on your computer screen.
+7. Enter the OTP (one-time password) provided by the app and click confirm. *Remember*: Your 2FA QR code is personal. Ensure no one else scans it, as combined with your login credentials, they'd gain access.
+
+**Note**: Post activation, a recovery code is generated. Store it securely. It's essential if you lose access to your 2FA device.
+
+### For sub-users
+- **For multiple users**: 
+    1. Go to `Payment Operations → User Preferences → Users → 2FA Settings`.
+    2. Select users to enable 2FA for and confirm.
+    
+- **For individual users**: 
+    1. Navigate to `Payment Operations → User Preferences → Users`.
+    2. Locate the desired user, click edit, toggle on **Require 2FA**, and confirm.
+
+- **For new users**: Simply toggle on **Require 2FA** during the setup.
+
+## Using 2FA
+Upon successful 2FA setup, authentication via your chosen app and inputting the OTP follows the usual login process.
+
+## Deactivating 2FA
+To disable 2FA:
+1. Navigate to `Payment Operations → User Preferences → Users`.
+2. Click **Disable**, input your Blink password, and confirm.
+
+## Reporting on 2FA
+Within `Payment Operations → User Preferences → Users`:
+- A security symbol highlights users with 2FA requirements.
+- A clock symbol indicates users who've activated 2FA but haven't yet set it up.
+- A tick signifies users with 2FA properly configured.
+
+## New sub-user 2FA experience
+If the Blink administrator enables 2FA for your account, you'll be prompted to set it up upon login. Follow the steps mentioned in the "Setting up 2FA" section for guidance.
+
+## Troubleshooting 2FA issues
+### If you can't log in
+Use the recovery code generated during 2FA setup. If this doesn't resolve the problem, contact support. Sub-users should contact a Blink lead user for a reset.
+
+### Lost 2FA device
+Merchants and leads can reset 2FA for sub-users. In case of difficulties, contact your internal Blink administrator. Note that for security reasons, while Blink can reset your 2FA, they cannot initiate the setup on your behalf.

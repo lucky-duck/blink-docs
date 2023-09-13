@@ -1,0 +1,55 @@
+---
+sidebar_position: 5
+---
+
+# Viewing processed transactions
+
+The **All Card Transactions** page provides a comprehensive view of all transactions that have been fully processed and funded by your acquirer. It encompasses all card transactions executed on Blink, the Blink app, card terminals, and other gateways in use. Transactions involving American Express cards are excluded.
+
+## Navigation
+
+To access the **All Card Transactions** page, locate **Reporting** on the left-hand navigation bar.
+
+On this page, transactions processed today on Blink are displayed. Each transaction provides the following details:
+
+- **MID**:
+  - Represents the Acquiring Merchant ID utilized for the transaction.
+  
+- **Transaction Date/ Time**:
+  - Indicates the timestamp of the transaction.
+  
+- **Transaction Amount**:
+  - Shows the charged amount to the customer.
+
+- **Card Details**:
+  - Displays the card scheme and the last four digits of the customer's card.
+  
+- **Transaction Method**:
+  - Identifies if the transaction was a card present (executed on a physical terminal), card not present, or an eCommerce transaction (only available for merchants affiliated with AIB).
+  
+- **Batch Funding Date**:
+  - Specifies the date when the batch, which includes this transaction, was funded to your account.
+  
+- **Batch Funding Amount**:
+  - Represents the total amount of the batch funded.
+
+## Filters
+
+Fine-tune the displayed data by applying filters. Select desired parameters (or a combination) and click on **Apply Filter**:
+
+- **Transaction Date**
+- **MID**
+- **Card Number**
+- **Card Brand**
+- **Transaction Amount**
+- **Transaction Method** (Exclusive for AIB merchants)
+
+import Highlight from '@site/src/components/General/Highlight'
+
+## Error codes to look out for
+
+<Highlight type="warning">
+<b>Pay link error - 'Please ensure you are human'</b>
+<br />
+This error code occurs when pay links are sent to primarily Chinese customers/customers making a payment from China. Google services are banned in China. Recaptcha, the verification software used for Blink transactions, is a google service and is therefore banned. The Captcha box will not even appear for Chinese customers, with the error code being the sole text displayed. 
+</Highlight>

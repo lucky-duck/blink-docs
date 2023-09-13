@@ -3,10 +3,10 @@ import styles from "./styles.module.css";
 
 type Props = {
   question: string;
-  answer: string;
+  children: React.ReactNode;
 };
 
-export default function Accordion({ question, answer }: Props) {
+export default function Accordion({ question, children }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -18,7 +18,7 @@ export default function Accordion({ question, answer }: Props) {
         {question}
         <span className={styles.icon}>{isOpen ? "-" : "+"}</span>
       </div>
-      {isOpen && <div className={styles.answer}>{answer}</div>}
+      {isOpen && <div className={styles.answer}>{children}</div>}
     </div>
   );
 }

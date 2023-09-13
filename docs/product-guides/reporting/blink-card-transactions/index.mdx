@@ -1,0 +1,123 @@
+---
+sidebar_position: 1
+---
+
+# Blink Card Transactions
+
+### Overview
+
+* View 
+* Filter
+* Advanced Filter
+* Actions
+* Additional Transaction Information
+* Cancelling and Refunding a payment
+* Processing a new transaction from a previous payment
+
+---
+
+Within Reporting - Blink Card Transactions, you will be able to:
+
+* View the entire history of all the transactions you have taken on Blink or via an integration.
+* Use various filtering options.
+* Refund or create new transactions from previous payments.
+
+**Note:** The page is updated every half hour.
+
+### View 
+
+You can view all your Blink card transactions by selecting **Blink Card Transactions** under the **Reporting Section** on the left-hand navigation bar.
+
+This page displays all online transactions that have been processed. Each transaction will show the following:
+
+* Date and Time
+* Customer Name 
+* Card Details
+* Amount
+* Order Reference 
+  * This contains both your custom reference and the transaction description. (Transactions without Blink in their description are integrated payments)
+* Status
+  * **Pending**
+  * **Received** - The gateway has received the transaction and is awaiting a response to reach its final state.
+  * **Deferred** - This transaction could not be settled due to a temporary problem but will be retried at the next available instance.
+  * **Successful**
+  * **Captured** - The transaction was successful. (This will update to Accepted, usually in the early hours of the following morning)
+  * **Accepted** - This transaction has been accepted and settled as soon as possible.
+  * **Pre-Auth** - This confirms that the card is authentic and that the amount is available in the cardholder’s account.
+  * **Verified** - The authenticity of this card has been verified.
+  * **Capture in "x" days** - Displays the remaining days until the amount requested via a delay capture is taken.
+  * **Fully/Partially refunded** - This transaction has had part (or all) of it refunded.
+  * **Unsuccessful**
+    * **Declined** - The acquiring bank has declined the transaction.
+    * **Referred** - This transaction has been referred for manual approval by the Acquiring bank.
+    * **Cancelled** - The merchant has cancelled this transaction (this can only occur on a captured transaction).
+  * Some transactions also have brackets at the end.
+    * (DC) - This is a transaction that was initially a Delay capture and has now been captured.
+    * (PA) - This is a Pre-Auth that has been captured.
+    * (RF) - This is a refund.
+    * (RR) - This is a transaction that has been rerun from a previous transaction.
+    * (V) - This is a transaction that has been run from a Verified card.
+
+### Filter
+
+You can filter using the following 5 primary filters (simultaneously), choose the desired parameters, and select **Apply Filter**:
+
+* Date Range
+* Transaction Method - Where the transaction was created from.
+* Merchant - Filters between different merchant accounts.
+* Status - Various transaction states as listed above.
+* Verified - Only displays the original Verified transactions, not the ones run from them. 
+* Pre-Auth - Only displays the original Pre-Authorisations, not the processed ones.
+* Delayed Capture - Shows both the delayed capture transactions that are still waiting to be captured and those that have already been processed.
+* Card Number - Search using the last 4 digits of the card.
+
+### Advanced Filter
+
+Clicking on **Advanced filter** will allow you to filter your card data using more filters like date, card schemes, types, or customer’s name. 
+
+> **Note:** The parameters of the advanced filters will only be viewable when you open the advanced filters overview.
+
+### Actions & Additional Transaction Information
+
+Select a transaction to see:
+
+* Various card verification responses.
+* Acquiring bank.
+* Card type.
+* Authorization code for the transaction.
+* Unique Blink reference.
+
+**If** a transaction has been run from a previous transaction (e.g., A Pre-Auth has been captured), the Blink unique reference field will also contain a link to the original transaction.
+
+Other details include:
+
+* Gateway Merchant ID that processed the transaction.
+* Customer’s address and postcode.
+* Receipt button for successful payment - Allows viewing, printing, or emailing the receipt.
+
+Click **Advanced Filters** to see more filtering options. This can be combined with the 5 primary filters.
+
+### Cancelling and Refunding a payment & Processing a new transaction from a previous payment
+
+* **Cancel Button** - Only appears for transactions with a captured state.
+* **Refund Button** - Appears once a transaction has been accepted.
+  * Transactions can be refunded fully or partially.
+  * A refund cannot be cancelled.
+  * Customer and card details are taken from the original transaction.
+
+**Rerun** - Allows running a new transaction on a previous customer.
+
+**Repeat (FIXED)** - Setup a regular payment schedule from a previous customer. Detailed steps include:
+1. Select MID, type of transaction, Fixed Schedule, and Card Payment.
+2. Enter customer details.
+3. Set payment parameters like date, frequency, number of payments, etc.
+4. Fill in card and address details and click **Charge**.
+
+**Repeat (VARIABLE)** - Set up a payment schedule with varied payment amounts and dates. Detailed steps include:
+1. Select MID, type of transaction, and one-off payment.
+2. Enter customer details.
+3. Set dates and amounts for payments.
+4. Fill in card and address details and click **Charge**.
+
+After completing any of the Repeat steps, you will receive a transaction receipt, and the customer gets a receipt and an email describing the Repeat Payment.
+

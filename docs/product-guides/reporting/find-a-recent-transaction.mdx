@@ -1,0 +1,58 @@
+---
+sidebar_position: 3
+---
+
+# Find a recent transaction
+
+See all transactions processed on Blink for the day, whether via Request a Payment, Take a Payment, or a Blink page.
+
+## Navigation
+
+To view recent Blink transactions:
+- Navigate to **Recent Blink Transactions** under **Reporting** on the left-hand navigation bar.
+
+This page showcases all transactions processed today on Blink, offering options to Re-Run and Repeat a Transaction. Each transaction displays:
+
+| Information | Description |
+|-------------|-------------|
+| Date and Time | — |
+| Customer Name and Email | — |
+| Amount | — |
+| Card details | Basic card info including card scheme, last four digits, and expiry date. |
+| Order Reference | Contains both custom reference and Blink description of the transaction. |
+| Status | [See Status Details Below](#status-details) |
+
+### Status Details
+
+- **Pending**: Gateway received the transaction; awaits final state response.
+- **Successful**: Transaction captured, will settle soon (typically overnight).
+- **Unsuccessful**: 
+  - **Pre-Auth**: Card verified, amount available. Card details encrypted for capture within 30 days.
+  - **Verified**: Card's authenticity confirmed; encrypted details allow future transaction.
+  - **Capture in "x" days**: Shows days left until delayed capture amount is taken.
+  - **Declined**: Transaction was declined.
+  - **Referred**: Transaction requires manual approval by acquiring bank. Merchants may need to contact Support for the authorization code.
+  - **Cancelled**: Merchant cancelled the transaction (only possible for captured transactions).
+
+Transaction Notes:
+- **(DC)**: Delay capture now captured.
+- **(PA)**: Captured Pre-Auth.
+- **(RF)**: Refund.
+- **(RR)**: Rerun from a prior transaction.
+- **(V)**: Transaction from a Verified card.
+
+Selecting a transaction reveals more information and available actions. Card verification responses (like 3DS, AVS, CV2), acquiring bank, card type, authorization code, and the Blink Unique Reference are also displayed here.
+
+## Further Actions
+
+Different transactions may have distinct actions:
+
+| Action | Description |
+|--------|-------------|
+| Cancel | Cancels the transaction; no funds are taken. |
+| Capture | Captures the transaction immediately. Available for Pre-Auth and Delay Capture. |
+| Run Transaction | Requests an amount for a new transaction. Only available for Verified cards. |
+| Receipt | View, print, or email the transaction receipt. |
+| Rerun | Process a new transaction for a prior customer. |
+| Repeat | Set up a payment schedule. Operates similarly to Repeat options on Blink Card Transactions page. |
+

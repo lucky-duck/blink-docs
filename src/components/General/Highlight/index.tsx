@@ -1,7 +1,7 @@
 import React from "react";
 
 type Props = {
-  type?: "tip" | "warning" | "info";
+  type?: "tip" | "warning" | "info" | "caution";
   children: React.ReactNode;
 };
 
@@ -12,6 +12,7 @@ export default function Highlight({ children, type }: Props) {
         ...highlightStyle,
         backgroundColor: !type || type === "tip" ? blue.backgroundColor : red.backgroundColor,
       }}
+      className="highlight"
     >
       {children}
     </div>

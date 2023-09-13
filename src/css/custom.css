@@ -243,3 +243,13 @@ article {
     width: 1400px;
   }
 } */
+
+.highlight p,
+.highlight ul,
+.highlight ol {
+  margin-bottom: 0;
+}
+
+.highlight h3 {
+  margin-top: 0;
+}

@@ -1,0 +1,44 @@
+# Direct integration guide
+
+The request is made using the URL: https://gateway2.blinkpayment.co.uk/direct. The request parameters and response details are listed below.
+
+# Request
+
+The direct integration method for payments allows the submission of various fields to facilitate transactions. Below are the required fields and their descriptions.
+
+# Required fields
+
+| No. | Field Name        | Description                                                                                     |
+|-----|-------------------|-------------------------------------------------------------------------------------------------|
+| 1   | Merchant ID       | Your Merchant Gateway ID (Can be found on Take a Payment and Request a Payment)                 |
+| 2   | signature         | Unique key related to your merchant ID. Please contact our support team to find out your signature key.|
+| 3   | action            | The Action requested. Typically, SALE                                                           |
+| 4   | amount            | Transaction Amount                                                                              |
+| 5   | type              | 1 - E-commerce (ECOM) - standard online payments. 2 - Mail Order Telephone Order (MOTO) - the merchant inputs the customer’s card details. 9 - Continuous Authority (CA) - for recurring and rerunning transactions.|
+| 6   | countryCode       | Merchant’s Location (for UK 826)                                                                |
+| 7   | currencyCode      | Transaction currency code (for UK 826)                                                          |
+| 8   | cardNumber        | The primary account number (PAN). Digits and spaces only - Direct Integration Only               |
+| 9   | cardExpiryMonth   | The card’s expiry month from 1 to 12. - Direct Integration Only                                 |
+| 10  | cardExpiryYear    | The card’s expiry year from 00 to 99. - Direct Integration Only                                 |
+| 11  | cardCVV           | Payment card’s security number. The 3 or 4 digit number printed on the signature strip. - Direct Integration Only |
+
+# Recommended optional fields
+
+| No. | Field Name         | Description                                                                                                                      |
+|-----|--------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| 1   | transactionUnique  | You can supply a unique identifier for this transaction. This is an added security feature to combat transaction spoofing.        |
+| 2   | customerName       | Name of Customer                                                                                                                 |
+| 3   | customerEmail      | Email Address of customer                                                                                                        |
+| 4   | customerAddress    | Address of customer - may be required depending on AVS checks                                                                    |
+| 5   | customerPostCode   | Post code of customer - may be required depending on AVS checks                                                                  |
+| 6   | orderRef           | Free format text field to store order details, reference numbers, etc. for the Merchant’s records. Essentially, an additional identifier. |
+| 7   | redirectURL        | URL to which the hosted form will redirect the Customer’s browser after the transaction has been completed. (Only relevant to Hosted integration)|
+
+# Advanced Fields
+
+| No. | Field Name    | Description                                                                                       |
+|-----|---------------|---------------------------------------------------------------------------------------------------|
+| 1   | orderDate     | Recorded date of the transaction                                                                  |
+| 2   | xref          | Refers to a previous transaction, this is used to rerun or refund previous transactions.          |
+| 3   | captureDelay  | Delay the actual money transfer by an amount of days.                                             |
+| 4   | merchantPwd   | Additional password to increase authentication security.                                          |

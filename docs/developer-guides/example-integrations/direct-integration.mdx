@@ -1,0 +1,259 @@
+# Direct integration (with 3DS)
+
+An example PHP direct integration with 3DS.
+
+```php title="direct-integration.php"
+<?PHP
+// Gateway Merchant ID
+$merchantID = '233508';
+ // Signature key. The demo account is fixed to this value,
+ $key = '<T4NW>)dic';
+// If you don't know your Merchant ID or signature key, please be in touch.
+ // Gateway URL
+ $url = 'https://gateway2.blinkpayment.co.uk/direct';
+
+ 
+ // Setup PHP session as use it to store data between 3DS steps
+ if (isset($_GET['sid'])) {
+ session_id($_GET['sid']);
+ }
+
+ session_start();
+
+ // Compose current page URL (removing any sid and acs parameters)
+ $pageURL = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://')  . $_SERVER['SERVER_NAME'] . ($_SERVER['SERVER_PORT'] != '80' ? ':' . $_SERVER['SERVER_PORT'] : '')  . preg_replace('/(sid=[^&]+&?)|(acs=1&?)/', '', $_SERVER['REQUEST_URI']);
+ // Add back the correct sid parameter (used as session cookie may not be passed when the page is redirected from an IFRAME)
+
+ $pageURL .= (strpos($pageURL, '?') === false ? '?' : '&') . 'sid=' . URLencode(session_id());
+ 
+
+ // If ACS response into the IFRAME then redirect back to parent window
+ if (!empty($_GET['acs'])) {
+ echo silentPost($pageURL, array('threeDSResponse' => $_POST), '_parent');
+ exit();
+ }
+
+ if (!isset($_POST['threeDSResponse'])) {
+ // Initial request
+
+ // Gather browser info - can be done at any time prior to the checkout
+ if (!isset($_POST['browserInfo'])) {
+ echo collectBrowserInfo();
+ exit();
+ }
+
+ // Direct Request
+ $req = array(
+ 'merchantID' => $merchantID,
+ 'action' => 'SALE',
+ 'type' => 1,
+ 'currencyCode' => 826,
+ 'countryCode' => 826,
+ 'amount' => 901,
+ 'cardNumber' => '4543059999999990',
+ 'cardExpiryMonth' => 12,
+ 'cardExpiryYear' => 22,
+ 'cardCVV' => '689',
+ 'customerName' => 'Test Customer',
+ 'customerEmail' => 'test@testcustomer.com',
+ 'customerAddress' => '16 Test Street',
+ 'customerPostCode' => 'Tef 5ST',
+ 'orderRef' => '3DS test purchase',
+
+ // The following fields are mandatory for 3DS v2
+ 'remoteAddress' => $_SERVER['REMOTE_ADDR'],
+ 'threeDSRedirectURL' => $pageURL . '&acs=1',
+
+ // The following field allows options to be passed for 3DS v2
+ // and the values here are for demonstration purposes only
+ 'threeDSOptions' => array(
+ 'paymentAccountAge' => '20190601',
+ 'paymentAccountAgeIndicator' => '05',
+ ),
+ );
+
+ // Add the browser info as it is mandatory for 3DS v2
+ $req += $_POST['browserInfo'];
+
+ } else {
+ // 3DS continuation request
+ $req = array(
+ 'threeDSRef' => $_SESSION['threeDSRef'],
+ 'threeDSResponse' => $_POST['threeDSResponse'],
+ );
+
+ }
+
+ // Create the signature using the function called below.
+ $req['signature'] = createSignature($req, $key);
+
+ // Initiate and set cURL options to post to the gateway
+ $ch = cURL_init($url);
+ cURL_setopt($ch, CURLOPT_POST, true);
+ cURL_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+ cURL_setopt($ch, CURLOPT_HEADER, false);
+ cURL_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+ cURL_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+ // Send the request and parse the response
+ if (($res = cURL_exec($ch)) === false) {
+ // You should exit gracefully
+ die('Sorry, the request could not be sent: ' . cURL_error($ch));
+ }
+
+ parse_str($res, $res);
+
+// Close the connection to the gateway
+cURL_close($ch);
+
+// Extract the return signature as this isn't hashed
+$signature = null;
+if (isset($res['signature'])) {
+ $signature = $res['signature'];
+ unset($res['signature']);
+}
+
+// Check the return signature
+if (!$signature || $signature !== createSignature($res, $key)) {
+ // You should exit gracefully
+ die('Sorry, the signature check failed');
+}
+
+// Check the response code
+if ((int)$res['responseCode'] === 65802) {
+ // Send request to the ACS server displaying response in an IFRAME
+
+ // Render an IFRAME to show the ACS challenge (hidden for fingerprint method)
+ $style = (isset($res['threeDSRequest']['threeDSMethodData']) ? 'display: none;' : '');
+ echo "<iframe name=\"threeds_acs\" style=\"height:420px; width:420px; {$style}\"></iframe>\n";
+
+ // Silently POST the 3DS request to the ACS in the IFRAME
+ echo silentPost($res['threeDSURL'], $res['threeDSRequest'], 'threeds_acs');
+
+ // Remember the threeDSRef as need it when the ACS responds
+ $_SESSION['threeDSRef'] = $res['threeDSRef'];
+
+} else if ((int)$res['responseCode'] === 0) {
+ echo "<p>Thank you for your payment.</p>";
+} else {
+    echo $res['responseCode'];
+    
+ echo "<p>Failed to take payment: :( " . htmlentities($res['responseMessage']) . "</p>";
+}
+
+// Function to create a message signature
+function createSignature(array $data, $key) {
+ // Sort by field name
+ ksort($data);
+
+ // Create the URL encoded signature string
+ $ret = http_build_query($data, '', '&');
+
+ // Normalise all line endings (CRNL|NLCR|NL|CR) to just NL (%0A)
+ $ret = str_replace(array('%0D%0A', '%0A%0D', '%0D'), '%0A', $ret);
+
+ // Hash the signature string and the key together
+ return hash('SHA512', $ret . $key);
+}
+
+// Return HTML to render a hidden form used to collect some browser details
+function collectBrowserInfo(array $options = null) {
+
+ $form_attrs = 'id="collectBrowserInfo" method="post" action="?"';
+
+ if (isset($options['formAttrs'])) {
+ $form_attrs .= $options['formAttrs'];
+ }
+
+ $device_data = array(
+ 'deviceChannel' => 'browser',
+ 'deviceIdentity' => (isset($_SERVER['HTTP_USER_AGENT']) ? htmlentities($_SERVER['HTTP_USER_AGENT']) : null),
+ 'deviceTimeZone' => '0',
+ 'deviceCapabilities' => '',
+ 'deviceScreenResolution' => '1x1x1',
+ 'deviceAcceptContent' => (isset($_SERVER['HTTP_ACCEPT']) ? htmlentities($_SERVER['HTTP_ACCEPT']): null),
+ 'deviceAcceptEncoding' => (isset($_SERVER['HTTP_ACCEPT_ENCODING']) ? htmlentities($_SERVER['HTTP_ACCEPT_ENCODING']) : null),
+ 'deviceAcceptLanguage' => (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? htmlentities($_SERVER['HTTP_ACCEPT_LANGUAGE']) : null),
+ 'deviceAcceptCharset' => (isset($_SERVER['HTTP_ACCEPT_CHARSET']) ? htmlentities($_SERVER['HTTP_ACCEPT_CHARSET']) : null),
+ );
+
+ $form_fields = fieldToHtml('browserInfo', $device_data);
+
+ if (isset($options['formData'])) {
+ foreach ((array)$options['formData'] as $name => $value) {
+ $form_fields .= fieldToHtml($name, $value);
+ }
+ }
+
+ $ret = <<<EOS
+ <form {$form_attrs}>
+ {$form_fields}
+ </form>
+ <script>
+ var screen_width = (window && window.screen ? window.screen.width : '0');
+ var screen_height = (window && window.screen ? window.screen.height : '0');
+ var screen_depth = (window && window.screen ? window.screen.colorDepth : '0');
+ var identity = (window && window.navigator ? window.navigator.userAgent : '');
+ var language = (window && window.navigator ? (window.navigator.language ? window.navigator.language : window.navigator.browserLanguage) : '');
+ var timezone = (new Date()).getTimezoneOffset();
+ var java = (window && window.navigator ? navigator.javaEnabled() : false);
+ var fields = document.forms.collectBrowserInfo.elements;
+ fields['browserInfo[deviceIdentity]'].value = identity;
+ fields['browserInfo[deviceTimeZone]'].value = timezone;
+ fields['browserInfo[deviceCapabilities]'].value = 'javascript' + (java ? ',java' : '');
+ fields['browserInfo[deviceAcceptLanguage]'].value = language;
+ fields['browserInfo[deviceScreenResolution]'].value = screen_width + 'x' + screen_height + 'x' + screen_depth;
+ window.setTimeout('document.forms.collectBrowserInfo.submit()', 0);
+ </script>
+EOS;
+
+ return $ret;
+}
+
+// Render HTML to silently POST data to URL in target brower window
+function silentPost($url = '?', array $post = null, $target = '_self') {
+
+ $url = htmlentities($url);
+ $target = htmlentities($target);
+ $fields = '';
+
+ if ($post) {
+ foreach ($post as $name => $value) {
+ $fields .= fieldToHtml($name, $value);
+ }
+ }
+
+ $ret = "
+ <form id=\"silentPost\" action=\"{$url}\" method=\"post\" target=\"{$target}\">
+ {$fields}
+ <noscript><input type=\"submit\" value=\"Continue\"></noscript>
+ </form>
+ <script>
+ window.setTimeout('document.forms.silentPost.submit()', 0);
+ </script>
+ ";
+
+ return $ret;
+}
+
+// Return a value as hidden HTML FORM fields
+function fieldToHtml($name, $value) {
+ $ret = '';
+ if (is_array($value)) {
+ foreach ($value as $n => $v) {
+ $ret .= fieldToHtml($name . '[' . $n . ']', $v);
+ }
+ } else {
+ // Convert all applicable characters or none printable characters to HTML entities
+if(!$value) $value = " ";
+ $value = preg_replace_callback('/[\x00-\x1f]/', function($matches) { return '&#' . ord($matches[0]) .';'; }, htmlentities($value, ENT_COMPAT, 'UTF-8', true));
+
+ $ret = "<input type=\"hidden\" name=\"{$name}\" value=\"{$value}\" />\n";
+ }
+
+ return $ret;
+}
+
+
+?>
+```

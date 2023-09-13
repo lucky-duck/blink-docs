@@ -1,0 +1,86 @@
+# Webhooks
+
+The CallBack URL (Webhooks) feature allows you to record your transaction to your personal servers in real time.
+
+When a card transaction has been completed, Blink can send your transaction data to a URL, where it can be added to your database, develop custom notifications/ emails for your customers/ staff, update invoices etc… instantly; removing the need for exporting to CSV and uploading to your own software. 
+
+As it is done via a Callback function, it runs in the background, so your payment flows will not change.
+
+### Caveats
+
+- It only works when the payment is made, and cannot be used to pull previous transaction data or update transaction status.
+- It is only available for Card transactions, not Open Banking or Direct Debit Transactions.
+- The Callback URL will send all transactions, including declined transactions. Ecom transactions may be recorded multiple times due 3D-Secure authentication requirements. 
+- A developer (junior-level)  may be needed to format the data.
+- The Callback URL must be a fully qualified URL containing at least the scheme and host components.
+
+## Implementation 
+### Callback URL on Blink
+To receive transaction data from transactions done directly on Blink (Take a Payment, Request a Payment and Blink Pages), navigate to your Blink Page Customiser, which is found in the Customer Centre section of Blink. Click on the Merchant Shop Settings to open the payment settings for this Blink page. Enter the URL which will receive the request into the Callback URL input. Please ensure you have entered the whole URL, including “https://” (not “www”).
+
+### Callback URL on Integrations
+The Callback URL is available for Direct and Hosted integrations. When creating the post request to the Blink Gateway, please add the callbackURL parameter with the value being the URL which will receive the request. Please ensure you have entered the whole URL, including “https://” (not “www”).
+
+## Receiving the data
+Once a transaction is completed, Blink will send the transaction data to the Callback URL via a POST request. Please check the file permissions of the URL can accept POST requests from Blink.
+
+
+
+## Available fields
+
+| Variable           | Description                                                                 | Example                                   |
+|--------------------|-----------------------------------------------------------------------------|-------------------------------------------|
+| responseCode       | Code indicating whether transaction was successful (0) or if there is an issue with the transaction (error code) | Successful transactions = 0<br />3ds Authentication Required = 65802 |
+| responseMessage    | Message indicating the transaction was successful or Error message.         | AUTHCODE:121590                           |
+| responseStatus     | A numeric code providing the outcome category                              | 0 – Authorisation Approved / No reason to decline.<br />1 – Authorisation Declined.<br />2 – Authorisation Error / Transaction malformed. |
+| state              | State of the transaction                                                    | Captured or Declined                      |
+| authorisationCode  | Code given by the acquirer, indicating a successful transaction            | 121590                                   |
+| merchantID         | Your unique Gateway ID which processed the transaction                     | 138791                                   |
+| customerName       | Name of customer                                                           | Fred Bloggs                              |
+| customerEmail      | Email of customer                                                          | f.bloggs@example.com                     |
+| customerAddress    | Billing address of customer (required for AVS checking)                    | 76 Roseby Avenue<br />Manchester            |
+| customerPostcode   | Post Code of customer (required for AVS checking)                          | M63X 7TH                                 |
+| amount             | Amount customer was charged <br />(Is given in the smallest currency e.g. pennies) | 1000 (10.00)                             |
+| currencyCode       | ISO 4217 of the currency which was charged with                            | 826 (for GBP)                            |
+| currencySymbol     | Symbol of the currency which was charged with                              | £ (for GBP)                              |
+| transactionUnique  | Reference                                                                  | InvoiceNumber1                           |
+| orderRef           | Description                                                                | Blink - BP                               |
+| transactionID      | Unique ID of Transaction                                                    | 198662389                                |
+| xref               | Unique reference of transaction. <br />(Used for rerunning/ refunding transactions outside of Blink) | 22102410HV18ZT13VQ68NFP                  |
+| cardScheme         | Card scheme of the customer’s card                                         | Visa                                     |
+| cardType           | Card type of the customer’s card                                           | Visa Credit                              |
+| cardNumberMask     | First 5 and last 4 digits of the customers PAN number                      | 454305******9982                         |
+| cardExpiryDate     | Date the card expires                                                      | 1222 (MMYY)                              |
+| cardExpiryMonth    | Month the card expires                                                     | 12                                       |
+| cardExpiryYear     | Year the card expires                                                      | 22                                       |
+| cardIssuer         | Bank associated with customer’s card                                       | THE ROYAL BANK OF SCOTLAND PLC           |
+| cardIssuerCountry  | Country of the customer’s bank                                             | United Kingdom                           |
+
+## Recommended Formatting
+
+### Ecom Transactions & 3DS
+
+When a customer completes a transaction on a Blink Page, Paylink or online integration, the transaction goes through 3ds authentication. This means that for one Ecom transaction, the CallbackURL will receive two consecutive responses:
+
+- The first response is the customer’s card going through 3ds checks. The `responseCode` is `65802`, the `responseStatus` is `2`, the `responseMessage` is `3DS authentication required`, and the `state` is `received`.
+- The second response is when 3ds checks have been completed. If it has passed the 3ds checks then the `responseCode` is `0`, the `responseStatus` is `0`, the `responseMessage` will indicate the transactions was successful, and the `state` is `captured`.
+
+If it fails the 3ds checks, then the `responseCode` is `65803`, the `responseStatus` is `2`, the `responseMessage` is `3DS DECLINED`, and the `state` is `finished`.
+
+It is possible to receive multiple `3ds Authentication required` responses before receiving a successful transaction response.
+
+### Amount field
+
+The amount is given the smallest value of the currency, so for GBP, £1.00 will be 100. To convert it to £, please divide the amount by 100. The amount is also stored as a string, so you would also need to convert it to a number. Alternatively, you can place a “.” before the last 2 digits.
+
+### Expiry date
+
+The `cardExpiryDate` is sent in MMYY format, without a slash to separate the month and year. You may want to add in the slash or you can represent using the other expiry fields: `cardExpiryMonth`/`cardExpiryYear`.
+
+### Tokenisation (Advanced)
+
+When a card transaction is done on Blink, the card is encrypted and tokenised. You can use the `xref` field, given in the callbackURL, to reference a previous transaction’s token to re-run a transaction, charge the customer another amount, created automated charges or refund the original transaction.
+
+This is done by creating a payment request as you would in a regular integration (see our Integration Guide), but instead of giving the card details (PAN number, CVV and expiry date) you give the previous `xref`.
+
+Actioning tokenised cards is an advanced feature and is disabled by default. If you would like to use these features, please email integrationsupport@blinkpayment.co.uk.

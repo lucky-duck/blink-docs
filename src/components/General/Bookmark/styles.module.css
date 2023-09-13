@@ -1,0 +1,69 @@
+.featureWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2.5rem;
+  padding: 2.5rem 2.5rem;
+  width: calc((100% - 4rem) / 1);
+  margin: 3rem 0 0 0;
+  border: 1px solid #d9dbe6;
+  border-radius: 1rem;
+  color: inherit;
+}
+
+.featureWrapper:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.featureInnerWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.iconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9fafb;
+  background-image: linear-gradient(130deg, #d3dbff, #eff3fb 36%, #eff3fb 68%, #d8f1f5);
+  padding: 1.2rem;
+  border-radius: 0.5rem;
+}
+
+.iconStyle {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.titleStyle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.descriptionStyle {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.button {
+  color: #4467fb;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.featureWrapper:hover .button {
+  gap: 0.9rem;
+}

@@ -1,0 +1,65 @@
+---
+sidebar_position: 1
+---
+
+# Introduction
+
+Blink give you the power to extend the platform's capabilities to improve your business by integrating with your technology stack. In the rest of this guide you will learn the various ways you can integrate with Blink.
+
+import Highlight from '@site/src/components/General/Highlight'
+
+<Highlight>
+<h3>Prerequisites</h3>
+<ul>
+<li>Merchant Gateway ID e.g. 233508</li>
+<li>Secret Key e.g. T4NWdic</li>
+<li>Basic understanding of PHP and web development.</li>
+</ul>
+</Highlight>
+
+## Integration types
+
+### Hosted
+
+The request is made using the URL: https://gateway2.blinkpayment.co.uk/hosted/modal, with the merchant credentials (MID and encrypted signature key), amount, reference and customer details.
+
+When initiated, the hosted integration will redirect the customer from the merchant site to the Blink , where the customer fills in their card details and pays.
+
+Once the customer has completed the payment, they can be redirected back to the merchant site. The response fields can be sent to the merchant site.
+
+#### Benefits
+<ul>
+<li>Easy setup</li>
+<li>Secure (Payment journey is handled completely by Blink)</li>
+</ul>
+
+#### Disadvantages
+<ul>
+<li>Redirects - Customer has to leave merchant site ( the gateway can be opened in an iframe, overlaying the merchant site, which mitigates this issue).</li>
+<li>Takes longer for customer to go through payment journey.</li>
+<li>Customisation is difficult and limited.</li>
+</ul>
+
+### Direct
+
+<Highlight type="warning">
+<ul>
+<li>The IP address of the merchant site must be whitelisted by Blink.</li>
+<li>The merchant site must have a valid SSL (for 3DS transactions).</li>
+</ul>
+</Highlight>
+
+The direct integration method for payments utilises the URL https://gateway2.blinkpayment.co.uk/direct. Distinct from the hosted integration approach, this method allows all the requisite fields—such as amount, name, and card number—to be submitted simultaneously in a singular form, streamlining the payment process. When a transaction is initiated using this method, the details of the request are promptly dispatched to the gateway from the originating website. Following the completion of the payment, a response is instantaneously relayed back to the merchant's site.
+
+### Benefits
+
+- Customer stays on the merchant site for the whole payment life cycle.
+- Fully customisable.
+
+### Disadvantages
+
+- More vulnerable to security issues/ attacks (using hosted fields can mitigate this issue).
+- Troubleshooting can be more difficult.
+- Set up is more complicated as it requires:
+  - IP whitelisting
+  - Implementing 3DS checking code.

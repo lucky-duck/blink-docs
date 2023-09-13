@@ -159,7 +159,7 @@ module.exports = async function () {
                 },
                 {
                   label: "REST API",
-                  to: "/docs/api-reference/swagger-petstore",
+                  to: "/docs/api-reference/introduction",
                 },
               ],
             },

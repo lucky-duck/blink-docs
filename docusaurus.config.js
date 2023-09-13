@@ -100,10 +100,10 @@ module.exports = async function () {
               label: "Resources",
               position: "left",
               items: [
-                {
-                  label: "What's new",
-                  to: "/blog",
-                },
+                // {
+                //   label: "What's new",
+                //   to: "/blog",
+                // },
                 {
                   label: "Postman collection",
                   href: "https://github.com/Blink-Payment/blink-postman",
@@ -166,10 +166,10 @@ module.exports = async function () {
             {
               title: "Resources",
               items: [
-                {
-                  label: "What's new",
-                  to: "/blog",
-                },
+                // {
+                //   label: "What's new",
+                //   to: "/blog",
+                // },
                 {
                   label: "Postman collection",
                   to: "https://github.com/Blink-Payment/blink-postman",

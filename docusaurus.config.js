@@ -39,7 +39,7 @@ module.exports = async function () {
       [
         "classic",
         /** @type {import('@docusaurus/preset-classic').Options} */
-        {
+        ({
           docs: {
             sidebarPath: require.resolve("./sidebars.js"),
             // Please change this to your repo.
@@ -58,7 +58,7 @@ module.exports = async function () {
           theme: {
             customCss: require.resolve("./src/css/custom.css"),
           },
-        },
+        }),
       ],
     ],
 

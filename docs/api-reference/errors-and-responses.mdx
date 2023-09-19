@@ -1,0 +1,117 @@
+---
+sidebar_position: 2
+sidebar_label: 'Errors'
+title: 'Errors'
+---
+
+# Errors and HTTP responses
+
+Blink Payment utilises standard HTTP response codes to signify the outcome of an API request. Here's a general overview:
+- Codes in the 2xx range signify success.
+- Codes in the 4xx range represent errors based on the information given, like missing a necessary parameter, request conflicts, or unauthorised access.
+- Codes in the 5xx range point to issues with Blink Payment's servers. These instances are uncommon.
+
+Certain 4xx errors, which can be programmatically addressed, come with an error code that briefly describes the reported error.
+
+### HTTP response code meanings
+
+| HTTP Response Codes | Name                 | Description                                                          |
+|---------------------|----------------------|----------------------------------------------------------------------|
+| 200                 | OK                   | Everything worked as expected.                                       |
+| 201                 | Created              | New response created.                                                |
+| 400                 | Bad Request          | Often due to missing a required parameter.                           |
+| 401                 | Unauthorized         | No valid API key provided.                                           |
+| 402                 | Request failed       | The parameters were valid but the request failed.                    |
+| 403                 | Forbidden            | The API key doesn't have permissions to perform the request.         |
+| 404                 | Not Found            | The requested resource doesn't exist.                                |
+| 409                 | Conflict             | Conflicts with another request (perhaps using the same key).         |
+| 429                 | Too Many Requests    | Too many requests hit the API too quickly.                           |
+| 500                 | Bad Request          | Something went wrong.                                                |
+
+### Generic messages
+
+| Code | Title               | Message                      | Notes                                                                                                                                                 |
+|------|---------------------|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 201  | Success             | Success                      | Access token is created                                                                                                                               |
+| 201  | Success             | Success                      | Payment Intent is created                                                                                                                             |
+| 400  | Validation error    | Api key is required          | If API key is not present, the create token request will return this status                                                                            |
+| 400  | Validation error    | Secret key is required       | If secret key is not present, create token request will return this status                                                                             |
+| 400  | Validation error    | Amount is required           | If proper amount is not present, create intent request will return this status<br />CC - 1 (min amount)<br />DD - 1.01(min amount)<br />OB - 0.01(min amount) |
+| 400  | Validation error    | Return url is required       | If return url is not present, create intent request will return this status                                                                            |
+| 400  | Validation error    | Notification url is required | If notification url is not present, create intent request will return this status                                                                     |
+| 400  | Validation error    | Payment type is required     | If payment type is not present, create intent request will return this status<br />Supported payment types - credit-card, direct-debit, open-banking<br />Allowed payment types of merchant account are returned in create token request |
+| 400  | Validation error    | Currency is required         | If currency is not present, then create intent request will return this status<br />Supported currency - three digit ISO formatted code<br />Default currency - GBP |
+| 400  | Validation error    | Payment Intent is required   | If payment intent is not present, this status will be returned                                                                                        |
+| 401  | Authorisation error | Payment Intent has expired   | If the payment intent is created before 30 minutes or it has been used for one payment type already, then this status will be returned                 |
+| 401  | Authorisation error | Unauthorised request         | If the passed access_token in header, is invalid, then this status will be returned                                                                    |
+| 401  | Authorisation error | Access Token expired         | If the access_token is created before 30 minutes, then this status will be returned                                                                    |
+| 403  | Authorisation error | Forbidden request            | If Blink API status is not active in merchant account, then this status will be returned                                                               |
+
+### Card payments
+
+| Code | Title               | Message                                            | Notes                                                                                                                         |
+|------|---------------------|----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| 200  | Captured            | Payment successful                                 | If payment is successfully processed through credit card, then this status will be returned                                   |
+| 200  | Accepted            | Payment successful and accepted                    | If payment is captured and received, then this status will be returned                                                        |
+| 200  | Success             | Rerun successfully                                 | If rerun request successfully completed then this status will be returned.                                                   |
+| 200  | Success             | Captured successfully                              | If transaction is captured successfully before predefined delay capture duration, then this status is returned.               |
+| 400  | Validation error    | Payment Token is required                          | If payment token is not present, credit cards request will return this status                                                |
+| 400  | Validation error    | Device timezone is required                        | If 3DS authentication is enabled, device timezone is needed for Credit Cards request                                         |
+| 400  | Validation error    | Device capabilities is required                    | If 3DS authentication is enabled, device capabilities is needed for Credit Cards request                                      |
+| 400  | Validation error    | Device screen resolution is required               | If 3DS authentication is enabled, device screen resolution is needed for Credit Cards request                                 |
+| 400  | Validation error    | Device accept language is required                 | If 3DS authentication is enabled, device accept language is needed for Credit Cards request                                   |
+| 400  | Validation error    | Remote address is required                         | If 3DS authentication is enabled, remote address is needed for Credit Cards request                                          |
+| 400  | Validation error    | Customer name is required                          | If customer name is not present, this status will be returned                                                                |
+| 400  | Validation error    | Customer email is required                         | If customer email is not present, this status will be returned                                                               |
+| 400  | Validation error    | Transaction must be in approved state              | For Captures Request, transaction must be in approved status                                                                 |
+| 400  | Validation error    | Transaction must be preauth type or with delay capture details | For Captures Request, transaction type must be preauth or with delay capture details                                        |
+| 400  | Validation error    | Amount is required                                 | For Captures Request, if transaction type is “verify”, then amount is required.                                               |
+| 500  | 3DS authentication required | 3DS authentication required                    | If any of the 3DS related details are missing, then this status will be returned                                              |
+| 500  | Finished            | Missing Cardcvv                                    | If CVV details is not provided during card payment, then this status will be returned                                         |
+| 500  | Finished            | Authentication Rejected By Issuer - Cardholder Not Enrolled In Service | If 3DS authentication is rejected, then this status will be returned                                                        |
+| 500  | Finished            | 3DS declined                                       | If 3DS is declined while authenticating, then this status will be returned                                                    |
+| 500  | Rejected            | Payment rejected                                   | if after capturing the payment if it’s rejected due to any issue, then this status will be returned                           |
+
+### Open banking
+
+| Code | Title            | Message                  | Notes                                                      |
+|------|------------------|--------------------------|------------------------------------------------------------|
+| 200  | Success          | Success                  | If payment is successful, then this status will be returned |
+| 400  | Validation error | Customer name is required| If customer name is not present, this status will be returned |
+| 400  | Validation error | Customer email is required | If customer email is not present, this status will be returned |
+| 500  | Failed           | Failed                   | If payment is not successful, then this status will be returned |
+
+### Direct debit
+
+| Code | Title             | Message                                                      | Notes                                                                                                                       |
+|------|-------------------|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| 200  | Pending Submission| Pending Submission                                           | If payment is successful, then this status will be returned                                                                 |
+| 400  | Validation error  | Given name is required if company name is not present        | If given name is not present in the absence of company name, Direct Debits request will return this status                   |
+| 400  | Validation error  | Family name is required if company name is not present       | Family name and given name, both are required in the absence of company name in Direct Debits request                       |
+| 400  | Validation error  | Company name is required if given name and family name are not present | If company name is not present along with given name and first name, Direct Debits request will return this status         |
+| 400  | Validation error  | Email address is required                                    | If email is not present, Direct Debits request will return this status                                                     |
+| 400  | Validation error  | Account holder name is required                              | If account holder name is not present, Direct Debits request will return this status                                       |
+| 400  | Validation error  | Branch code is required                                      | If branch code is not present, Direct Debits request will return this status                                               |
+| 400  | Validation error  | Account number is required                                   | If account number is not present, Direct Debits request will return this status                                            |
+| 401  | Authorisation error | Direct debit is not enabled to this merchant account         | If merchant’s Gocardless account is not connected with their blink account, then this status will be returned              |
+
+### Paylinks
+
+| Code | Title            | Message                                                                          | Notes                                                                                                                   |
+|------|------------------|----------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| 200  | Success          | Paylink details fetched                                                           | If paylink details are fetched successfully then this status will be returned.                                          |
+| 200  | Success          | Paylink details updated                                                           | If paylink details are updated successfully then this status will be returned.                                          |
+| 200  | Success          | Paylink notification sent                                                         | If paylink notification is sent successfully then this status will be returned.                                         |
+| 201  | Success          | Paylink created                                                                   | If paylink url is created, then this status will be returned.                                                           |
+| 204  | Success          | Paylink deleted                                                                   | If paylink is successfully deleted, then this status will be returned.                                                  |
+| 400  | Validation error | Email or mobile number is required                                                | Email or mobile number is required while creating any paylink resource.                                                 |
+| 400  | Validation error | Status can be changed for unpaid paylinks only                                    | Paylink can be updated only if it’s status is unpaid.                                                                   |
+| 400  | Validation error | Only email, mobile number or reminder details can be updated for any paylink      | The following details can be updated for any unpaid paylink: email, mobile number, reminder.                            |
+| 400  | Validation error | Status can only be changed to cancelled                                           | Unpaid paylink can only be changed to “cancelled” status.                                                               |
+| 400  | Validation error | Reminder interval and frequency are required                                      | If reminder details need to be updated for any unpaid paylink, then both reminder interval and frequency are required. |
+| 400  | Validation error | Paid paylink cannot be deleted                                                    | Any paid paylink cannot be deleted.                                                                                    |
+| 400  | Validation error | Send sms or Send email must be true                                               | Any of the following attribute must be true for Paylink Notification request: send_sms, send_email.                     |
+| 400  | Validation error | Notification can only be sent if status is Payment attempted or Unpaid            | Paylink Notification request will be sent only if the status is Unpaid or Payment attempted.                            |
+| 401  | Authorisation error | Unauthorised access                                                             | If invalid merchant details are passed, then this status will be returned.                                              |
+| 404  | Data not found   | Invalid request                                                                   | If invalid paylink id is passed, then this status will be returned.                                                     |
+

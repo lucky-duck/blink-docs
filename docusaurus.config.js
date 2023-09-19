@@ -217,17 +217,13 @@ module.exports = async function () {
           id: "apiDocs",
           docsPluginId: "classic",
           config: {
-            // petstore: {
-            //   // Note: petstore key is treated as the <id> and can be used to specify an API doc instance when using CLI commands
-            //   specPath: "examples/petstore.yaml", // Path to designated spec file
-            //   outputDir: "api/petstore", // Output directory for generated .mdx docs
-            //   sidebarOptions: {
-            //     groupPathsBy: "tag",
-            //   },
-            // },
-            burgers: {
-              specPath: "api-reference-1.20.0.yaml",
+            restApi: {
+              specPath: "blink-docs.yaml",
               outputDir: "docs/api-reference",
+              sidebarOptions: {
+                groupPathsBy: "tag",
+                categoryLinkSource: "tag",
+              },
             },
           },
         },

@@ -20,9 +20,9 @@ export default function Highlight({ children, type }: Props) {
 }
 
 const highlightStyle = {
-  padding: "1.5rem",
-  borderRadius: "1rem",
-  fontSize: "1.2rem",
+  padding: "1.2rem 1.5rem",
+  borderRadius: "0.5rem",
+  fontSize: "1.1rem",
   margin: "2rem 0",
 };
 

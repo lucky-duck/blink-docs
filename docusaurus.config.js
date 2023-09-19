@@ -207,6 +207,7 @@ module.exports = async function () {
         prism: {
           theme: lightCodeTheme,
           darkTheme: darkCodeTheme,
+          additionalLanguages: ["php", "python"],
         },
       }),
 

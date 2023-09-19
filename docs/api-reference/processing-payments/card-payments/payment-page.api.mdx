@@ -11,6 +11,7 @@ sidebar_position: 1
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
 
 
 # Payment page
@@ -33,6 +34,10 @@ import Highlight from '@site/src/components/General/Highlight'
 <b>Note:</b> for open banking and direct debit payments, tokenization via the payment page is not necessary.
 </Highlight>
 
+:::tip
+Test admonition
+:::
+
 
 ## Code examples 
 
@@ -48,8 +53,12 @@ import Highlight from '@site/src/components/General/Highlight'
 >
 <TabItem value="php">
 
-```html
-<head>
+<CodeBlock
+  language="php"
+  showLineNumbers={true}
+  
+>
+{`<head>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
   <script src="https://gateway2.blinkpayment.co.uk/sdk/web/v1/js/hostedfields.min.js"></script>
   <script src="https://secure.blinkpayment.co.uk/assets/js/api/custom.js"></script>
@@ -64,118 +73,84 @@ import Highlight from '@site/src/components/General/Highlight'
         <button type="submit">Submit</button>
     </form>
 </body>
-```
+`}
+</CodeBlock>
 </TabItem>
 <TabItem value="nextjs">
 
-```jsx
-import { useEffect, useState } from "react";
+<CodeBlock
+  language="jsx"
+  title="/path/to/your/component.js"
+  showLineNumbers>
+  {`
+import Head from 'next/head'
 
-function PaymentComponent() {
-  const [element, setElement] = useState("");
-
-  useEffect(() => {
-    // Fetch the element data from your server
-    fetch("/api/getElement")
-      .then((response) => response.json())
-      .then((data) => setElement(data.element.ccElement))
-      .catch((error) => console.error("Error fetching the element:", error));
-  }, []);
-
+function Payment({ element }) {
   return (
-    <form method="POST" action="process" id="payment">
-      <div dangerouslySetInnerHTML={{ __html: element }} />
-      <input type="hidden" id="merchant_data" name="merchant_data" value='{"order_id": "12345"}' />
-      <button type="submit">Submit</button>
-    </form>
-  );
+    <>
+      <Head>
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+        <script src="https://gateway2.blinkpayment.co.uk/sdk/web/v1/js/hostedfields.min.js"></script>
+        <script src="https://secure.blinkpayment.co.uk/assets/js/api/custom.js"></script>
+      </Head>
+      <form method="POST" action="/api/process" id="payment">
+        <div dangerouslySetInnerHTML={{ __html: element }} />
+        <button type="submit">Submit</button>
+      </form>
+    </>
+  )
 }
 
-export default PaymentComponent;
-```
+export async function getServerSideProps() {
+  const response = await fetch('YOUR_SERVER_ENDPOINT')
+  const data = await response.json()
+  const element = data.element.ccElement
+
+  return {
+    props: {
+      element,
+    }
+  }
+}
+
+export default Payment
+  `}
+</CodeBlock>
+
+
+
 </TabItem>
 <TabItem value="react">
 
-```jsx
-import React, { useEffect, useState } from 'react';
-
-function PaymentForm() {
-    const [element, setElement] = useState('');
-
-    useEffect(() => {
-        fetch("/your-endpoint-to-get-element")
-        .then(response => response.json())
-        .then(data => {
-            setElement(data.element.ccElement);
-        })
-        .catch(error => console.error("Error:", error));
-    }, []);
-
-    return (
-        <form method="POST" action="process" id="payment">
-            <div dangerouslySetInnerHTML={{ __html: element }}></div>
-            <input type="hidden" id="merchant_data" name="merchant_data" value='{"order_id": "12345"}' />
-            <button type="submit">Submit</button>
-        </form>
-    );
-}
-
-export default PaymentForm;
-```
+<CodeBlock
+  language="jsx"
+  showLineNumbers={true}
+  >
+  {`function HelloCodeTitle(props) {
+  return <h1>Hello, {props.name}</h1>;
+}`}
+</CodeBlock>
 </TabItem>
 <TabItem value="flask">
 
-```python
-# Note: This is a server-side example. Make sure to have the Flask framework installed.
+<Highlight><b>Note:</b> This is a server-side example. Make sure to have the Flask framework installed.</Highlight>
 
-from flask import Flask, render_template, jsonify
-
-app = Flask(__name__)
-
-@app.route('/get-element')
-def get_element():
-    # Pseudo-code: Get your element data here.
-    element_data = {
-        "element": {
-            "ccElement": "... your element data ..."
-        }
-    }
-    return jsonify(element_data)
-
-@app.route('/')
-def index():
-    return render_template('payment_form.html')  # Your frontend HTML file
-```
+<CodeBlock language="python" showLineNumbers={true}>
+{`function HelloCodeTitle(props) {
+  return <h1>Hello, {props.name}</h1>;
+}`}
+</CodeBlock>
 </TabItem>
-<TabItem value="vanillajs">
-
-```html
-<head>
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-    <script src="https://gateway2.blinkpayment.co.uk/sdk/web/v1/js/hostedfields.min.js"></script>
-    <script src="https://secure.blinkpayment.co.uk/assets/js/api/custom.js"></script>
-</head>
-<body>
-    <form method="POST" action="process" id="payment">
-        <!-- Element will be loaded here -->
-        <input type="hidden" id="merchant_data" name="merchant_data" value='{"order_id": "12345"}' />
-        <button type="submit">Submit</button>
-    </form>
-
-    <script>
-        fetch("/server-endpoint-to-get-element")
-        .then(response => response.json())
-        .then(data => {
-            const paymentForm = document.getElementById("payment");
-            paymentForm.innerHTML = data.element.ccElement + paymentForm.innerHTML;
-        })
-        .catch(error => {
-            console.error("Error fetching the element:", error);
-        });
-    </script>
-</body>
-```
-</TabItem>
+  <TabItem value="vanillajs">
+<Codeblock
+  language="html"
+  showLineNumbers={true}
+>
+{`function HelloCodeTitle(props) {
+  return <h1>Hello, {props.name}</h1>;
+}`}
+  </Codeblock>
+  </TabItem>
 </Tabs>
 
 <br />

@@ -30,7 +30,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   });
 
   // console.log({ headers: axiosHeaders });
-  console.log({ rawHeaders: req.rawHeaders });
+  console.log({ headers: req.headers });
 
   try {
     const response = await axios({

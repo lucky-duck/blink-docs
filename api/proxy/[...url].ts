@@ -27,7 +27,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     }
   }
 
-  console.log({ method: req.method, url: targetURL, data: req.body });
+  console.log({ headers: axiosHeaders });
 
   try {
     const response = await axios({

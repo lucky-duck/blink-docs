@@ -5,6 +5,9 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   // Extract the target URL from the request path
   let targetURL = req.query["...url"] as string;
 
+  console.log(req.headers["Content-Type"]);
+  console.log(req.headers["Authorization"]);
+
   // Convert hyphens back to slashes after .co.uk
   targetURL = targetURL.replace(/\.co\.uk-/, ".co.uk/").replace(/-/g, "/");
 

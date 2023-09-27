@@ -53,8 +53,12 @@ Test admonition
 >
 <TabItem value="php">
 
-```php
-<head>
+<CodeBlock
+  language="php"
+  showLineNumbers={true}
+  
+>
+{`<head>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
   <script src="https://gateway2.blinkpayment.co.uk/sdk/web/v1/js/hostedfields.min.js"></script>
   <script src="https://secure.blinkpayment.co.uk/assets/js/api/custom.js"></script>
@@ -69,12 +73,12 @@ Test admonition
         <button type="submit">Submit</button>
     </form>
 </body>
-```
-
+`}
+</CodeBlock>
 </TabItem>
 <TabItem value="nextjs">
 
-```jsx
+```tsx title="pages/payment.tsx"
 import Head from 'next/head'
 
 function Payment({ element }) {
@@ -111,35 +115,37 @@ export default Payment
 
 
 </TabItem>
-<TabItem value="react">
+{/* <TabItem value="react">
 
-```jsx
-function HelloCodeTitle(props) {
+<CodeBlock
+  language="jsx"
+  showLineNumbers={true}
+  >
+  {`function HelloCodeTitle(props) {
   return <h1>Hello, {props.name}</h1>;
-}
-```
-
+}`}
+</CodeBlock>
 </TabItem>
 <TabItem value="flask">
 
 <Highlight><b>Note:</b> This is a server-side example. Make sure to have the Flask framework installed.</Highlight>
 
-```jsx
-function HelloCodeTitle(props) {
+<CodeBlock language="python" showLineNumbers={true}>
+{`function HelloCodeTitle(props) {
   return <h1>Hello, {props.name}</h1>;
-}
-```
-
+}`}
+</CodeBlock>
 </TabItem>
   <TabItem value="vanillajs">
-
-```jsx
-function HelloCodeTitle(props) {
+<Codeblock
+  language="html"
+  showLineNumbers={true}
+>
+{`function HelloCodeTitle(props) {
   return <h1>Hello, {props.name}</h1>;
-}
-```
-
-  </TabItem>
+}`}
+  </Codeblock>
+  </TabItem> */}
 </Tabs>
 
 <br />

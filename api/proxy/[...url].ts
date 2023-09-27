@@ -13,19 +13,21 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     targetURL = "https://" + targetURL;
   }
 
-  // Prepare headers, removing problematic ones
-  const { host, referer, origin, ...cleanedHeaders } = req.headers;
+  // Define headers we want to forward explicitly
+  const headersToForward = ["authorization", "content-type", "user-agent", "x-custom-header"]; // Add any other headers you want to forward here
 
-  // Convert headers to Axios-compatible format
   const axiosHeaders: AxiosRequestHeaders = {};
-  for (const key in cleanedHeaders) {
-    const value = cleanedHeaders[key];
-    if (Array.isArray(value)) {
-      axiosHeaders[key] = value.join("; ");
-    } else if (typeof value === "string") {
-      axiosHeaders[key] = value;
+
+  headersToForward.forEach((headerKey) => {
+    if (req.headers[headerKey]) {
+      const value = req.headers[headerKey];
+      if (Array.isArray(value)) {
+        axiosHeaders[headerKey] = value.join("; ");
+      } else if (typeof value === "string") {
+        axiosHeaders[headerKey] = value;
+      }
     }
-  }
+  });
 
   console.log({ headers: axiosHeaders });
 

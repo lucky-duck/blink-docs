@@ -193,6 +193,7 @@ const config = {
           restApi: {
             specPath: "blink-open-api-spec.yaml",
             outputDir: "api-reference-files",
+            proxy: "https://blink-docs-two.vercel.app/api/proxy/",
           },
         },
       },

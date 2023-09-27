@@ -24,8 +24,8 @@
   ],
   "rewrites": [
     {
-      "source": "/api/proxy/:domain/:path*",
-      "destination": "https://:domain/:path*"
+      "source": "/api/proxy/:path*",
+      "destination": "https://:path*"
     }
   ]
 }

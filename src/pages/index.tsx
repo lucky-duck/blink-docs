@@ -14,10 +14,10 @@ import ProductFeatureList from "../components/Homepage/ProductFeatureList";
 import CardWrapper from "../components/Homepage/CardWrapper";
 
 type FeatureItem = {
-  title: string;
-  description: string;
-  Icon?: React.FC<React.SVGProps<SVGSVGElement>>;
-  link: string;
+  title: string,
+  description: string,
+  Icon?: React.FC<React.SVGProps<SVGSVGElement>>,
+  link: string,
 };
 
 const featureListItems: FeatureItem[] = [

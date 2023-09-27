@@ -11,6 +11,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   console.log(req.method, "method");
   console.log(req.rawHeaders, "rawHeaders");
 
+  return res.status(200).json({ message: "Hello World" });
+
   // // Check if the URL doesn't start with 'http' (assuming it could be http or https) and prepend it
   // if (!targetURL.startsWith("http")) {
   //   targetURL = "https://" + targetURL;

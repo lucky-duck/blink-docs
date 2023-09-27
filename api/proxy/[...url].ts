@@ -5,11 +5,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   // Extract the target URL from the request path
   console.log(req.query, "query");
   console.log(req.url, "url");
-  console.log(req.cookies, "cookies");
-  console.log(req.headers, "headers");
+  // console.log(req.cookies, "cookies");
+  // console.log(req.headers, "headers");
   console.log(req.body, "body");
   console.log(req.method, "method");
-  console.log(req.rawHeaders, "rawHeaders");
+  // console.log(req.rawHeaders, "rawHeaders");
 
   return res.status(200).json({ message: "Hello World" });
 

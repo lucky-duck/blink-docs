@@ -5,10 +5,231 @@ description: "MOTO payment processes the payment without the 3DS check. Once the
 sidebar_label: "Create credit card payment for MOTO"
 hide_title: true
 hide_table_of_contents: true
-api: {"tags":["CreditCards"],"requestBody":{"content":{"application/json":{"schema":{"type":"object","x-examples":{"Example 1":{"payment_intent":"pi_1A2B3C4D5E6F7G","paymentToken":"ptok_1A2B3C4D5E6F7G","type":1,"customer_email":"john.doe@example.com","customer_name":"John Doe","transaction_unique":"trans_1A2B3C4D5E6F7G","merchant_data":"{\"order_id\": \"cc-12345678\"}","device_timezone":"-330","device_capabilities":"javascript","device_accept_language":"en-GB","device_screen_resolution":"1366x768x24","remote_address":"123.123.123.123"}},"properties":{"payment_intent":{"type":"string","description":"Payment intent token."},"paymentToken":{"type":"string","description":"Payment token generated from Create Payment Token request."},"type":{"type":"integer","description":"Type 1 is ECOM payment and type 2 is MOTO.  Default value is 1 i.e. ECOM."},"customer_email":{"type":"string","description":"Customer email. If not present, it will fetch value from Intent resource."},"customer_name":{"type":"string","description":"Customer name. If not present, it will fetch value from Intent resource."},"customer_address":{"type":"string","description":"User’s address details. If not present, it will fetch value from Intent resource."},"customer_postcode":{"type":"string","description":"User’s postcode. If not present, it will fetch value from Intent resource."},"transaction_unique":{"type":"string","description":"Transaction unique."},"merchant_data":{"type":"object","description":"The merchant can add custom key value pairs in JSON format, for example:\n{\n  \"my_order_id\": 123,\n  \"fancy_note\": \"Order complete\",\n  \"card_discount\": false\n}"},"raw_amount":{"type":"number","x-stoplight":{"id":"flc87bk5h8y3u"},"description":"Payment amount. If not present, it will fetch value from Intent resource.\n"}},"required":["payment_intent","paymentToken","transaction_unique"]},"examples":{"Example 1":{"value":{"payment_intent":"pi_Swhc84aSLtUGppvPARX...","paymentToken":"eyJwYXltZW50VG9rZW4iOns...","type":1,"raw_amount":1.1,"customer_email":"random@email.com","customer_name":"A Smith","transaction_unique":"PHnRNzjUw...","device_timezone":"-330","device_capabilities":"javascript","device_accept_language":"en-GB","device_screen_resolution":"1366x768x24","remote_address":"123.123.123.123","merchant_data":{"my_order_id":"cc-12345678"}}}}}},"description":""},"parameters":[],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"type":"object","properties":{"url":{"type":"string"}},"x-examples":{"Example 1":{"url":"https://api-demo-php.blinkpayment.co.uk/return?transaction_id=BL-MYU12345&status=captured&note=Payment%2BSuccessful&merchant_data=%257B%2522order_id%2522%253A%2522cc-12345678%2522%257D"}}},"examples":{"Example":{"value":{"url":"https://api-demo-php.blinkpayment.co.uk/return?transaction_id=BL-MYU12345&status=captured&note=Payment%2BSuccessful&merchant_data=%257B%2522order_id%2522%253A%2522cc-12345678%2522%257D"}}}}}}},"description":"MOTO payment processes the payment without the 3DS check. Once the payment is processed the user will be returned to the predefined return URL with an url encoded transaction response.","operationId":"credit-cards-moto","x-stoplight":{"id":"tpj1wrx8j6ft8"},"security":[{"Authorization":[]}],"method":"post","path":"/api/pay/v1/creditcards - copy","servers":[{"url":"https://secure.blinkpayment.co.uk"},{"url":"https://gateway2.blinkpayment.co.uk"}],"securitySchemes":{"Authorization":{"type":"apiKey","in":"header","description":"All requests apart from /api/pay/v1/tokens require an authorization header in the form of a bearer access_token. See the token endpoint documentation for further information.","name":"Authorization"}},"jsonRequestBodyExample":{"payment_intent":"string","paymentToken":"string","type":0,"customer_email":"string","customer_name":"string","customer_address":"string","customer_postcode":"string","transaction_unique":"string","merchant_data":{},"raw_amount":0},"info":{"title":"Blink Payment v1.0.20","description":"Blink Payment API Docs","version":"1.0.0","contact":{"name":"Blink Payment","email":"developers@blinkpayment.co.uk","url":"blinkpayment.co.uk"},"license":{"name":"MIT License","url":"https://opensource.org/licenses/MIT"}},"postman":{"name":"Create credit card payment for MOTO","description":{"content":"MOTO payment processes the payment without the 3DS check. Once the payment is processed the user will be returned to the predefined return URL with an url encoded transaction response.","type":"text/plain"},"url":{"path":["api","pay","v1","creditcards - copy"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"\"\"","options":{"raw":{"language":"json"}}},"auth":{"type":"apikey","apikey":[{"type":"any","value":"Authorization","key":"key"},{"type":"any","value":"<API Key>","key":"value"},{"type":"any","value":"header","key":"in"}]}}}
+api: {
+	"tags": ["CreditCards"],
+	"requestBody": {
+		"content": {
+			"application/json": {
+				"schema": {
+					"type": "object",
+					"x-examples": {
+						"Example 1": {
+							"payment_intent": "pi_1A2B3C4D5E6F7G",
+							"paymentToken": "ptok_1A2B3C4D5E6F7G",
+							"type": 1,
+							"customer_email": "john.doe@example.com",
+							"customer_name": "John Doe",
+							"transaction_unique": "trans_1A2B3C4D5E6F7G",
+							"merchant_data": "{\"order_id\": \"cc-12345678\"}",
+							"device_timezone": "-330",
+							"device_capabilities": "javascript",
+							"device_accept_language": "en-GB",
+							"device_screen_resolution": "1366x768x24",
+							"remote_address": "123.123.123.123"
+						}
+					},
+					"properties": {
+						"payment_intent": {
+							"type": "string",
+							"description": "Payment intent token."
+						},
+						"paymentToken": {
+							"type": "string",
+							"description": "Payment token generated from Create Payment Token request."
+						},
+						"type": {
+							"type": "integer",
+							"description": "Type 1 is ECOM payment and type 2 is MOTO.  Default value is 1 i.e. ECOM."
+						},
+						"customer_email": {
+							"type": "string",
+							"description": "Customer email. If not present, it will fetch value from Intent resource."
+						},
+						"customer_name": {
+							"type": "string",
+							"description": "Customer name. If not present, it will fetch value from Intent resource."
+						},
+						"customer_address": {
+							"type": "string",
+							"description": "User’s address details. If not present, it will fetch value from Intent resource."
+						},
+						"customer_postcode": {
+							"type": "string",
+							"description": "User’s postcode. If not present, it will fetch value from Intent resource."
+						},
+						"transaction_unique": {
+							"type": "string",
+							"description": "Transaction unique."
+						},
+						"merchant_data": {
+							"type": "object",
+							"description": "The merchant can add custom key value pairs in JSON format, for example:\n{\n  \"my_order_id\": 123,\n  \"fancy_note\": \"Order complete\",\n  \"card_discount\": false\n}"
+						},
+						"raw_amount": {
+							"type": "number",
+							"x-stoplight": {
+								"id": "flc87bk5h8y3u"
+							},
+							"description": "Payment amount. If not present, it will fetch value from Intent resource.\n"
+						}
+					},
+					"required": ["payment_intent", "paymentToken", "transaction_unique"]
+				},
+				"examples": {
+					"Example 1": {
+						"value": {
+							"payment_intent": "pi_Swhc84aSLtUGppvPARX...",
+							"paymentToken": "eyJwYXltZW50VG9rZW4iOns...",
+							"type": 1,
+							"raw_amount": 1.1,
+							"customer_email": "random@email.com",
+							"customer_name": "A Smith",
+							"transaction_unique": "PHnRNzjUw...",
+							"device_timezone": "-330",
+							"device_capabilities": "javascript",
+							"device_accept_language": "en-GB",
+							"device_screen_resolution": "1366x768x24",
+							"remote_address": "123.123.123.123",
+							"merchant_data": {
+								"my_order_id": "cc-12345678"
+							}
+						}
+					}
+				}
+			}
+		},
+		"description": ""
+	},
+	"parameters": [],
+	"responses": {
+		"200": {
+			"description": "",
+			"content": {
+				"application/json": {
+					"schema": {
+						"type": "object",
+						"properties": {
+							"url": {
+								"type": "string"
+							}
+						},
+						"x-examples": {
+							"Example 1": {
+								"url": "https://api-demo-php.blinkpayment.co.uk/return?transaction_id=BL-MYU12345&status=captured&note=Payment%2BSuccessful&merchant_data=%257B%2522order_id%2522%253A%2522cc-12345678%2522%257D"
+							}
+						}
+					},
+					"examples": {
+						"Example": {
+							"value": {
+								"url": "https://api-demo-php.blinkpayment.co.uk/return?transaction_id=BL-MYU12345&status=captured&note=Payment%2BSuccessful&merchant_data=%257B%2522order_id%2522%253A%2522cc-12345678%2522%257D"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"description": "MOTO payment processes the payment without the 3DS check. Once the payment is processed the user will be returned to the predefined return URL with an url encoded transaction response.",
+	"operationId": "credit-cards-moto",
+	"x-stoplight": {
+		"id": "tpj1wrx8j6ft8"
+	},
+	"security": [{
+		"Authorization": []
+	}],
+	"method": "post",
+	"path": "/api/pay/v1/creditcards - copy",
+	"servers": [{
+		"url": "https://secure.blinkpayment.co.uk"
+	}, {
+		"url": "https://gateway2.blinkpayment.co.uk"
+	}],
+	"securitySchemes": {
+		"Authorization": {
+			"type": "apiKey",
+			"in": "header",
+			"description": "All requests apart from /api/pay/v1/tokens require an authorization header in the form of a bearer access_token. See the token endpoint documentation for further information.",
+			"name": "Authorization"
+		}
+	},
+	"jsonRequestBodyExample": {
+		"payment_intent": "string",
+		"paymentToken": "string",
+		"type": 0,
+		"customer_email": "string",
+		"customer_name": "string",
+		"customer_address": "string",
+		"customer_postcode": "string",
+		"transaction_unique": "string",
+		"merchant_data": {},
+		"raw_amount": 0
+	},
+	"info": {
+		"title": "Blink Payment v1.0.20",
+		"description": "Blink Payment API Docs",
+		"version": "1.0.0",
+		"contact": {
+			"name": "Blink Payment",
+			"email": "developers@blinkpayment.co.uk",
+			"url": "blinkpayment.co.uk"
+		},
+		"license": {
+			"name": "MIT License",
+			"url": "https://opensource.org/licenses/MIT"
+		}
+	},
+	"postman": {
+		"name": "Create credit card payment for MOTO",
+		"description": {
+			"content": "MOTO payment processes the payment without the 3DS check. Once the payment is processed the user will be returned to the predefined return URL with an url encoded transaction response.",
+			"type": "text/plain"
+		},
+		"url": {
+			"path": ["api", "pay", "v1", "creditcards - copy"],
+			"host": ["{{baseUrl}}"],
+			"query": [],
+			"variable": []
+		},
+		"header": [{
+			"key": "Content-Type",
+			"value": "application/json"
+		}, {
+			"key": "Accept",
+			"value": "application/json"
+		}],
+		"method": "POST",
+		"body": {
+			"mode": "raw",
+			"raw": "\"\"",
+			"options": {
+				"raw": {
+					"language": "json"
+				}
+			}
+		},
+		"auth": {
+			"type": "apikey",
+			"apikey": [{
+				"type": "any",
+				"value": "Authorization",
+				"key": "key"
+			}, {
+				"type": "any",
+				"value": "<API Key>",
+				"key": "value"
+			}, {
+				"type": "any",
+				"value": "header",
+				"key": "in"
+			}]
+		}
+	}
+}
 sidebar_class_name: "post api-method"
 info_path: api-reference-files/blink-payment-v-1-0-20
 custom_edit_url: null
+proxy: "https://blink-docs-two.vercel.app/api/proxy/"
 ---
 
 import ApiTabs from "@theme/ApiTabs";

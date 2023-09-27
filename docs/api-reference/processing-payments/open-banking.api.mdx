@@ -5,10 +5,219 @@ description: "Process the payment and return the banking server redirect url as 
 sidebar_label: "Open banking"
 hide_title: true
 hide_table_of_contents: true
-api: {"tags":["OpenBankings"],"requestBody":{"content":{"application/json":{"schema":{"type":"object","x-examples":{"Example 1":{"payment_intent":"pi_Swhc84aSLtUGppvPARX...","customer_email":"random@email.com","customer_name":"A Smith","customer_address":"123 Some Street","customer_postcode":"E127DF","transaction_unique":"syuryui","merchant_data":"{\"my_order_id\": \"ob-12345678\"}"}},"properties":{"payment_intent":{"type":"string","description":"Payment intent token."},"customer_email":{"type":"string","description":"Customer email."},"customer_name":{"type":"string","description":"Customer name."},"customer_address":{"type":"string","description":"User’s address details."},"customer_postcode":{"type":"string","description":"User’s postcode."},"transaction_unique":{"type":"string","description":"Transaction unique."},"merchant_data":{"type":"object","description":"The merchant can add custom key value pairs in JSON format, for example:\n{\n  \"my_order_id\": 123,\n  \"fancy_note\": \"Order complete\",\n  \"card_discount\": false\n}"}},"required":["payment_intent","customer_email","customer_name","transaction_unique"]},"examples":{"Example":{"value":{"payment_intent":"pi_Swhc84aSLtUGppvPARX...","customer_email":"random@email.com","customer_name":"A Smith","transaction_unique":"syuryui","merchant_data":{"my_order_id":"ob-12345678"}}}}}}},"parameters":[],"responses":{"200":{"description":"","headers":{},"content":{"application/json":{"schema":{"type":"object","properties":{"redirect_url":{"type":"string"}}},"examples":{"Example":{"value":{"redirect_url":"https://fidelitygate.devandops.com/tobp-gateway/hppcallredirect/643f****************"}}}}}}},"description":"Process the payment and return the banking server redirect url as response. After completion of the transaction, user will be redirected to the return url with url encoded transaction response.","operationId":"open-banking","security":[{"Authorization":[]}],"method":"post","path":"/api/pay/v1/openbankings","servers":[{"url":"https://secure.blinkpayment.co.uk"},{"url":"https://gateway2.blinkpayment.co.uk"}],"securitySchemes":{"Authorization":{"type":"apiKey","in":"header","description":"All requests apart from /api/pay/v1/tokens require an authorization header in the form of a bearer access_token. See the token endpoint documentation for further information.","name":"Authorization"}},"jsonRequestBodyExample":{"payment_intent":"string","customer_email":"string","customer_name":"string","customer_address":"string","customer_postcode":"string","transaction_unique":"string","merchant_data":{}},"info":{"title":"Blink Payment v1.0.20","description":"Blink Payment API Docs","version":"1.0.0","contact":{"name":"Blink Payment","email":"developers@blinkpayment.co.uk","url":"blinkpayment.co.uk"},"license":{"name":"MIT License","url":"https://opensource.org/licenses/MIT"}},"postman":{"name":"Open banking","description":{"content":"Process the payment and return the banking server redirect url as response. After completion of the transaction, user will be redirected to the return url with url encoded transaction response.","type":"text/plain"},"url":{"path":["api","pay","v1","openbankings"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"\"\"","options":{"raw":{"language":"json"}}},"auth":{"type":"apikey","apikey":[{"type":"any","value":"Authorization","key":"key"},{"type":"any","value":"<API Key>","key":"value"},{"type":"any","value":"header","key":"in"}]}}}
+api: {
+  "tags": [
+    "OpenBankings"
+  ],
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "type": "object",
+          "x-examples": {
+            "Example 1": {
+              "payment_intent": "pi_Swhc84aSLtUGppvPARX...",
+              "customer_email": "random@email.com",
+              "customer_name": "A Smith",
+              "customer_address": "123 Some Street",
+              "customer_postcode": "E127DF",
+              "transaction_unique": "syuryui",
+              "merchant_data": "{\"my_order_id\": \"ob-12345678\"}"
+            }
+          },
+          "properties": {
+            "payment_intent": {
+              "type": "string",
+              "description": "Payment intent token."
+            },
+            "customer_email": {
+              "type": "string",
+              "description": "Customer email."
+            },
+            "customer_name": {
+              "type": "string",
+              "description": "Customer name."
+            },
+            "customer_address": {
+              "type": "string",
+              "description": "User’s address details."
+            },
+            "customer_postcode": {
+              "type": "string",
+              "description": "User’s postcode."
+            },
+            "transaction_unique": {
+              "type": "string",
+              "description": "Transaction unique."
+            },
+            "merchant_data": {
+              "type": "object",
+              "description": "The merchant can add custom key value pairs in JSON format, for example:\n{\n  \"my_order_id\": 123,\n  \"fancy_note\": \"Order complete\",\n  \"card_discount\": false\n}"
+            }
+          },
+          "required": [
+            "payment_intent",
+            "customer_email",
+            "customer_name",
+            "transaction_unique"
+          ]
+        },
+        "examples": {
+          "Example": {
+            "value": {
+              "payment_intent": "pi_Swhc84aSLtUGppvPARX...",
+              "customer_email": "random@email.com",
+              "customer_name": "A Smith",
+              "transaction_unique": "syuryui",
+              "merchant_data": {
+                "my_order_id": "ob-12345678"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "parameters": [],
+  "responses": {
+    "200": {
+      "description": "",
+      "headers": {},
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "redirect_url": {
+                "type": "string"
+              }
+            }
+          },
+          "examples": {
+            "Example": {
+              "value": {
+                "redirect_url": "https://fidelitygate.devandops.com/tobp-gateway/hppcallredirect/643f****************"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "description": "Process the payment and return the banking server redirect url as response. After completion of the transaction, user will be redirected to the return url with url encoded transaction response.",
+  "operationId": "open-banking",
+  "security": [
+    {
+      "Authorization": []
+    }
+  ],
+  "method": "post",
+  "path": "/api/pay/v1/openbankings",
+  "servers": [
+    {
+      "url": "https://secure.blinkpayment.co.uk"
+    },
+    {
+      "url": "https://gateway2.blinkpayment.co.uk"
+    }
+  ],
+  "securitySchemes": {
+    "Authorization": {
+      "type": "apiKey",
+      "in": "header",
+      "description": "All requests apart from /api/pay/v1/tokens require an authorization header in the form of a bearer access_token. See the token endpoint documentation for further information.",
+      "name": "Authorization"
+    }
+  },
+  "jsonRequestBodyExample": {
+    "payment_intent": "string",
+    "customer_email": "string",
+    "customer_name": "string",
+    "customer_address": "string",
+    "customer_postcode": "string",
+    "transaction_unique": "string",
+    "merchant_data": {}
+  },
+  "info": {
+    "title": "Blink Payment v1.0.20",
+    "description": "Blink Payment API Docs",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Blink Payment",
+      "email": "developers@blinkpayment.co.uk",
+      "url": "blinkpayment.co.uk"
+    },
+    "license": {
+      "name": "MIT License",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "postman": {
+    "name": "Open banking",
+    "description": {
+      "content": "Process the payment and return the banking server redirect url as response. After completion of the transaction, user will be redirected to the return url with url encoded transaction response.",
+      "type": "text/plain"
+    },
+    "url": {
+      "path": [
+        "api",
+        "pay",
+        "v1",
+        "openbankings"
+      ],
+      "host": [
+        "{{baseUrl}}"
+      ],
+      "query": [],
+      "variable": []
+    },
+    "header": [
+      {
+        "key": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "key": "Accept",
+        "value": "application/json"
+      }
+    ],
+    "method": "POST",
+    "body": {
+      "mode": "raw",
+      "raw": "\"\"",
+      "options": {
+        "raw": {
+          "language": "json"
+        }
+      }
+    },
+    "auth": {
+      "type": "apikey",
+      "apikey": [
+        {
+          "type": "any",
+          "value": "Authorization",
+          "key": "key"
+        },
+        {
+          "type": "any",
+          "value": "<API Key>",
+          "key": "value"
+        },
+        {
+          "type": "any",
+          "value": "header",
+          "key": "in"
+        }
+      ]
+    }
+  }
+}
 sidebar_class_name: "post api-method"
 info_path: api-reference-files/blink-payment-v-1-0-20
 custom_edit_url: null
+proxy: "https://blink-docs-two.vercel.app/api/proxy/"
+
 ---
 
 import ApiTabs from "@theme/ApiTabs";

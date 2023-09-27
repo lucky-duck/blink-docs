@@ -5,10 +5,231 @@ description: "Process the payment and return to the user defined URL with url en
 sidebar_label: "Direct debits"
 hide_title: true
 hide_table_of_contents: true
-api: {"tags":["DirectDebits"],"requestBody":{"content":{"application/json":{"schema":{"type":"object","x-examples":{"Example 1":{"payment_intent":"pi_Swhc84aSLtUGppvPARX","given_name":"test","family_name":"test","email":"random@gmail.com","country_code":"GB","customer_address":"12/B Example St.","customer_postcode":"12000","account_holder_name":"test account holder","branch_code":"20000","account_number":"579000","merchant_data":{"my_order_id":"dd-12345678"}}},"properties":{"payment_intent":{"type":"string","description":"Payment intent token."},"given_name":{"type":"string","description":"User’s given name or first name."},"family_name":{"type":"string","description":"User’s family name or Surname."},"email":{"type":"string","description":"User’s email address."},"country_code":{"type":"string","description":"ISO country code. Default value GB."},"customer_address":{"type":"string","description":"User’s address details."},"customer_postcode":{"type":"string","description":"User’s postcode."},"account_holder_name":{"type":"string","description":"User’s bank account name."},"branch_code":{"type":"string","description":"User’s bank short code."},"account_number":{"type":"string","description":"User’s bank account number."},"merchant_data":{"type":"string","description":"The merchant can add custom key value pairs in JSON format, for example:\n{\n  \"my_order_id\": 123,\n  \"fancy_note\": \"Order complete\",\n  \"card_discount\": false\n}"},"company_name":{"type":"string","description":"User’s company name. It’s required only if user’s given name and family name are not present.","x-stoplight":{"id":"5xfropzrf9bo9"}}},"required":["payment_intent","given_name","family_name","email","country_code","account_holder_name","branch_code","account_number"]},"examples":{"Example":{"value":{"payment_intent":"pi_Swhc84aSLtUGppvPARX","given_name":"test","family_name":"test","email":"random@gmail.com","country_code":"GB","customer_address":"12/B Example St.","customer_postcode":"12000","account_holder_name":"test account holder","branch_code":"20000","account_number":"579000","merchant_data":"{\"my_order_id\": \"dd-12345678\"}"}}}}}},"parameters":[],"responses":{"200":{"description":"","headers":{},"content":{"application/json":{"schema":{"type":"object","properties":{"url":{"type":"string"}}},"examples":{"Example":{"value":{"url":"https://api-demo-php.blinkpayment.co.uk/return?transaction_id=BL-002A12345&status=Pending%2BSubmission&note=Pending%2BSubmission&merchant_data=%257B%2522order_id%2522%253A%2522dd-12345678%2522%257D"}}}}}}},"description":"Process the payment and return to the user defined URL with url encoded transaction response.","operationId":"direct-debits","security":[{"Authorization":[]}],"method":"post","path":"/api/pay/v1/directdebits","servers":[{"url":"https://secure.blinkpayment.co.uk"},{"url":"https://gateway2.blinkpayment.co.uk"}],"securitySchemes":{"Authorization":{"type":"apiKey","in":"header","description":"All requests apart from /api/pay/v1/tokens require an authorization header in the form of a bearer access_token. See the token endpoint documentation for further information.","name":"Authorization"}},"jsonRequestBodyExample":{"payment_intent":"string","given_name":"string","family_name":"string","email":"string","country_code":"string","customer_address":"string","customer_postcode":"string","account_holder_name":"string","branch_code":"string","account_number":"string","merchant_data":"string","company_name":"string"},"info":{"title":"Blink Payment v1.0.20","description":"Blink Payment API Docs","version":"1.0.0","contact":{"name":"Blink Payment","email":"developers@blinkpayment.co.uk","url":"blinkpayment.co.uk"},"license":{"name":"MIT License","url":"https://opensource.org/licenses/MIT"}},"postman":{"name":"Direct debits","description":{"content":"Process the payment and return to the user defined URL with url encoded transaction response.","type":"text/plain"},"url":{"path":["api","pay","v1","directdebits"],"host":["{{baseUrl}}"],"query":[],"variable":[]},"header":[{"key":"Content-Type","value":"application/json"},{"key":"Accept","value":"application/json"}],"method":"POST","body":{"mode":"raw","raw":"\"\"","options":{"raw":{"language":"json"}}},"auth":{"type":"apikey","apikey":[{"type":"any","value":"Authorization","key":"key"},{"type":"any","value":"<API Key>","key":"value"},{"type":"any","value":"header","key":"in"}]}}}
+api: {
+	"tags": ["DirectDebits"],
+	"requestBody": {
+		"content": {
+			"application/json": {
+				"schema": {
+					"type": "object",
+					"x-examples": {
+						"Example 1": {
+							"payment_intent": "pi_Swhc84aSLtUGppvPARX",
+							"given_name": "test",
+							"family_name": "test",
+							"email": "random@gmail.com",
+							"country_code": "GB",
+							"customer_address": "12/B Example St.",
+							"customer_postcode": "12000",
+							"account_holder_name": "test account holder",
+							"branch_code": "20000",
+							"account_number": "579000",
+							"merchant_data": {
+								"my_order_id": "dd-12345678"
+							}
+						}
+					},
+					"properties": {
+						"payment_intent": {
+							"type": "string",
+							"description": "Payment intent token."
+						},
+						"given_name": {
+							"type": "string",
+							"description": "User’s given name or first name."
+						},
+						"family_name": {
+							"type": "string",
+							"description": "User’s family name or Surname."
+						},
+						"email": {
+							"type": "string",
+							"description": "User’s email address."
+						},
+						"country_code": {
+							"type": "string",
+							"description": "ISO country code. Default value GB."
+						},
+						"customer_address": {
+							"type": "string",
+							"description": "User’s address details."
+						},
+						"customer_postcode": {
+							"type": "string",
+							"description": "User’s postcode."
+						},
+						"account_holder_name": {
+							"type": "string",
+							"description": "User’s bank account name."
+						},
+						"branch_code": {
+							"type": "string",
+							"description": "User’s bank short code."
+						},
+						"account_number": {
+							"type": "string",
+							"description": "User’s bank account number."
+						},
+						"merchant_data": {
+							"type": "string",
+							"description": "The merchant can add custom key value pairs in JSON format, for example:\n{\n  \"my_order_id\": 123,\n  \"fancy_note\": \"Order complete\",\n  \"card_discount\": false\n}"
+						},
+						"company_name": {
+							"type": "string",
+							"description": "User’s company name. It’s required only if user’s given name and family name are not present.",
+							"x-stoplight": {
+								"id": "5xfropzrf9bo9"
+							}
+						}
+					},
+					"required": ["payment_intent", "given_name", "family_name", "email", "country_code", "account_holder_name", "branch_code", "account_number"]
+				},
+				"examples": {
+					"Example": {
+						"value": {
+							"payment_intent": "pi_Swhc84aSLtUGppvPARX",
+							"given_name": "test",
+							"family_name": "test",
+							"email": "random@gmail.com",
+							"country_code": "GB",
+							"customer_address": "12/B Example St.",
+							"customer_postcode": "12000",
+							"account_holder_name": "test account holder",
+							"branch_code": "20000",
+							"account_number": "579000",
+							"merchant_data": "{\"my_order_id\": \"dd-12345678\"}"
+						}
+					}
+				}
+			}
+		}
+	},
+	"parameters": [],
+	"responses": {
+		"200": {
+			"description": "",
+			"headers": {},
+			"content": {
+				"application/json": {
+					"schema": {
+						"type": "object",
+						"properties": {
+							"url": {
+								"type": "string"
+							}
+						}
+					},
+					"examples": {
+						"Example": {
+							"value": {
+								"url": "https://api-demo-php.blinkpayment.co.uk/return?transaction_id=BL-002A12345&status=Pending%2BSubmission&note=Pending%2BSubmission&merchant_data=%257B%2522order_id%2522%253A%2522dd-12345678%2522%257D"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"description": "Process the payment and return to the user defined URL with url encoded transaction response.",
+	"operationId": "direct-debits",
+	"security": [{
+		"Authorization": []
+	}],
+	"method": "post",
+	"path": "/api/pay/v1/directdebits",
+	"servers": [{
+		"url": "https://secure.blinkpayment.co.uk"
+	}, {
+		"url": "https://gateway2.blinkpayment.co.uk"
+	}],
+	"securitySchemes": {
+		"Authorization": {
+			"type": "apiKey",
+			"in": "header",
+			"description": "All requests apart from /api/pay/v1/tokens require an authorization header in the form of a bearer access_token. See the token endpoint documentation for further information.",
+			"name": "Authorization"
+		}
+	},
+	"jsonRequestBodyExample": {
+		"payment_intent": "string",
+		"given_name": "string",
+		"family_name": "string",
+		"email": "string",
+		"country_code": "string",
+		"customer_address": "string",
+		"customer_postcode": "string",
+		"account_holder_name": "string",
+		"branch_code": "string",
+		"account_number": "string",
+		"merchant_data": "string",
+		"company_name": "string"
+	},
+	"info": {
+		"title": "Blink Payment v1.0.20",
+		"description": "Blink Payment API Docs",
+		"version": "1.0.0",
+		"contact": {
+			"name": "Blink Payment",
+			"email": "developers@blinkpayment.co.uk",
+			"url": "blinkpayment.co.uk"
+		},
+		"license": {
+			"name": "MIT License",
+			"url": "https://opensource.org/licenses/MIT"
+		}
+	},
+	"postman": {
+		"name": "Direct debits",
+		"description": {
+			"content": "Process the payment and return to the user defined URL with url encoded transaction response.",
+			"type": "text/plain"
+		},
+		"url": {
+			"path": ["api", "pay", "v1", "directdebits"],
+			"host": ["{{baseUrl}}"],
+			"query": [],
+			"variable": []
+		},
+		"header": [{
+			"key": "Content-Type",
+			"value": "application/json"
+		}, {
+			"key": "Accept",
+			"value": "application/json"
+		}],
+		"method": "POST",
+		"body": {
+			"mode": "raw",
+			"raw": "\"\"",
+			"options": {
+				"raw": {
+					"language": "json"
+				}
+			}
+		},
+		"auth": {
+			"type": "apikey",
+			"apikey": [{
+				"type": "any",
+				"value": "Authorization",
+				"key": "key"
+			}, {
+				"type": "any",
+				"value": "<API Key>",
+				"key": "value"
+			}, {
+				"type": "any",
+				"value": "header",
+				"key": "in"
+			}]
+		}
+	}
+}
 sidebar_class_name: "post api-method"
 info_path: api-reference-files/blink-payment-v-1-0-20
 custom_edit_url: null
+proxy: "https://blink-docs-two.vercel.app/api/proxy/"
+
 ---
 
 import ApiTabs from "@theme/ApiTabs";

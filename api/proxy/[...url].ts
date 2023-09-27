@@ -17,7 +17,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   }
 
   // Define headers we want to forward explicitly
-  const headersToForward = ["Authorization", "Content-Type", "user-agent"]; // Add any other headers you want to forward here
+  const headersToForward = ["authorization", "content-type", "user-agent"]; // Add any other headers you want to forward here
 
   const axiosHeaders: AxiosRequestHeaders = {};
 

@@ -151,15 +151,16 @@ async function makeRequest(request, proxy, _body) {
     body: myBody,
   };
   let finalUrl = request.url.toString();
-  console.log("finalUrl outside proxy", finalUrl);
   if (proxy) {
     // Ensure the proxy ends with a slash.
     let normalizedProxy = proxy.replace(/\/$/, "") + "/";
     // Remove the http:// or https:// prefix
     let cleanedUrl = request.url.toString().replace(/^https?:\/\//, "");
-    console.log("cleanedUrl", cleanedUrl);
+
+    // Convert slashes to hyphens after .co.uk
+    cleanedUrl = cleanedUrl.replace(/\.co\.uk\//, ".co.uk-").replace(/\//g, "-");
+
     finalUrl = normalizedProxy + cleanedUrl;
-    console.log("finalUrl", finalUrl);
   }
   return await fetchWithtimeout(finalUrl, requestOptions).then((response) => {
     return response.text();

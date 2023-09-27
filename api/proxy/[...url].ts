@@ -5,7 +5,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   // Extract the target URL from the request path
   let targetURL = req.query["...url"] as string;
 
-  console.log(targetURL, "targetURL");
+  // Convert hyphens back to slashes after .co.uk
+  targetURL = targetURL.replace(/\.co\.uk-/, ".co.uk/").replace(/-/g, "/");
 
   // Check if the URL doesn't start with 'http' (assuming it could be http or https) and prepend it
   if (!targetURL.startsWith("http")) {

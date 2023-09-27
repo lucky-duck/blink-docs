@@ -6,13 +6,13 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "My Site",
-  tagline: "Dinosaurs are cool",
-  url: "https://your-docusaurus-test-site.com",
+  title: "Blink Docs",
+  tagline: "Blink Payment API documentation",
+  url: "https://docs.blinkpayment.co.uk",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
+  favicon: "img/favicon.png",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -31,8 +31,8 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          editUrl: undefined,
+
           docLayoutComponent: "@theme/DocPage",
           docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
         },
@@ -58,10 +58,13 @@ const config = {
           hideable: true,
         },
       },
+      colorMode: {
+        disableSwitch: true,
+        defaultMode: "light",
+      },
       navbar: {
-        title: "My Site",
         logo: {
-          alt: "My Site Logo",
+          alt: "Blink Docs",
           src: "img/logo.svg",
         },
         items: [
@@ -183,6 +186,9 @@ const config = {
   ],
 
   themes: ["docusaurus-theme-openapi-docs"],
+  customFields: {
+    mendableAnonKey: "3b35aead-65fd-47f0-8e7f-1943449e9006",
+  },
 };
 
 module.exports = config;

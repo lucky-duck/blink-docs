@@ -14,10 +14,10 @@ import ProductFeatureList from "../components/Homepage/ProductFeatureList";
 import CardWrapper from "../components/Homepage/CardWrapper";
 
 type FeatureItem = {
-  title: string,
-  description: string,
-  Icon?: React.FC<React.SVGProps<SVGSVGElement>>,
-  link: string,
+  title: string;
+  description: string;
+  Icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+  link: string;
 };
 
 const featureListItems: FeatureItem[] = [
@@ -121,10 +121,7 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
-    >
+    <Layout title={`Home`} description="Description will go into a meta tag in <head />">
       <Container>
         <Hero
           title="Blink documentation"

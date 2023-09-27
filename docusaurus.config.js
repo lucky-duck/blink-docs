@@ -167,18 +167,12 @@ const config = {
     [
       "docusaurus-plugin-openapi-docs",
       {
-        id: "openapi",
+        id: "apiDocs",
         docsPluginId: "classic",
         config: {
-          petstore: {
-            specPath: "examples/petstore.yaml",
-            outputDir: "docs/petstore",
-            downloadUrl:
-              "https://raw.githubusercontent.com/PaloAltoNetworks/docusaurus-template-openapi-docs/main/examples/petstore.yaml",
-            sidebarOptions: {
-              groupPathsBy: "tag",
-              categoryLinkSource: "tag",
-            },
+          restApi: {
+            specPath: "blink-open-api-spec.yaml",
+            outputDir: "api-reference-files",
           },
         },
       },

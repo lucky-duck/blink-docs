@@ -152,13 +152,7 @@ paths:
         It is essential to keep your API keys secure as they hold significant privileges. Refrain from sharing your secret API keys in public areas such as GitHub, client-side code, etc.
 
         All API requests must be made over HTTPS. Requests made over plain HTTP will be unsuccessful. API requests that lack authentication will also fail.
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
-          required: true
+      parameters: []
       operationId: tokens
       security: []
   /api/pay/v1/intents:
@@ -225,24 +219,24 @@ paths:
                 customer_name:
                   type: string
                   x-stoplight:
-                    id: uh6cozgslv14e
+                    id: rvvuo81dkd5n3
                   description: |
                     Customer name.
                 customer_email:
                   type: string
                   x-stoplight:
-                    id: 1eni3myr8q1lf
+                    id: 0h4kouhxylg0q
                   description: Customer email.
                 customer_address:
                   type: string
                   x-stoplight:
-                    id: n8rbkb54isxjk
+                    id: 65hfpoeb9o9bc
                   description: |
                     Customer address.
                 customer_postcode:
                   type: string
                   x-stoplight:
-                    id: h799qh7bdjjiq
+                    id: p51yvydmxgcoh
                   description: |
                     Customer postcode.
               required:
@@ -263,21 +257,7 @@ paths:
                   return_url: 'https://mydomain.com/return'
                   notification_url: 'https://mydomain.com/notification'
         description: ''
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-            example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          required: true
-          description: 'Bearer {{access_token}}'
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
-          required: true
+      parameters: []
       responses:
         '201':
           description: ''
@@ -403,30 +383,19 @@ paths:
         </body>
         ```
       operationId: intents
+      security:
+        - Authorization: []
   '/api/pay/v1/intents/{intent_id}':
     get:
       tags:
         - Intents
       summary: Get intent
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
         - name: intent_id
           in: path
           description: The id of the payment intent
           schema:
             type: string
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
           required: true
       responses:
         '200':
@@ -538,9 +507,11 @@ paths:
                     merchant_id: 134857
                     transaction_unique: xbKXyWkIL...
       x-stoplight:
-        id: gi300cfqiym5i
+        id: szt4v5k3c9m9g
       description: Get details for a payment intent
       operationId: get-intent
+      security:
+        - Authorization: []
     patch:
       tags:
         - Intents
@@ -564,24 +535,11 @@ paths:
                   notification_url: 'https://mydomain.com/notification'
         description: ''
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
         - name: intent_id
           in: path
           description: Id of the payment intent
           schema:
             type: string
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
           required: true
       responses:
         '200':
@@ -693,9 +651,11 @@ paths:
                     merchant_id: 134857
                     transaction_unique: xbKXyWkIL...
       x-stoplight:
-        id: 5ing8cjru54mg
+        id: yc0804wrpr348
       description: 'Payment Intent with status as active can only be updated. Once an intent is processed, it can’t be updated.'
       operationId: update-intent
+      security:
+        - Authorization: []
     parameters:
       - schema:
           type: string
@@ -806,6 +766,8 @@ paths:
         </body>
         ```
       operationId: payment-page
+      security:
+        - Authorization: []
   /api/pay/v1/creditcards:
     post:
       tags:
@@ -875,12 +837,12 @@ paths:
                 customer_address:
                   type: string
                   x-stoplight:
-                    id: cjt2copjwyhui
+                    id: 00b8x0pot2edy
                   description: 'User’s address details. If not present, it will fetch value from Intent resource.'
                 customer_postcode:
                   type: string
                   x-stoplight:
-                    id: t98srvh15ggja
+                    id: brsv89b8vw0g4
                   description: 'User’s postcode. If not present, it will fetch value from Intent resource.'
               required:
                 - payment_intent
@@ -909,20 +871,7 @@ paths:
                   merchant_data:
                     my_order_id: cc-12345678
         description: ''
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
-          required: true
+      parameters: []
       responses:
         '200':
           description: API response
@@ -992,6 +941,8 @@ paths:
         </html>
         ```
       operationId: credit-cards
+      security:
+        - Authorization: []
   /api/pay/v1/creditcards - copy:
     post:
       tags:
@@ -1053,7 +1004,7 @@ paths:
                 raw_amount:
                   type: number
                   x-stoplight:
-                    id: qxzxxqzd5iebk
+                    id: flc87bk5h8y3u
                   description: |
                     Payment amount. If not present, it will fetch value from Intent resource.
               required:
@@ -1078,20 +1029,7 @@ paths:
                   merchant_data:
                     my_order_id: cc-12345678
         description: ''
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
-          required: true
+      parameters: []
       responses:
         '200':
           description: ''
@@ -1112,7 +1050,9 @@ paths:
       description: MOTO payment processes the payment without the 3DS check. Once the payment is processed the user will be returned to the predefined return URL with an url encoded transaction response.
       operationId: credit-cards-moto
       x-stoplight:
-        id: fs0it4fgryeyz
+        id: tpj1wrx8j6ft8
+      security:
+        - Authorization: []
   /api/pay/v1/openbankings:
     post:
       tags:
@@ -1174,20 +1114,7 @@ paths:
                   transaction_unique: syuryui
                   merchant_data:
                     my_order_id: ob-12345678
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
-          required: true
+      parameters: []
       responses:
         '200':
           description: ''
@@ -1205,6 +1132,8 @@ paths:
                     redirect_url: 'https://fidelitygate.devandops.com/tobp-gateway/hppcallredirect/643f****************'
       description: 'Process the payment and return the banking server redirect url as response. After completion of the transaction, user will be redirected to the return url with url encoded transaction response.'
       operationId: open-banking
+      security:
+        - Authorization: []
   /api/pay/v1/directdebits:
     post:
       tags:
@@ -1273,7 +1202,7 @@ paths:
                   type: string
                   description: User’s company name. It’s required only if user’s given name and family name are not present.
                   x-stoplight:
-                    id: c6lacgie9c9u5
+                    id: 5xfropzrf9bo9
               required:
                 - payment_intent
                 - given_name
@@ -1297,20 +1226,7 @@ paths:
                   branch_code: '20000'
                   account_number: '579000'
                   merchant_data: '{"my_order_id": "dd-12345678"}'
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
-          required: true
+      parameters: []
       responses:
         '200':
           description: ''
@@ -1328,30 +1244,19 @@ paths:
                     url: 'https://api-demo-php.blinkpayment.co.uk/return?transaction_id=BL-002A12345&status=Pending%2BSubmission&note=Pending%2BSubmission&merchant_data=%257B%2522order_id%2522%253A%2522dd-12345678%2522%257D'
       description: Process the payment and return to the user defined URL with url encoded transaction response.
       operationId: direct-debits
+      security:
+        - Authorization: []
   '/api/pay/v1/transactions/{transaction_id}':
     get:
       tags:
         - Transactions
       summary: Get transaction
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
         - name: transaction_id
           in: path
           description: The id of the transaction
           schema:
             type: string
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
           required: true
       responses:
         '200':
@@ -1441,6 +1346,8 @@ paths:
                         order_id: ob-12345678
       operationId: get-transaction
       description: Get details for a transaction
+      security:
+        - Authorization: []
     parameters:
       - schema:
           type: string
@@ -1454,24 +1361,11 @@ paths:
         - Transactions
       summary: Rerun transaction
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
         - name: transaction_id
           in: path
           description: The transaction ID
           schema:
             type: string
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
           required: true
       responses:
         '200':
@@ -1560,7 +1454,7 @@ paths:
                       merchant_data:
                         order_id: ob-12345678
       x-stoplight:
-        id: 6pj5ra2vg7p1b
+        id: n0pt5m6rrkqrv
       requestBody:
         content:
           application/json:
@@ -1592,6 +1486,8 @@ paths:
 
         If the previous transaction  had “VERIFY” as transaction_type, then amount field is required.
       operationId: rerun-transaction
+      security:
+        - Authorization: []
     parameters:
       - schema:
           type: string
@@ -1605,24 +1501,11 @@ paths:
         - Transactions
       summary: Capture transaction
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
         - name: transaction_id
           in: path
           description: The transaction ID
           schema:
             type: string
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
           required: true
       responses:
         '200':
@@ -1688,8 +1571,10 @@ paths:
 
         The previous transaction must have delay_capture_days set to be greater than 0 in the intent.
       x-stoplight:
-        id: fjs7277wm9dfg
+        id: sy2o6kllee930
       operationId: capture-transaction
+      security:
+        - Authorization: []
     parameters:
       - schema:
           type: string
@@ -1712,30 +1597,17 @@ paths:
                   type: string
                   description: Cancellation note (if any).
                   x-stoplight:
-                    id: szo1o55w99pwx
+                    id: u0xq6412saeo5
             examples:
               Example:
                 value:
                   reference: cancel note
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
         - name: transaction_id
           in: path
           description: The transaction ID
           schema:
             type: string
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
           required: true
       responses:
         '200':
@@ -1769,6 +1641,8 @@ paths:
         User can cancel any existing transaction before being settled. It can only be performed on transactions, which have been authorised but not yet settled. Authenticate this request using HTTP Basic Auth by adding a bearer token to the header, e.g. Authentication: Bearer {{access_token}}. You can get the {{access_token}} from the create token request. 
 
         If the previous transaction is in Captured state, then that transaction can be cancelled.
+      security:
+        - Authorization: []
   '/api/pay/v1/transactions/{transaction_id}/refunds':
     post:
       summary: Refund transaction
@@ -1804,24 +1678,11 @@ paths:
                   amount: 1.01
                   reference: refund note
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
         - name: transaction_id
           in: path
           description: The id of the transaction
           schema:
             type: string
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
           required: true
       responses:
         '200':
@@ -1853,6 +1714,8 @@ paths:
       operationId: refund-transaction
       description: |
         User can refund any existing transaction after being settled. It can only be performed on transactions, which have been authorised and settled. Authenticate this request using HTTP Basic Auth by adding a bearer token to the header, e.g. Authentication: Bearer {{access_token}}. You can get the {{access_token}} from the create token request.'''
+      security:
+        - Authorization: []
     parameters:
       - schema:
           type: string
@@ -1977,20 +1840,7 @@ paths:
                   notes: test note
                   notification_url: 'https://mydomain.com/notification'
         description: ''
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
-          required: true
+      parameters: []
       responses:
         '201':
           description: ''
@@ -2017,18 +1867,13 @@ paths:
 
         Once a paylink is processed i.e. payment is done using that link, it can’t be used again to perform another transaction.
       operationId: create-paylink
+      security:
+        - Authorization: []
     get:
       tags:
         - Paylink
       summary: Get all paylinks
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
         - name: status
           in: query
           schema:
@@ -2042,12 +1887,6 @@ paths:
             type: integer
           example: 1
           description: Transaction amount.
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
           required: true
         - schema:
             type: string
@@ -2143,30 +1982,19 @@ paths:
         Authenticate requests using HTTP Basic Auth by adding a bearer token to the header, e.g. Authentication: Bearer {{access_token}}. You can get the {{access_token}} from the create token request.
 
         Once a paylink is processed i.e. payment is done using that link, it can’t be used again to perform another transaction.
+      security:
+        - Authorization: []
   '/api/paylink/v1/paylinks/{paylink_id}':
     get:
       tags:
         - Paylink
       summary: Get paylink by paylink Id
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
         - name: paylink_id
           in: path
           description: The paylink ID
           schema:
             type: string
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
           required: true
       responses:
         '200':
@@ -2228,6 +2056,8 @@ paths:
         Authenticate requests using HTTP Basic Auth by adding a bearer token to the header, e.g. Authentication: Bearer **{{access_token}}**. You can get the **{{access_token}}** from the create token request.
 
         Once a paylink is processed i.e. payment is done using that link, it can’t be used again to perform another transaction.
+      security:
+        - Authorization: []
     patch:
       tags:
         - Paylink
@@ -2248,22 +2078,16 @@ paths:
                 mobile_number:
                   type: string
                   x-stoplight:
-                    id: bqhxtsn7d67ew
+                    id: nq0vuvfkefbxg
                   description: |
                     Customer mobile number
                 status:
                   type: string
                   x-stoplight:
-                    id: l9bytelovaw7t
+                    id: 26yogggb8hpcv
                   description: |
                     Paylink status
       parameters:
-        - name: Authorization
-          in: header
-          description: The authorization token
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
         - name: paylink_id
           in: path
           description: The paylink ID
@@ -2324,6 +2148,8 @@ paths:
                     notes: test
       description: 'Update some specific data (email, mobile number) associated with the paylink until the link is used. If a paylink is not paid  then it’s status can be changed to ‘Cancelled’.'
       operationId: update-paylink
+      security:
+        - Authorization: []
     parameters:
       - schema:
           type: string
@@ -2363,24 +2189,11 @@ paths:
                   send_email: true
         description: ''
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer eyJ0eXAiOiJKV1QiLCJhbG...
-          description: 'Bearer {{access_token}}'
-          required: true
         - name: paylink_id
           in: path
           description: The paylink ID
           schema:
             type: string
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: Content-Type
-          description: application/json
           required: true
       responses:
         '200':
@@ -2399,6 +2212,8 @@ paths:
                     message: Notification sent
       operationId: paylink-notification
       description: ''
+      security:
+        - Authorization: []
     parameters:
       - schema:
           type: string
@@ -2408,10 +2223,10 @@ paths:
         description: id of the paylink
 components:
   securitySchemes:
-    access_token:
-      name: Authorization
+    Authorization:
       type: apiKey
       in: header
       description: All requests apart from /api/pay/v1/tokens require an authorization header in the form of a bearer access_token. See the token endpoint documentation for further information.
+      name: Authorization
 security:
   - access_token: []

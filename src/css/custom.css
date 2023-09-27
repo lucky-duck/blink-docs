@@ -253,3 +253,7 @@ article {
 .highlight h3 {
   margin-top: 0;
 }
+
+.details__request-summary h4 {
+  margin-top: 0.5rem;
+}

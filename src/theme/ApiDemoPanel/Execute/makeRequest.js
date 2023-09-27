@@ -145,6 +145,7 @@ async function makeRequest(request, proxy, _body) {
         break;
     }
   }
+
   const requestOptions = {
     method: request.method,
     headers: myHeaders,
@@ -156,7 +157,7 @@ async function makeRequest(request, proxy, _body) {
     let normalizedProxy = proxy.replace(/\/$/, "") + "/";
     // Remove the http:// or https:// prefix
     let cleanedUrl = request.url.toString().replace(/^https?:\/\//, "");
-    console.log(headers);
+
     // Convert slashes to hyphens after .co.uk
     cleanedUrl = cleanedUrl.replace(/\.co\.uk\//, ".co.uk-").replace(/\//g, "-");
 

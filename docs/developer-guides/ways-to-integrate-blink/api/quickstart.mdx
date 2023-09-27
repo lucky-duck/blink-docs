@@ -1,0 +1,215 @@
+---
+title: "Quick start"
+sidebar_position: 0
+---
+
+# API quick start
+
+In this guide we will show you how to get started with the REST API. The examples will be using typescript with Next.js for both the client and the server but you can use any language you want. We will assume a basic understanding of client and server side development, and working with REST APIs.
+
+:::info
+To follow along with this guide you will need to have both a Blink sandbox account and set up a local development enviroment in Next.js or the equivalent in your language of choice.
+:::
+
+## What we will build in this quick start guide
+- Create an example product for the user to purchase
+- Setup and authenticate to the Blink API
+- Create a payment intent
+- Present a payment form to the user
+- Process the payment via credit or debit card
+
+
+## Setting up Next.js
+For the most part we will leave you rely on the Next.js documentation for setting up your local development enviroment. However, there are a few things to note and here is the basic outline of the steps you will need to take.
+
+Install Next.js and enable Typescript, no to App Directory (Pages Architechture), and Tailwind if you want to follow along with the examples in this guide.
+```bash
+npx create-next-app@latest
+```
+
+Start the development server
+```bash
+npm run dev
+```
+
+## Setup some basic UI for the example home page
+We're going to add a title, and few product cards to the /pages/index.tsx you can remove the default content and add the following or use your own approach.
+```tsx title="/pages/index.tsx"
+const products: ProductProps[] = [
+  {
+    name: "Product 1",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptates.",
+    price: 29.99,
+    currency: "USD",
+  },
+  {
+    name: "Product 2",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptates.",
+    price: 19.99,
+    currency: "EUR",
+  },
+  {
+    name: "Product 3",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptates.",
+    price: 39.99,
+    currency: "GBP",
+  },
+];
+
+type ProductProps = {
+  price: number;
+  name: string;
+  description: string;
+  // note for a full list of currencies check our FAQ's
+  currency: "USD" | "EUR" | "GBP";
+};
+
+function ProductCard({ price, name, description, currency }: ProductProps) {
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm">
+      <img
+        src="https://via.placeholder.com/150"
+        alt="Product Image"
+        className="w-full h-48 object-cover mb-6"
+      />
+
+      <h2 className="text-xl font-bold mb-2">{name}</h2>
+      <p className="text-gray-700 mb-4">{description}</p>
+
+      <div className="flex justify-between items-center mb-4">
+        <span className="text-lg font-semibold">
+          {currency === "USD" && "$"}
+          {currency === "EUR" && "€"}
+          {currency === "GBP" && "£"}
+          {price}
+        </span>
+        <button className="bg-blue-500 text-white px-4 py-2 rounded">Buy Now</button>
+      </div>
+    </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <main className="flex min-h-screen flex-col items-center gap-12 p-24">
+      <h1 className="text-6xl font-bold text-center mb-12">Blink API Demo</h1>
+      <div className="grid grid-cols-3 gap-12">
+        {products.map((product) => (
+          <ProductCard
+            key={product.name}
+            name={product.name}
+            description={product.description}
+            price={product.price}
+            currency={product.currency}
+          />
+        ))}
+      </div>
+    </main>
+  );
+}
+```
+
+you should now have something that looks something like this. 
+
+![Home Page](/img/docs-images/next-js-screenshot.png)
+
+## Connect to Blink and setup your server
+
+First let's add the enviroment variables to your .env file. You can access your sandbox API keys inside the Blink dashboard under your Blink pages. Each page has it's own API keys so make sure you are using the correct ones for the page you are working on. In this example I have also created a publishable key which you can set to anything you want, we will use this to add an extra layer of security to our API routes.
+
+```bash title=".env"
+BLINK_API_KEY=your-api-key
+BLINK_API_SECRET=your-api-secret
+NEXT_PUBLIC_PUBLISHABLE_KEY=your-publishable-key
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+```
+
+Now let's setup an API route to handle connecting to the Blink API first. Create a new file called /pages/api/blink/token.ts and add the following code, we'll use axios to make the request to the Blink API but you can use any http client you want.
+
+:::info
+You can find a full list of error codes and responses in our API reference.
+:::
+
+```ts title="/pages/api/blink/token.ts"
+import { NextApiRequest, NextApiResponse } from "next";
+import axios from "axios";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { BLINK_API_KEY, BLINK_API_SECRET, NEXT_PUBLIC_PUBLISHABLE_KEY } = process.env;
+
+  // check if the request has come from our own domain and that the publishable key we just created matches the one in our .env file
+  if (!req.headers.referer?.includes(process.env.NEXT_PUBLIC_VERCEL_URL) || !BLINK_API_KEY || !BLINK_API_SECRET || !NEXT_PUBLIC_PUBLISHABLE_KEY || req.body.publishableKey !== NEXT_PUBLIC_PUBLISHABLE_KEY) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+export function getToken() {
+  try {
+    const response = await axios.post(
+      "https://secure.blinkpayment.co.uk",
+      {
+        api_key: BLINK_API_KEY,
+        secret_key: BLINK_API_SECRET,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    res.status(200).json(response.data);
+
+  } catch (error: any) {
+    res.status(500).json(error);
+  }
+}
+
+getToken();
+}
+```
+
+Next we will create a initiate payment route which will get the token from the endpoint we just created and then create a payment intent for the customer. Create a new file called /pages/api/blink/initiate-payment.ts and add the following code.
+
+```ts title="/pages/api/blink/initiate-payment.ts"
+import { NextApiRequest, NextApiResponse } from "next";
+import axios from "axios";
+import { getToken } from "./token";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  // check if the request has come from our own domain and that the publishable key we just created matches the one in our .env file
+  if (!req.headers.referer?.includes(process.env.NEXT_PUBLIC_VERCEL_URL) || !BLINK_API_KEY || !BLINK_API_SECRET || !NEXT_PUBLIC_PUBLISHABLE_KEY || req.body.publishableKey !== NEXT_PUBLIC_PUBLISHABLE_KEY) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  const {access_token} = await getToken();
+
+  try {
+    const response = await axios.post({
+      url: "https://secure.blinkpayment.co.uk/api/v1/payment",
+      {
+        amount: req.body.amount,
+        currency: req.body.currency,
+        transaction_type: 'SALE',
+        payment_type: 'credit-card',
+        return_url: `${NEXT_PUBLIC_BASE_URL}/payment-success`,
+        notification_url: `${NEXT_PUBLIC_BASE_URL}/api/blink/payment-notification`,
+        card_layout: 'basic',
+        customer_name: 'John Doe',
+        customer_email: 'john@doe.com',
+        customer_address: '123 Fake Street',
+        customer_postcode: 'AB1 2CD',
+      },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+
+    res.status(200).json(response.data);
+  } catch (error: any) {
+    res.status(500).json(error);
+  }
+
+}
+```
+

@@ -124,92 +124,138 @@ NEXT_PUBLIC_PUBLISHABLE_KEY=your-publishable-key
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
 ```
 
-Now let's setup an API route to handle connecting to the Blink API first. Create a new file called /pages/api/blink/token.ts and add the following code, we'll use axios to make the request to the Blink API but you can use any http client you want.
+Now let's setup an API route to handle connecting to the Blink API first. Create a new file called /pages/api/blink/initate-payment.ts and add the following code to connect to Blink and handle some basic security, we'll use axios to make the request to the Blink API but you can use any http client you want.
 
 :::info
 You can find a full list of error codes and responses in our API reference.
 :::
 
-```ts title="/pages/api/blink/token.ts"
-import { NextApiRequest, NextApiResponse } from "next";
-import axios from "axios";
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { BLINK_API_KEY, BLINK_API_SECRET, NEXT_PUBLIC_PUBLISHABLE_KEY } = process.env;
-
-  // check if the request has come from our own domain and that the publishable key we just created matches the one in our .env file
-  if (!req.headers.referer?.includes(process.env.NEXT_PUBLIC_VERCEL_URL) || !BLINK_API_KEY || !BLINK_API_SECRET || !NEXT_PUBLIC_PUBLISHABLE_KEY || req.body.publishableKey !== NEXT_PUBLIC_PUBLISHABLE_KEY) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-
-export function getToken() {
-  try {
-    const response = await axios.post(
-      "https://secure.blinkpayment.co.uk",
-      {
-        api_key: BLINK_API_KEY,
-        secret_key: BLINK_API_SECRET,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    res.status(200).json(response.data);
-
-  } catch (error: any) {
-    res.status(500).json(error);
-  }
-}
-
-getToken();
-}
-```
-
-Next we will create a initiate payment route which will get the token from the endpoint we just created and then create a payment intent for the customer. Create a new file called /pages/api/blink/initiate-payment.ts and add the following code.
-
 ```ts title="/pages/api/blink/initiate-payment.ts"
 import { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
-import { getToken } from "./token";
+
+type TokenResponse = {
+  access_token: string;
+  expired_on: string;
+  payment_types: string[];
+  currency: string;
+  payment_api_status: boolean;
+  send_blink_receipt: boolean;
+  enable_moto_payments: boolean;
+};
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { BLINK_API_KEY, BLINK_API_SECRET, NEXT_PUBLIC_PUBLISHABLE_KEY, NEXT_PUBLIC_BASE_URL } =
+    process.env;
+
+  if (
+    !BLINK_API_KEY ||
+    !BLINK_API_SECRET ||
+    !NEXT_PUBLIC_PUBLISHABLE_KEY ||
+    !NEXT_PUBLIC_BASE_URL
+  ) {
+    return res.status(500).json({ error: "Invalid config" });
+  }
   // check if the request has come from our own domain and that the publishable key we just created matches the one in our .env file
-  if (!req.headers.referer?.includes(process.env.NEXT_PUBLIC_VERCEL_URL) || !BLINK_API_KEY || !BLINK_API_SECRET || !NEXT_PUBLIC_PUBLISHABLE_KEY || req.body.publishableKey !== NEXT_PUBLIC_PUBLISHABLE_KEY) {
+  if (
+    !req.headers.referer?.includes(NEXT_PUBLIC_BASE_URL) ||
+    req.body.publishableKey !== NEXT_PUBLIC_PUBLISHABLE_KEY
+  ) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
-  const {access_token} = await getToken();
+  async function getToken(): Promise<TokenResponse> {
+    try {
+      const response = await axios.post(
+        "https://secure.blinkpayment.co.uk",
+        {
+          api_key: BLINK_API_KEY,
+          secret_key: BLINK_API_SECRET,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-  try {
-    const response = await axios.post({
-      url: "https://secure.blinkpayment.co.uk/api/v1/payment",
-      {
-        amount: req.body.amount,
-        currency: req.body.currency,
-        transaction_type: 'SALE',
-        payment_type: 'credit-card',
-        return_url: `${NEXT_PUBLIC_BASE_URL}/payment-success`,
-        notification_url: `${NEXT_PUBLIC_BASE_URL}/api/blink/payment-notification`,
-        card_layout: 'basic',
-        customer_name: 'John Doe',
-        customer_email: 'john@doe.com',
-        customer_address: '123 Fake Street',
-        customer_postcode: 'AB1 2CD',
-      },
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
+}
+```
+
+Next we will create the initiate payment logic inside of a try catch which will get the token from the from the function we just created and then create a payment intent for the customer. Add the following code after th getToken function.
+
+```ts title="/pages/api/blink/initiate-payment.ts"
+try {
+  const { access_token } = await getToken();
+  const response = await axios.post(
+    "https://secure.blinkpayment.co.uk/api/v1/payment",
+    {
+      amount: req.body.amount,
+      currency: req.body.currency,
+      transaction_type: "SALE",
+      payment_type: "credit-card",
+      return_url: `${NEXT_PUBLIC_BASE_URL}/payment-success`,
+      notification_url: `${NEXT_PUBLIC_BASE_URL}/api/blink/payment-notification`,
+      card_layout: "basic",
+      // we are just hardcoding these values for the sake of the demo 
+      customer_name: "John Doe",
+      customer_email: "john@doe.com",
+      customer_address: "123 Fake Street",
+      customer_postcode: "AB1 2CD",
+    },
+    {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${access_token}`,
       },
-    });
-
-    res.status(200).json(response.data);
-  } catch (error: any) {
-    res.status(500).json(error);
-  }
-
+    }
+  );
+  return res.status(200).json(response.data);
+} catch (error: any) {
+  return res.status(500).json(error);
 }
 ```
 
+Next we are going to implement the initate payment endpoint into our frontend. First I'm going to start by adding some state to the index.tsx page to keep track of which product has been selected and the state of the payment process. Add the following to the top of your index.tsx file.
+
+```tsx title="/pages/index.tsx"
+import { useState } from "react";
+
+const [selectedProduct, setSelectedProduct] = useState<ProductProps | null>(null);
+const [paymentState, setPaymentState] = useState<"idle" | "loading" | "success" | "error">("idle");
+```
+
+Next we're going to add a component in the same file which our form will be rendered inside. This will allow us to conditionally render the form based on the paymentState. Add the following code to the bottom of your index.tsx file and install the DOMPurify package and add it to the top of the file.
+
+
+```tsx title="/pages/index.tsx"
+import DOMPurify from "dompurify";
+```
+
+Next we will add the payment form component which can go anywhere inside of the index.tsx file.
+
+```tsx title="/pages/index.tsx"
+type PaymentFormProps = {
+  form: string;
+}
+
+function PaymentForm({form}: PaymentFormProps) {
+
+  // this function will decode the form string and sanitize it to prevent XSS attacks
+  function decodeAndSanitize(inputString: string) {
+    const decodedString = inputString.replace(/\\\"/g, '"').replace(/\\n/g, '\n');
+    const sanitizedHTML = DOMPurify.sanitize(decodedString);
+    return sanitizedHTML;
+  }
+
+  const sanitizedForm = decodeAndSanitize(form);
+
+  return <div dangerouslySetInnerHTML={{ __html: sanitizedForm }}></div>
+
+}
+```
